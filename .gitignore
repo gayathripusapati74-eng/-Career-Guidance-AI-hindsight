@@ -26,6 +26,7 @@ yarn-debug.log*
 yarn-error.log*
 logs/
 *.log
+cloudflared.exe
 
 # OS & Editor
 .DS_Store

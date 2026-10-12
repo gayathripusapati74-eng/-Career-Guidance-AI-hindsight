@@ -60,6 +60,76 @@ const progressMap = new Map();
   });
 })();
 
+const { generateSyntheticStudents, generateSampleInterventions } = require('../services/campusiqSeed');
+
+const students = new Map();
+const interventions = new Map();
+const dataImports = [];
+let campusiqConfig = {
+  weights: null, // will use DEFAULT_WEIGHTS
+  thresholds: null, // will use DEFAULT_THRESHOLDS
+};
+
+// Seed 200 reproducible benchmark students & sample interventions
+const seededStudents = generateSyntheticStudents(200);
+for (const s of seededStudents) {
+  students.set(s.studentId, s);
+}
+
+const seededInterventions = generateSampleInterventions(seededStudents);
+for (const int of seededInterventions) {
+  interventions.set(int.interventionId, int);
+}
+
+// Seed initial Data Hub import history records
+dataImports.push(
+  {
+    importId: 'IMP-2026-001',
+    datasetCategory: 'Student Master',
+    fileName: 'students_master_2026.csv',
+    fileSizeKB: 48,
+    totalRows: 200,
+    successfulRows: 200,
+    rejectedRows: 0,
+    duplicateRows: 0,
+    rejectedDetails: [],
+    status: 'Success',
+    uploadedBy: 'Admin (System Seed)',
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30),
+  },
+  {
+    importId: 'IMP-2026-002',
+    datasetCategory: 'Academic Records',
+    fileName: 'midterm_semester_grades.csv',
+    fileSizeKB: 62,
+    totalRows: 200,
+    successfulRows: 198,
+    rejectedRows: 2,
+    duplicateRows: 0,
+    rejectedDetails: [
+      { rowNumber: 142, studentId: 'STU2026-999', reason: 'Unmatched Student ID (Not found in Student Master)', dataSnippet: 'STU2026-999,CSE,8.2' },
+      { rowNumber: 188, studentId: 'STU2026-088', reason: 'Invalid GPA value (12.5 exceeds 10.0 scale)', dataSnippet: 'STU2026-088,IT,12.5' },
+    ],
+    status: 'Partial',
+    uploadedBy: 'Prof. Registrar Office',
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 18),
+  },
+  {
+    importId: 'IMP-2026-003',
+    datasetCategory: 'Attendance',
+    fileName: 'biometric_monthly_attendance.csv',
+    fileSizeKB: 34,
+    totalRows: 200,
+    successfulRows: 200,
+    rejectedRows: 0,
+    duplicateRows: 0,
+    rejectedDetails: [],
+    status: 'Success',
+    uploadedBy: 'Biometric Attendance System',
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7),
+  }
+);
+
 module.exports = {
   users,
   assessments,
@@ -69,4 +139,8 @@ module.exports = {
   quizzes,
   interviews,
   progressMap,
+  students,
+  interventions,
+  dataImports,
+  campusiqConfig,
 };

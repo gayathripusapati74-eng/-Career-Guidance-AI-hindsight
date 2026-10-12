@@ -5,7 +5,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 
-// Pages
+// Career Guidance & Hindsight Pages (Preserved 100%)
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import DashboardPage from './pages/DashboardPage';
@@ -19,6 +19,17 @@ import JobsPage from './pages/JobsPage';
 import ProgressPage from './pages/ProgressPage';
 import StatusPage from './pages/StatusPage';
 
+// CampusIQ — Smart Campus Analytics Suite
+import CampusIQDashboardPage from './pages/campusiq/CampusIQDashboardPage';
+import CampusIQEarlyWarningPage from './pages/campusiq/CampusIQEarlyWarningPage';
+import CampusIQStudentsPage from './pages/campusiq/CampusIQStudentsPage';
+import CampusIQStudentProfilePage from './pages/campusiq/CampusIQStudentProfilePage';
+import CampusIQSegmentsPage from './pages/campusiq/CampusIQSegmentsPage';
+import CampusIQSimulatorPage from './pages/campusiq/CampusIQSimulatorPage';
+import CampusIQInterventionsPage from './pages/campusiq/CampusIQInterventionsPage';
+import CampusIQDataHubPage from './pages/campusiq/CampusIQDataHubPage';
+import CampusIQReportsPage from './pages/campusiq/CampusIQReportsPage';
+
 function DashboardLayout() {
   return (
     <div className="app-container">
@@ -27,6 +38,7 @@ function DashboardLayout() {
         <Navbar />
         <main style={{ flex: 1 }}>
           <Routes>
+            {/* Existing Career Guidance & Hindsight Suite */}
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/skills" element={<SkillsPage />} />
@@ -37,6 +49,19 @@ function DashboardLayout() {
             <Route path="/jobs" element={<JobsPage />} />
             <Route path="/progress" element={<ProgressPage />} />
             <Route path="/status" element={<StatusPage />} />
+
+            {/* CampusIQ Analytics Suite */}
+            <Route path="/campusiq" element={<Navigate to="/campusiq/dashboard" replace />} />
+            <Route path="/campusiq/dashboard" element={<CampusIQDashboardPage />} />
+            <Route path="/campusiq/early-warning" element={<CampusIQEarlyWarningPage />} />
+            <Route path="/campusiq/students" element={<CampusIQStudentsPage />} />
+            <Route path="/campusiq/students/:studentId" element={<CampusIQStudentProfilePage />} />
+            <Route path="/campusiq/segments" element={<CampusIQSegmentsPage />} />
+            <Route path="/campusiq/simulator" element={<CampusIQSimulatorPage />} />
+            <Route path="/campusiq/interventions" element={<CampusIQInterventionsPage />} />
+            <Route path="/campusiq/data-hub" element={<CampusIQDataHubPage />} />
+            <Route path="/campusiq/reports" element={<CampusIQReportsPage />} />
+
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </main>

@@ -31,6 +31,7 @@ const jobsRoutes = require('./routes/jobsRoutes');
 const progressRoutes = require('./routes/progressRoutes');
 const memoryRoutes = require('./routes/memoryRoutes');
 const statusRoutes = require('./routes/statusRoutes');
+const campusiqRoutes = require('./routes/campusiqRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -76,13 +77,14 @@ app.use('/api/jobs', jobsRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/memory', memoryRoutes);
 app.use('/api/status', statusRoutes);
+app.use('/api/campusiq', campusiqRoutes);
 
 // Base API probe endpoint
 app.get('/', (req, res) => {
   res.json({
-    name: 'Career Guidance AI API',
-    version: '1.0.0',
-    description: 'Full-stack AI Career Guidance platform powered by Hindsight Long-term Memory',
+    name: 'Career Guidance AI & CampusIQ Smart Campus Analytics API',
+    version: '2.0.0',
+    description: 'Full-stack AI Career Guidance platform powered by Hindsight Long-term Memory & CampusIQ Analytics',
     status: 'online',
     hindsightConfigured: isHindsightConfigured,
     aiConfigured: isAiConfigured,
@@ -99,6 +101,7 @@ app.get('/', (req, res) => {
       progress: '/api/progress',
       memory: '/api/memory',
       status: '/api/status',
+      campusiq: '/api/campusiq',
     },
   });
 });

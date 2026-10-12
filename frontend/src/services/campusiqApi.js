@@ -1,0 +1,18 @@
+import api from './api';
+
+export const getAnalyticsOverview = (params) => api.get('/campusiq/analytics', { params });
+export const getStudents = (params) => api.get('/campusiq/students', { params });
+export const getStudentById = (studentId) => api.get(`/campusiq/students/${studentId}`);
+export const getAtRiskStudents = (params) => api.get('/campusiq/at-risk', { params });
+export const reviewAtRiskAlert = (data) => api.post('/campusiq/at-risk/review', data);
+export const getSegmentsOverview = (params) => api.get('/campusiq/segments', { params });
+export const simulateScenario = (data) => api.post('/campusiq/simulate', data);
+export const getInterventions = (params) => api.get('/campusiq/interventions', { params });
+export const createIntervention = (data) => api.post('/campusiq/interventions', data);
+export const updateIntervention = (id, data) => api.patch(`/campusiq/interventions/${id}`, data);
+export const getDataHubHistory = () => api.get('/campusiq/data-hub/history');
+export const uploadDataset = (data) => api.post('/campusiq/data-hub/upload', data);
+export const resetDemoData = () => api.post('/campusiq/data-hub/reset-demo');
+export const getConfig = () => api.get('/campusiq/config');
+export const updateConfig = (data) => api.post('/campusiq/config', data);
+export const getExportUrl = (type) => `/api/campusiq/reports/export?type=${type}`;
