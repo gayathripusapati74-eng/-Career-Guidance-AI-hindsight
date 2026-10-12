@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Users,
   Search,
   Filter,
-  ArrowUpDown,
-  ExternalLink,
-  ChevronLeft,
+  Users,
   ChevronRight,
-  RefreshCw,
-  Eye,
-  Sliders,
-  AlertCircle,
+  ChevronLeft,
+  ArrowUpDown,
+  AlertTriangle,
+  Award,
+  Layers,
+  Sparkles,
 } from 'lucide-react';
 import { getStudents } from '../../services/campusiqApi';
 
@@ -47,6 +46,7 @@ export default function CampusIQStudentsPage() {
         page,
         limit: 20,
       });
+
       if (res.data.success) {
         setStudents(res.data.students);
         setTotalCount(res.data.totalCount);
@@ -64,19 +64,19 @@ export default function CampusIQStudentsPage() {
   }, [search, selectedDept, selectedYear, selectedSegment, selectedAcadRisk, selectedPlaceRisk, sortBy, sortOrder, page]);
 
   return (
-    <div className="page-container" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div className="page-container" style={{ padding: '24px 32px', maxWidth: '1440px', margin: '0 auto', backgroundColor: 'var(--bg-primary)' }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+          <h1 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
             Unified Student Directory
           </h1>
-          <p style={{ color: '#94a3b8', fontSize: '14px', marginTop: '4px', margin: 0 }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '13.5px', marginTop: '4px', margin: 0 }}>
             Search, filter, and inspect records across academics, attendance, LMS, and placement readiness.
           </p>
         </div>
 
-        <div style={{ fontSize: '13px', color: '#94a3b8' }}>
+        <div style={{ fontSize: '13px', color: 'var(--text-dim)' }}>
           Showing <strong>{students.length}</strong> of <strong>{totalCount}</strong> unified records
         </div>
       </div>
@@ -84,10 +84,10 @@ export default function CampusIQStudentsPage() {
       {/* Filter Toolbar */}
       <div
         style={{
-          background: 'rgba(30, 41, 59, 0.65)',
+          background: 'var(--bg-card)',
           padding: '16px',
           borderRadius: '14px',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          border: '1px solid var(--border-card)',
           marginBottom: '20px',
           display: 'flex',
           flexDirection: 'column',
@@ -97,7 +97,7 @@ export default function CampusIQStudentsPage() {
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           {/* Search Box */}
           <div style={{ position: 'relative', flex: 1, minWidth: '240px' }}>
-            <Search size={16} color="#94a3b8" style={{ position: 'absolute', left: '12px', top: '12px' }} />
+            <Search size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '12px', top: '12px' }} />
             <input
               type="text"
               placeholder="Search by student ID (STU2026-...) or name..."
@@ -110,10 +110,11 @@ export default function CampusIQStudentsPage() {
                 width: '100%',
                 padding: '9px 12px 9px 36px',
                 borderRadius: '8px',
-                background: '#0f172a',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#f8fafc',
+                background: '#0D0D0D',
+                border: '1px solid var(--border-card)',
+                color: 'var(--text-main)',
                 fontSize: '13px',
+                outline: 'none',
               }}
             />
           </div>
@@ -122,7 +123,7 @@ export default function CampusIQStudentsPage() {
           <select
             value={selectedDept}
             onChange={(e) => { setSelectedDept(e.target.value); setPage(1); }}
-            style={{ padding: '8px 12px', borderRadius: '8px', background: '#0f172a', border: '1px solid rgba(255, 255, 255, 0.1)', color: '#f8fafc', fontSize: '13px' }}
+            style={{ padding: '8px 12px', borderRadius: '8px', background: '#0D0D0D', border: '1px solid var(--border-card)', color: 'var(--text-main)', fontSize: '12.5px', outline: 'none' }}
           >
             <option value="All">All Departments</option>
             <option value="Computer Science & Engineering">CSE</option>
@@ -135,7 +136,7 @@ export default function CampusIQStudentsPage() {
           <select
             value={selectedYear}
             onChange={(e) => { setSelectedYear(e.target.value); setPage(1); }}
-            style={{ padding: '8px 12px', borderRadius: '8px', background: '#0f172a', border: '1px solid rgba(255, 255, 255, 0.1)', color: '#f8fafc', fontSize: '13px' }}
+            style={{ padding: '8px 12px', borderRadius: '8px', background: '#0D0D0D', border: '1px solid var(--border-card)', color: 'var(--text-main)', fontSize: '12.5px', outline: 'none' }}
           >
             <option value="All">All Years</option>
             <option value="1">Year 1</option>
@@ -148,7 +149,7 @@ export default function CampusIQStudentsPage() {
           <select
             value={selectedSegment}
             onChange={(e) => { setSelectedSegment(e.target.value); setPage(1); }}
-            style={{ padding: '8px 12px', borderRadius: '8px', background: '#0f172a', border: '1px solid rgba(255, 255, 255, 0.1)', color: '#f8fafc', fontSize: '13px' }}
+            style={{ padding: '8px 12px', borderRadius: '8px', background: '#0D0D0D', border: '1px solid var(--border-card)', color: 'var(--text-main)', fontSize: '12.5px', outline: 'none' }}
           >
             <option value="All">All Segments</option>
             <option value="High Performers">High Performers</option>
@@ -165,7 +166,7 @@ export default function CampusIQStudentsPage() {
               setSortBy(sb);
               setSortOrder(so);
             }}
-            style={{ padding: '8px 12px', borderRadius: '8px', background: '#0f172a', border: '1px solid rgba(255, 255, 255, 0.1)', color: '#f8fafc', fontSize: '13px' }}
+            style={{ padding: '8px 12px', borderRadius: '8px', background: '#0D0D0D', border: '1px solid var(--border-card)', color: 'var(--text-main)', fontSize: '12.5px', outline: 'none' }}
           >
             <option value="successScore-desc">Success Score (High to Low)</option>
             <option value="successScore-asc">Success Score (Low to High)</option>
@@ -178,160 +179,149 @@ export default function CampusIQStudentsPage() {
       </div>
 
       {/* Students Table */}
-      <div className="card" style={{ padding: '0', background: 'rgba(30, 41, 59, 0.65)', borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.08)', overflow: 'hidden', marginBottom: '20px' }}>
+      <div className="card" style={{ padding: '0', borderRadius: '16px', border: '1px solid var(--border-card)', overflow: 'hidden', marginBottom: '20px' }}>
         <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px', textAlign: 'left' }}>
             <thead>
-              <tr style={{ background: 'rgba(15, 23, 42, 0.8)', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', color: '#94a3b8' }}>
-                <th style={{ padding: '14px 18px' }}>STUDENT</th>
-                <th style={{ padding: '14px 18px' }}>DEPARTMENT</th>
-                <th style={{ padding: '14px 18px' }}>YEAR</th>
-                <th style={{ padding: '14px 18px' }}>SUCCESS SCORE</th>
-                <th style={{ padding: '14px 18px' }}>ATTENDANCE</th>
-                <th style={{ padding: '14px 18px' }}>GPA</th>
-                <th style={{ padding: '14px 18px' }}>CODING</th>
-                <th style={{ padding: '14px 18px' }}>ACADEMIC RISK</th>
-                <th style={{ padding: '14px 18px' }}>PLACEMENT RISK</th>
-                <th style={{ padding: '14px 18px' }}>SEGMENT</th>
-                <th style={{ padding: '14px 18px', textAlign: 'right' }}>ACTION</th>
+              <tr style={{ background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-card)', color: 'var(--text-dim)' }}>
+                <th style={{ padding: '12px 16px', fontWeight: 600 }}>STUDENT</th>
+                <th style={{ padding: '12px 16px', fontWeight: 600 }}>DEPARTMENT</th>
+                <th style={{ padding: '12px 16px', fontWeight: 600 }}>YEAR</th>
+                <th style={{ padding: '12px 16px', fontWeight: 600 }}>SUCCESS SCORE</th>
+                <th style={{ padding: '12px 16px', fontWeight: 600 }}>ATTENDANCE</th>
+                <th style={{ padding: '12px 16px', fontWeight: 600 }}>GPA</th>
+                <th style={{ padding: '12px 16px', fontWeight: 600 }}>CODING</th>
+                <th style={{ padding: '12px 16px', fontWeight: 600 }}>ACADEMIC RISK</th>
+                <th style={{ padding: '12px 16px', fontWeight: 600 }}>PLACEMENT RISK</th>
+                <th style={{ padding: '12px 16px', fontWeight: 600 }}>SEGMENT</th>
+                <th style={{ padding: '12px 16px', fontWeight: 600, textAlign: 'right' }}>ACTION</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan="11" style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>
-                    <RefreshCw size={20} className="spin" style={{ marginBottom: '8px' }} />
-                    <div>Loading student database...</div>
+                  <td colSpan={11} style={{ textAlign: 'center', padding: '50px 20px', color: 'var(--text-muted)' }}>
+                    Loading student records...
                   </td>
                 </tr>
               ) : students.length === 0 ? (
                 <tr>
-                  <td colSpan="11" style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>
-                    No matching student records found.
+                  <td colSpan={11} style={{ textAlign: 'center', padding: '50px 20px', color: 'var(--text-muted)' }}>
+                    No student records match the active filters.
                   </td>
                 </tr>
               ) : (
-                students.map((s) => {
-                  const score = s.computed?.successScore ?? 0;
-                  const acadLevel = s.computed?.academicRisk?.level || 'Low';
-                  const placeLevel = s.computed?.placementRisk?.level || 'Low';
-                  const segment = s.computed?.segment || 'High Performers';
+                students.map((student) => (
+                  <tr
+                    key={student.studentId}
+                    style={{
+                      borderBottom: '1px solid var(--border-card)',
+                      transition: 'background 0.15s ease',
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--bg-surface)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
+                  >
+                    <td style={{ padding: '12px 16px' }}>
+                      <Link to={`/campusiq/students/${student.studentId}`} style={{ fontWeight: 700, color: 'var(--text-main)', textDecoration: 'none' }}>
+                        {student.name}
+                      </Link>
+                      <div style={{ fontSize: '11px', color: 'var(--text-dim)', fontFamily: 'monospace' }}>
+                        {student.studentId}
+                      </div>
+                    </td>
 
-                  return (
-                    <tr key={s.studentId} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)', color: '#e2e8f0' }}>
-                      <td style={{ padding: '14px 18px' }}>
-                        <Link to={`/campusiq/students/${s.studentId}`} style={{ fontWeight: 700, color: '#f8fafc', textDecoration: 'none' }}>
-                          {s.name}
-                        </Link>
-                        <div style={{ fontSize: '11px', color: '#94a3b8' }}>{s.studentId}</div>
-                      </td>
+                    <td style={{ padding: '12px 16px', color: 'var(--text-muted)' }}>
+                      {student.department}
+                    </td>
 
-                      <td style={{ padding: '14px 18px', color: '#cbd5e1' }}>
-                        {s.department.replace('Engineering', 'Eng.').replace('& Communication', '& Comm.')}
-                      </td>
+                    <td style={{ padding: '12px 16px', color: 'var(--text-main)' }}>
+                      Year {student.year}
+                    </td>
 
-                      <td style={{ padding: '14px 18px', color: '#94a3b8' }}>Year {s.year}</td>
+                    <td style={{ padding: '12px 16px' }}>
+                      <span
+                        style={{
+                          fontWeight: 700,
+                          color: (student.computed?.successScore ?? 0) >= 70 ? 'var(--accent-emerald)' : (student.computed?.successScore ?? 0) >= 55 ? 'var(--accent-amber)' : 'var(--primary-hover)',
+                        }}
+                      >
+                        {student.computed?.successScore ?? '—'}/100
+                      </span>
+                    </td>
 
-                      <td style={{ padding: '14px 18px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <span style={{ fontWeight: 800, fontSize: '14px', color: score >= 70 ? '#34d399' : score >= 55 ? '#fbbf24' : '#f87171' }}>
-                            {score}
-                          </span>
-                          {s.computed?.isProvisional && (
-                            <span title="Provisional score calculated from partial indicators" style={{ fontSize: '10px', background: 'rgba(245, 158, 11, 0.2)', color: '#fbbf24', padding: '1px 4px', borderRadius: '3px' }}>
-                              Prov.
-                            </span>
-                          )}
-                        </div>
-                      </td>
+                    <td style={{ padding: '12px 16px' }}>
+                      <span style={{ color: (student.academic?.attendancePercentage ?? 100) >= 75 ? 'var(--text-main)' : 'var(--accent-amber)' }}>
+                        {student.academic?.attendancePercentage !== null ? `${student.academic?.attendancePercentage}%` : '—'}
+                      </span>
+                    </td>
 
-                      <td style={{ padding: '14px 18px' }}>
-                        <span style={{ color: (s.academic?.attendancePercentage ?? 100) < 75 ? '#f87171' : '#f8fafc' }}>
-                          {s.academic?.attendancePercentage ?? 'N/A'}%
-                        </span>
-                      </td>
+                    <td style={{ padding: '12px 16px', color: 'var(--text-main)' }}>
+                      {student.academic?.gpa !== null ? student.academic?.gpa : '—'}
+                    </td>
 
-                      <td style={{ padding: '14px 18px' }}>
-                        {s.academic?.gpa ? `${s.academic.gpa}/10` : 'N/A'}
-                      </td>
+                    <td style={{ padding: '12px 16px', color: 'var(--text-main)' }}>
+                      {student.placement?.codingScore !== null ? student.placement?.codingScore : '—'}
+                    </td>
 
-                      <td style={{ padding: '14px 18px' }}>
-                        {s.placement?.codingScore !== null ? `${s.placement.codingScore}/100` : 'N/A'}
-                      </td>
+                    <td style={{ padding: '12px 16px' }}>
+                      <span className={`badge ${student.computed?.academicRisk?.level === 'Critical' ? 'badge-danger' : student.computed?.academicRisk?.level === 'High' ? 'badge-warning' : 'badge-primary'}`}>
+                        {student.computed?.academicRisk?.level || 'Low'}
+                      </span>
+                    </td>
 
-                      <td style={{ padding: '14px 18px' }}>
-                        <span
-                          style={{
-                            fontSize: '11px',
-                            fontWeight: 700,
-                            padding: '3px 8px',
-                            borderRadius: '4px',
-                            background: acadLevel === 'Critical' ? 'rgba(239, 68, 68, 0.2)' : acadLevel === 'High' ? 'rgba(245, 158, 11, 0.2)' : acadLevel === 'Medium' ? 'rgba(56, 189, 248, 0.15)' : 'rgba(16, 185, 129, 0.15)',
-                            color: acadLevel === 'Critical' ? '#f87171' : acadLevel === 'High' ? '#fbbf24' : acadLevel === 'Medium' ? '#38bdf8' : '#34d399',
-                          }}
-                        >
-                          {acadLevel}
-                        </span>
-                      </td>
+                    <td style={{ padding: '12px 16px' }}>
+                      <span className={`badge ${student.computed?.placementRisk?.level === 'Critical' ? 'badge-danger' : student.computed?.placementRisk?.level === 'High' ? 'badge-warning' : 'badge-primary'}`}>
+                        {student.computed?.placementRisk?.level || 'Low'}
+                      </span>
+                    </td>
 
-                      <td style={{ padding: '14px 18px' }}>
-                        <span
-                          style={{
-                            fontSize: '11px',
-                            fontWeight: 700,
-                            padding: '3px 8px',
-                            borderRadius: '4px',
-                            background: placeLevel === 'Critical' ? 'rgba(239, 68, 68, 0.2)' : placeLevel === 'High' ? 'rgba(245, 158, 11, 0.2)' : placeLevel === 'Medium' ? 'rgba(56, 189, 248, 0.15)' : 'rgba(16, 185, 129, 0.15)',
-                            color: placeLevel === 'Critical' ? '#f87171' : placeLevel === 'High' ? '#fbbf24' : placeLevel === 'Medium' ? '#38bdf8' : '#34d399',
-                          }}
-                        >
-                          {placeLevel}
-                        </span>
-                      </td>
+                    <td style={{ padding: '12px 16px' }}>
+                      <span style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>
+                        {student.computed?.segment || 'High Performers'}
+                      </span>
+                    </td>
 
-                      <td style={{ padding: '14px 18px' }}>
-                        <span style={{ fontSize: '11px', color: '#cbd5e1' }}>{segment}</span>
-                      </td>
-
-                      <td style={{ padding: '14px 18px', textAlign: 'right' }}>
-                        <Link
-                          to={`/campusiq/students/${s.studentId}`}
-                          className="btn"
-                          style={{ padding: '6px 10px', fontSize: '12px', background: 'rgba(255, 255, 255, 0.08)', color: '#f8fafc', borderRadius: '6px' }}
-                        >
-                          <Eye size={13} /> View Profile
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })
+                    <td style={{ padding: '12px 16px', textAlign: 'right' }}>
+                      <Link
+                        to={`/campusiq/students/${student.studentId}`}
+                        className="btn btn-secondary"
+                        style={{ padding: '4px 10px', fontSize: '11.5px' }}
+                      >
+                        <span>Profile</span>
+                        <ChevronRight size={12} />
+                      </Link>
+                    </td>
+                  </tr>
+                ))
               )}
             </tbody>
           </table>
         </div>
 
         {/* Pagination Bar */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', background: 'rgba(15, 23, 42, 0.6)', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
-          <div style={{ fontSize: '12px', color: '#94a3b8' }}>
+        <div style={{ padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-surface)', borderTop: '1px solid var(--border-card)' }}>
+          <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>
             Page {page} of {totalPages}
           </div>
 
           <div style={{ display: 'flex', gap: '8px' }}>
             <button
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
-              disabled={page <= 1}
-              className="btn"
-              style={{ padding: '6px 12px', fontSize: '12px', background: 'rgba(255, 255, 255, 0.06)', color: page <= 1 ? '#475569' : '#f8fafc' }}
+              onClick={() => setPage(Math.max(1, page - 1))}
+              disabled={page === 1}
+              className="btn btn-secondary"
+              style={{ padding: '5px 10px', fontSize: '12px' }}
             >
-              <ChevronLeft size={14} /> Previous
+              <ChevronLeft size={14} />
+              <span>Previous</span>
             </button>
             <button
-              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-              disabled={page >= totalPages}
-              className="btn"
-              style={{ padding: '6px 12px', fontSize: '12px', background: 'rgba(255, 255, 255, 0.06)', color: page >= totalPages ? '#475569' : '#f8fafc' }}
+              onClick={() => setPage(Math.min(totalPages, page + 1))}
+              disabled={page === totalPages}
+              className="btn btn-secondary"
+              style={{ padding: '5px 10px', fontSize: '12px' }}
             >
-              Next <ChevronRight size={14} />
+              <span>Next</span>
+              <ChevronRight size={14} />
             </button>
           </div>
         </div>

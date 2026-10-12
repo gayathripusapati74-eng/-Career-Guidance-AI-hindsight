@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { LogOut, Brain, Cpu, Database, User as UserIcon, ShieldCheck, Activity } from 'lucide-react';
+import { useAuth, INSTITUTIONAL_ROLES } from '../context/AuthContext';
+import {
+  LogOut,
+  Brain,
+  Shield,
+  Bell,
+  ChevronDown,
+  User as UserIcon,
+  Search,
+  Activity,
+  Layers,
+} from 'lucide-react';
 import api from '../services/api';
 
 export default function Navbar() {
-  const { user, logout } = useAuth();
+  const { user, currentRole, switchRole, logout } = useAuth();
   const navigate = useNavigate();
   const [status, setStatus] = useState(null);
+  const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
 
   useEffect(() => {
     async function fetchStatus() {
@@ -30,6 +41,13 @@ export default function Navbar() {
     navigate('/login');
   };
 
+  const handleRoleSelect = (role) => {
+    switchRole(role.id);
+    setRoleDropdownOpen(false);
+    navigate(role.path);
+  };
+
+  const currentRoleMeta = INSTITUTIONAL_ROLES.find((r) => r.id === currentRole) || INSTITUTIONAL_ROLES[0];
   const isHindsightOnline = status?.hindsight?.configured && status?.hindsight?.connected;
 
   return (
@@ -37,112 +55,190 @@ export default function Navbar() {
       style={{
         height: '70px',
         borderBottom: '1px solid var(--border-card)',
-        background: 'rgba(15, 23, 42, 0.85)',
-        backdropFilter: 'blur(12px)',
+        background: 'var(--bg-navbar)',
         position: 'sticky',
         top: 0,
         zIndex: 30,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 32px',
+        padding: '0 28px',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <Link to="/dashboard" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      {/* Left: Brand & Title */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <Link to="/management" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
           <div
             style={{
               width: '36px',
               height: '36px',
-              borderRadius: '10px',
-              background: 'linear-gradient(135deg, #6366f1 0%, #06b6d4 100%)',
+              borderRadius: '8px',
+              background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-secondary) 100%)',
+              border: '1px solid rgba(198, 40, 40, 0.4)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#fff',
-              boxShadow: '0 0 15px rgba(99, 102, 241, 0.4)',
+              boxShadow: '0 0 14px rgba(139, 0, 0, 0.4)',
             }}
           >
-            <Brain size={20} />
+            <Shield size={19} />
           </div>
           <div>
-            <div style={{ fontWeight: 800, fontSize: '16px', letterSpacing: '-0.02em', color: '#fff' }}>
-              CAREER GUIDANCE <span className="gradient-text">AI</span>
+            <div style={{ fontWeight: 800, fontSize: '15.5px', letterSpacing: '-0.02em', color: 'var(--text-main)' }}>
+              CAMPUS<span style={{ color: 'var(--primary-hover)' }}>IQ</span>
             </div>
-            <div style={{ fontSize: '11px', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '5px' }}>
-              Powered by <strong style={{ color: '#a5b4fc' }}>Hindsight Memory</strong>
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
+              AI Student Analytics & Success Platform
             </div>
           </div>
         </Link>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        {/* Health status badge */}
+      {/* Right Controls: Role Switcher, Alerts, Profile & Logout */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        {/* Institutional Role Selector Dropdown */}
+        <div style={{ position: 'relative' }}>
+          <button
+            onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '6px 12px',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-card)',
+              borderRadius: '8px',
+              color: 'var(--text-main)',
+              fontSize: '12px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary-hover)' }} />
+            <span>Role: <strong style={{ color: '#ff8a80' }}>{currentRoleMeta.label}</strong></span>
+            <ChevronDown size={14} color="var(--text-dim)" />
+          </button>
+
+          {roleDropdownOpen && (
+            <div
+              style={{
+                position: 'absolute',
+                top: 'calc(100% + 8px)',
+                right: 0,
+                width: '280px',
+                background: '#0D0D0D',
+                border: '1px solid var(--border-card)',
+                borderRadius: '12px',
+                boxShadow: '0 12px 30px rgba(0,0,0,0.8)',
+                padding: '6px',
+                zIndex: 100,
+              }}
+            >
+              <div style={{ padding: '8px 10px', fontSize: '10.5px', fontWeight: 800, color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                Select Active Institutional View
+              </div>
+              {INSTITUTIONAL_ROLES.map((r) => {
+                const isSelected = r.id === currentRole;
+                return (
+                  <div
+                    key={r.id}
+                    onClick={() => handleRoleSelect(r)}
+                    style={{
+                      padding: '8px 10px',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      background: isSelected ? 'var(--primary-light)' : 'transparent',
+                      borderLeft: isSelected ? '3px solid var(--primary-hover)' : '3px solid transparent',
+                      transition: 'background 0.15s ease',
+                      marginBottom: '2px',
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ fontSize: '12.5px', fontWeight: 700, color: isSelected ? '#ff8a80' : 'var(--text-main)' }}>
+                        {r.label}
+                      </span>
+                      <span className="badge" style={{ fontSize: '9px', background: 'rgba(255,255,255,0.06)', color: 'var(--text-dim)' }}>
+                        {r.badge}
+                      </span>
+                    </div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '2px' }}>
+                      {r.desc}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        {/* Hindsight Health Indicator */}
         <Link
           to="/status"
           className="badge"
           style={{
             cursor: 'pointer',
-            padding: '6px 12px',
-            background: isHindsightOnline ? 'rgba(16, 185, 129, 0.12)' : 'rgba(99, 102, 241, 0.12)',
-            border: `1px solid ${isHindsightOnline ? 'rgba(16, 185, 129, 0.3)' : 'rgba(99, 102, 241, 0.3)'}`,
-            color: isHindsightOnline ? '#6ee7b7' : '#a5b4fc',
+            padding: '5px 10px',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-card)',
+            color: 'var(--text-muted)',
+            textDecoration: 'none',
           }}
-          title="Click to view System Integration Health"
+          title="System Health & Hindsight Memory Layer"
         >
           <div
-            className="pulse-indicator"
-            style={{ background: isHindsightOnline ? '#10b981' : '#6366f1' }}
-          ></div>
-          <span style={{ fontSize: '12px', fontWeight: 600 }}>
-            {isHindsightOnline ? 'Hindsight Active' : 'Hindsight Integration'}
+            className={isHindsightOnline ? 'pulse-indicator-green' : 'pulse-indicator'}
+          />
+          <span style={{ fontSize: '11.5px', fontWeight: 600 }}>
+            {isHindsightOnline ? 'Hindsight Memory' : 'Hindsight Active'}
           </span>
         </Link>
 
-        {/* User Profile Pill */}
+        {/* User Pill */}
         {user && (
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '10px',
-              padding: '6px 14px',
-              background: 'rgba(255, 255, 255, 0.05)',
+              gap: '8px',
+              padding: '5px 12px',
+              background: 'var(--bg-surface)',
               borderRadius: '9999px',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              border: '1px solid var(--border-card)',
             }}
           >
             <div
               style={{
-                width: '28px',
-                height: '28px',
+                width: '24px',
+                height: '24px',
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, #4f46e5, #8b5cf6)',
+                background: 'linear-gradient(135deg, var(--primary), var(--primary-hover))',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#fff',
-                fontSize: '12px',
+                fontSize: '11px',
                 fontWeight: 700,
               }}
             >
               {user.firstName ? user.firstName.charAt(0).toUpperCase() : 'U'}
             </div>
-            <span style={{ fontSize: '13px', fontWeight: 600, color: '#e2e8f0' }}>
-              {user.firstName} {user.lastName}
+            <span style={{ fontSize: '12.5px', fontWeight: 600, color: 'var(--text-main)' }}>
+              {user.firstName}
             </span>
           </div>
         )}
 
-        {/* Logout Button */}
+        {/* Logout */}
         <button
           onClick={handleLogout}
           className="btn btn-secondary"
-          style={{ padding: '8px 14px', fontSize: '13px' }}
+          style={{ padding: '7px 12px', fontSize: '12px' }}
           title="Sign out"
         >
-          <LogOut size={16} />
-          <span className="hide-mobile">Logout</span>
+          <LogOut size={14} />
+          <span>Logout</span>
         </button>
       </div>
     </header>

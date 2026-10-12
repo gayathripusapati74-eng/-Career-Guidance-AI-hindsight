@@ -50,8 +50,8 @@ export default function CampusIQStudentProfilePage() {
 
   if (loading) {
     return (
-      <div style={{ textAlign: 'center', padding: '100px 20px', color: '#94a3b8' }}>
-        <RefreshCw size={28} className="spin" style={{ marginBottom: '12px' }} />
+      <div style={{ textAlign: 'center', padding: '100px 20px', color: 'var(--text-muted)' }}>
+        <RefreshCw size={28} className="spin" style={{ marginBottom: '12px', color: 'var(--primary-hover)' }} />
         <div>Compiling unified student record...</div>
       </div>
     );
@@ -60,7 +60,7 @@ export default function CampusIQStudentProfilePage() {
   if (error || !student) {
     return (
       <div style={{ padding: '40px', maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-        <div style={{ color: '#f87171', fontSize: '18px', fontWeight: 700, marginBottom: '8px' }}>
+        <div style={{ color: 'var(--primary-hover)', fontSize: '18px', fontWeight: 700, marginBottom: '8px' }}>
           {error || 'Student Not Found'}
         </div>
         <Link to="/campusiq/students" className="btn btn-primary">
@@ -77,10 +77,10 @@ export default function CampusIQStudentProfilePage() {
   const placeRisk = computed.placementRisk || {};
 
   return (
-    <div className="page-container" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div className="page-container" style={{ padding: '24px 32px', maxWidth: '1440px', margin: '0 auto', backgroundColor: 'var(--bg-primary)' }}>
       {/* Top Breadcrumb & Actions */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
-        <Link to="/campusiq/students" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#94a3b8', fontSize: '13px', textDecoration: 'none' }}>
+        <Link to="/campusiq/students" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-muted)', fontSize: '13px', textDecoration: 'none' }}>
           <ArrowLeft size={16} /> Back to Directory
         </Link>
 
@@ -88,9 +88,9 @@ export default function CampusIQStudentProfilePage() {
           <Link
             to={`/campusiq/simulator?studentId=${student.studentId}`}
             className="btn"
-            style={{ padding: '8px 14px', fontSize: '13px', background: 'rgba(99, 102, 241, 0.15)', color: '#a5b4fc', border: '1px solid rgba(99, 102, 241, 0.3)', borderRadius: '8px' }}
+            style={{ padding: '8px 14px', fontSize: '13px', background: 'var(--bg-surface)', color: 'var(--text-main)', border: '1px solid var(--border-card)', borderRadius: '8px' }}
           >
-            <Sliders size={15} /> Simulate Scenarios
+            <Sliders size={15} style={{ color: 'var(--primary-hover)' }} /> Simulate Scenarios
           </Link>
 
           <Link
@@ -108,9 +108,9 @@ export default function CampusIQStudentProfilePage() {
         className="card"
         style={{
           padding: '24px',
-          background: 'rgba(30, 41, 59, 0.7)',
+          background: 'var(--bg-card)',
           borderRadius: '16px',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          border: '1px solid var(--border-card)',
           marginBottom: '24px',
           display: 'flex',
           justifyContent: 'space-between',
@@ -125,11 +125,12 @@ export default function CampusIQStudentProfilePage() {
               width: '64px',
               height: '64px',
               borderRadius: '16px',
-              background: 'linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%)',
+              background: 'linear-gradient(135deg, var(--primary) 0%, #352020 100%)',
+              border: '1px solid var(--border-card)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#fff',
+              color: 'var(--text-main)',
               fontSize: '24px',
               fontWeight: 800,
             }}
@@ -137,17 +138,17 @@ export default function CampusIQStudentProfilePage() {
             {student.name.charAt(0)}
           </div>
           <div>
-            <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+            <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
               {student.name}
             </h1>
-            <div style={{ display: 'flex', gap: '12px', marginTop: '6px', flexWrap: 'wrap', fontSize: '13px', color: '#94a3b8' }}>
-              <span>ID: <strong style={{ color: '#f8fafc' }}>{student.studentId}</strong></span>
+            <div style={{ display: 'flex', gap: '12px', marginTop: '6px', flexWrap: 'wrap', fontSize: '13px', color: 'var(--text-muted)' }}>
+              <span>ID: <strong style={{ color: 'var(--text-main)' }}>{student.studentId}</strong></span>
               <span>•</span>
               <span>{student.department}</span>
               <span>•</span>
               <span>Year {student.year} (Semester {student.semester})</span>
               <span>•</span>
-              <span>Mentor: <strong style={{ color: '#cbd5e1' }}>{student.assignedMentor}</strong></span>
+              <span>Mentor: <strong style={{ color: 'var(--text-main)' }}>{student.assignedMentor}</strong></span>
             </div>
           </div>
         </div>
@@ -155,20 +156,20 @@ export default function CampusIQStudentProfilePage() {
         {/* Success Score Badge Box */}
         <div style={{ textAlign: 'right', display: 'flex', alignItems: 'center', gap: '20px' }}>
           <div>
-            <div style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Student Success Score
             </div>
-            <div style={{ fontSize: '36px', fontWeight: 800, color: score >= 70 ? '#34d399' : score >= 55 ? '#fbbf24' : '#f87171' }}>
-              {score}<span style={{ fontSize: '18px', color: '#64748b' }}>/100</span>
+            <div style={{ fontSize: '36px', fontWeight: 800, color: score >= 70 ? '#34d399' : score >= 55 ? '#fbbf24' : 'var(--primary-hover)' }}>
+              {score}<span style={{ fontSize: '18px', color: 'var(--text-dim)' }}>/100</span>
             </div>
-            <div style={{ fontSize: '11px', color: '#94a3b8' }}>
+            <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
               Coverage: {computed.dataCoverage}% {computed.isProvisional && <span style={{ color: '#fbbf24' }}>(Provisional)</span>}
             </div>
           </div>
 
-          <div style={{ padding: '8px 14px', borderRadius: '10px', background: 'rgba(255, 255, 255, 0.05)', textAlign: 'center' }}>
-            <div style={{ fontSize: '11px', color: '#94a3b8' }}>Dynamic Segment</div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', marginTop: '2px' }}>
+          <div style={{ padding: '8px 14px', borderRadius: '10px', background: 'var(--bg-surface)', border: '1px solid var(--border-card)', textAlign: 'center' }}>
+            <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Dynamic Segment</div>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-main)', marginTop: '2px' }}>
               {computed.segment}
             </div>
           </div>
@@ -178,11 +179,11 @@ export default function CampusIQStudentProfilePage() {
       {/* Dual Risk Assessment Section */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '20px', marginBottom: '24px' }}>
         {/* Academic Risk Card */}
-        <div className="card" style={{ padding: '22px', background: 'rgba(30, 41, 59, 0.65)', borderRadius: '16px', border: acadRisk.level === 'Critical' ? '1px solid rgba(239, 68, 68, 0.4)' : '1px solid rgba(255, 255, 255, 0.08)' }}>
+        <div className="card" style={{ padding: '22px', background: 'var(--bg-card)', borderRadius: '16px', border: acadRisk.level === 'Critical' ? '1px solid rgba(198, 40, 40, 0.5)' : '1px solid var(--border-card)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <BookOpen size={18} color="#818cf8" />
-              <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: '#f8fafc' }}>Academic Risk Assessment</h3>
+              <BookOpen size={18} color="var(--primary-hover)" />
+              <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: 'var(--text-main)' }}>Academic Risk Assessment</h3>
             </div>
             <span
               style={{
@@ -190,16 +191,17 @@ export default function CampusIQStudentProfilePage() {
                 fontWeight: 700,
                 padding: '3px 8px',
                 borderRadius: '4px',
-                background: acadRisk.level === 'Critical' ? 'rgba(239, 68, 68, 0.2)' : acadRisk.level === 'High' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(16, 185, 129, 0.15)',
-                color: acadRisk.level === 'Critical' ? '#f87171' : acadRisk.level === 'High' ? '#fbbf24' : '#34d399',
+                background: acadRisk.level === 'Critical' ? 'rgba(139, 0, 0, 0.25)' : acadRisk.level === 'High' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(16, 185, 129, 0.15)',
+                color: acadRisk.level === 'Critical' ? 'var(--primary-hover)' : acadRisk.level === 'High' ? '#fbbf24' : '#34d399',
+                border: `1px solid ${acadRisk.level === 'Critical' ? 'rgba(198, 40, 40, 0.4)' : acadRisk.level === 'High' ? 'rgba(245, 158, 11, 0.3)' : 'rgba(16, 185, 129, 0.3)'}`,
               }}
             >
               {acadRisk.level} Risk ({acadRisk.score} pts)
             </span>
           </div>
 
-          <div style={{ fontSize: '13px', color: '#cbd5e1', marginBottom: '12px' }}>
-            <strong>Evidence Points:</strong>
+          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '12px' }}>
+            <strong style={{ color: 'var(--text-main)' }}>Evidence Points:</strong>
             <ul style={{ margin: '6px 0 0 0', paddingLeft: '18px' }}>
               {(acadRisk.reasons || []).map((r, i) => (
                 <li key={i} style={{ marginBottom: '4px' }}>{r}</li>
@@ -207,20 +209,20 @@ export default function CampusIQStudentProfilePage() {
             </ul>
           </div>
 
-          <div style={{ display: 'flex', gap: '16px', fontSize: '12px', color: '#94a3b8', borderTop: '1px solid rgba(255, 255, 255, 0.06)', paddingTop: '10px' }}>
-            <span>Attendance: <strong style={{ color: '#f8fafc' }}>{student.academic?.attendancePercentage ?? 'N/A'}%</strong></span>
-            <span>GPA: <strong style={{ color: '#f8fafc' }}>{student.academic?.gpa ?? 'N/A'}/10</strong></span>
-            <span>Backlogs: <strong style={{ color: student.academic?.backlogs > 0 ? '#f87171' : '#34d399' }}>{student.academic?.backlogs ?? 0}</strong></span>
-            <span>Trend: <strong style={{ color: acadRisk.trend === 'declining' ? '#f87171' : '#34d399', textTransform: 'capitalize' }}>{acadRisk.trend || 'Stable'}</strong></span>
+          <div style={{ display: 'flex', gap: '16px', fontSize: '12px', color: 'var(--text-muted)', borderTop: '1px solid var(--border-card)', paddingTop: '10px' }}>
+            <span>Attendance: <strong style={{ color: 'var(--text-main)' }}>{student.academic?.attendancePercentage ?? 'N/A'}%</strong></span>
+            <span>GPA: <strong style={{ color: 'var(--text-main)' }}>{student.academic?.gpa ?? 'N/A'}/10</strong></span>
+            <span>Backlogs: <strong style={{ color: student.academic?.backlogs > 0 ? 'var(--primary-hover)' : '#34d399' }}>{student.academic?.backlogs ?? 0}</strong></span>
+            <span>Trend: <strong style={{ color: acadRisk.trend === 'declining' ? 'var(--primary-hover)' : '#34d399', textTransform: 'capitalize' }}>{acadRisk.trend || 'Stable'}</strong></span>
           </div>
         </div>
 
         {/* Placement Readiness Risk Card */}
-        <div className="card" style={{ padding: '22px', background: 'rgba(30, 41, 59, 0.65)', borderRadius: '16px', border: placeRisk.level === 'Critical' ? '1px solid rgba(239, 68, 68, 0.4)' : '1px solid rgba(255, 255, 255, 0.08)' }}>
+        <div className="card" style={{ padding: '22px', background: 'var(--bg-card)', borderRadius: '16px', border: placeRisk.level === 'Critical' ? '1px solid rgba(198, 40, 40, 0.5)' : '1px solid var(--border-card)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Briefcase size={18} color="#38bdf8" />
-              <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: '#f8fafc' }}>Placement Readiness Assessment</h3>
+              <Briefcase size={18} color="var(--primary-hover)" />
+              <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: 'var(--text-main)' }}>Placement Readiness Assessment</h3>
             </div>
             <span
               style={{
@@ -228,16 +230,17 @@ export default function CampusIQStudentProfilePage() {
                 fontWeight: 700,
                 padding: '3px 8px',
                 borderRadius: '4px',
-                background: placeRisk.level === 'Critical' ? 'rgba(239, 68, 68, 0.2)' : placeRisk.level === 'High' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(16, 185, 129, 0.15)',
-                color: placeRisk.level === 'Critical' ? '#f87171' : placeRisk.level === 'High' ? '#fbbf24' : '#34d399',
+                background: placeRisk.level === 'Critical' ? 'rgba(139, 0, 0, 0.25)' : placeRisk.level === 'High' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(16, 185, 129, 0.15)',
+                color: placeRisk.level === 'Critical' ? 'var(--primary-hover)' : placeRisk.level === 'High' ? '#fbbf24' : '#34d399',
+                border: `1px solid ${placeRisk.level === 'Critical' ? 'rgba(198, 40, 40, 0.4)' : placeRisk.level === 'High' ? 'rgba(245, 158, 11, 0.3)' : 'rgba(16, 185, 129, 0.3)'}`,
               }}
             >
               {placeRisk.level} Risk ({placeRisk.score} pts)
             </span>
           </div>
 
-          <div style={{ fontSize: '13px', color: '#cbd5e1', marginBottom: '12px' }}>
-            <strong>Evidence Points:</strong>
+          <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '12px' }}>
+            <strong style={{ color: 'var(--text-main)' }}>Evidence Points:</strong>
             <ul style={{ margin: '6px 0 0 0', paddingLeft: '18px' }}>
               {(placeRisk.reasons || []).map((r, i) => (
                 <li key={i} style={{ marginBottom: '4px' }}>{r}</li>
@@ -245,28 +248,28 @@ export default function CampusIQStudentProfilePage() {
             </ul>
           </div>
 
-          <div style={{ display: 'flex', gap: '16px', fontSize: '12px', color: '#94a3b8', borderTop: '1px solid rgba(255, 255, 255, 0.06)', paddingTop: '10px' }}>
-            <span>Coding Benchmark: <strong style={{ color: '#f8fafc' }}>{student.placement?.codingScore ?? 'N/A'}/100</strong></span>
-            <span>Aptitude: <strong style={{ color: '#f8fafc' }}>{student.placement?.aptitudeScore ?? 'N/A'}/100</strong></span>
-            <span>Mock Interview: <strong style={{ color: '#f8fafc' }}>{student.placement?.mockInterviewScore ?? 'N/A'}/100</strong></span>
-            <span>Milestones: <strong style={{ color: '#f8fafc' }}>{student.placement?.milestonesCompleted ?? 0}/5</strong></span>
+          <div style={{ display: 'flex', gap: '16px', fontSize: '12px', color: 'var(--text-muted)', borderTop: '1px solid var(--border-card)', paddingTop: '10px' }}>
+            <span>Coding Benchmark: <strong style={{ color: 'var(--text-main)' }}>{student.placement?.codingScore ?? 'N/A'}/100</strong></span>
+            <span>Aptitude: <strong style={{ color: 'var(--text-main)' }}>{student.placement?.aptitudeScore ?? 'N/A'}/100</strong></span>
+            <span>Mock Interview: <strong style={{ color: 'var(--text-main)' }}>{student.placement?.mockInterviewScore ?? 'N/A'}/100</strong></span>
+            <span>Milestones: <strong style={{ color: 'var(--text-main)' }}>{student.placement?.milestonesCompleted ?? 0}/5</strong></span>
           </div>
         </div>
       </div>
 
       {/* Score Breakdown Transparency Table */}
-      <div className="card" style={{ padding: '22px', background: 'rgba(30, 41, 59, 0.65)', borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.08)', marginBottom: '24px' }}>
-        <h3 style={{ fontSize: '16px', fontWeight: 700, margin: '0 0 14px 0', color: '#f8fafc' }}>
+      <div className="card" style={{ padding: '22px', background: 'var(--bg-card)', borderRadius: '16px', border: '1px solid var(--border-card)', marginBottom: '24px' }}>
+        <h3 style={{ fontSize: '16px', fontWeight: 700, margin: '0 0 14px 0', color: 'var(--text-main)' }}>
           Success Score Mathematical Breakdown
         </h3>
-        <p style={{ fontSize: '12px', color: '#94a3b8', margin: '0 0 16px 0' }}>
+        <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: '0 0 16px 0' }}>
           Full visibility into raw indicators, normalization functions, institutional weights, and weighted point contributions.
         </p>
 
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', textAlign: 'left' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)', color: '#94a3b8' }}>
+              <tr style={{ borderBottom: '1px solid var(--border-card)', color: 'var(--text-muted)' }}>
                 <th style={{ padding: '10px 14px' }}>DIMENSION</th>
                 <th style={{ padding: '10px 14px' }}>RAW VALUE</th>
                 <th style={{ padding: '10px 14px' }}>NORMALIZED (0-100)</th>
@@ -277,16 +280,16 @@ export default function CampusIQStudentProfilePage() {
             </thead>
             <tbody>
               {Object.entries(breakdown).map(([dim, data]) => (
-                <tr key={dim} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)', color: '#e2e8f0' }}>
+                <tr key={dim} style={{ borderBottom: '1px solid #201515', color: 'var(--text-main)' }}>
                   <td style={{ padding: '12px 14px', fontWeight: 600, textTransform: 'capitalize' }}>{dim}</td>
-                  <td style={{ padding: '12px 14px' }}>{data.value !== null ? data.value : '—'}</td>
+                  <td style={{ padding: '12px 14px', color: 'var(--text-muted)' }}>{data.value !== null ? data.value : '—'}</td>
                   <td style={{ padding: '12px 14px' }}>{data.normalized !== null ? `${data.normalized}%` : 'Missing'}</td>
-                  <td style={{ padding: '12px 14px' }}>{Math.round(data.weight * 100)}%</td>
-                  <td style={{ padding: '12px 14px', fontWeight: 700, color: data.coverage ? '#818cf8' : '#64748b' }}>
+                  <td style={{ padding: '12px 14px', color: 'var(--text-muted)' }}>{Math.round(data.weight * 100)}%</td>
+                  <td style={{ padding: '12px 14px', fontWeight: 700, color: data.coverage ? 'var(--primary-hover)' : 'var(--text-dim)' }}>
                     +{data.contribution} pts
                   </td>
                   <td style={{ padding: '12px 14px' }}>
-                    <span style={{ fontSize: '11px', padding: '2px 6px', borderRadius: '4px', background: data.coverage ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)', color: data.coverage ? '#34d399' : '#fbbf24' }}>
+                    <span style={{ fontSize: '11px', padding: '2px 6px', borderRadius: '4px', background: data.coverage ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)', color: data.coverage ? '#34d399' : '#fbbf24', border: `1px solid ${data.coverage ? 'rgba(16, 185, 129, 0.25)' : 'rgba(245, 158, 11, 0.25)'}` }}>
                       {data.coverage ? 'Recorded' : 'Provisional Scaled'}
                     </span>
                   </td>
@@ -298,8 +301,8 @@ export default function CampusIQStudentProfilePage() {
       </div>
 
       {/* Academic Marks & Subjects History */}
-      <div className="card" style={{ padding: '22px', background: 'rgba(30, 41, 59, 0.65)', borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.08)', marginBottom: '24px' }}>
-        <h3 style={{ fontSize: '16px', fontWeight: 700, margin: '0 0 14px 0', color: '#f8fafc' }}>
+      <div className="card" style={{ padding: '22px', background: 'var(--bg-card)', borderRadius: '16px', border: '1px solid var(--border-card)', marginBottom: '24px' }}>
+        <h3 style={{ fontSize: '16px', fontWeight: 700, margin: '0 0 14px 0', color: 'var(--text-main)' }}>
           Coursework & Subject-Level Performance
         </h3>
 
@@ -310,18 +313,18 @@ export default function CampusIQStudentProfilePage() {
               style={{
                 padding: '14px',
                 borderRadius: '10px',
-                background: sub.hasBacklog ? 'rgba(239, 68, 68, 0.1)' : 'rgba(15, 23, 42, 0.5)',
-                border: sub.hasBacklog ? '1px solid rgba(239, 68, 68, 0.3)' : '1px solid rgba(255, 255, 255, 0.06)',
+                background: sub.hasBacklog ? 'rgba(139, 0, 0, 0.15)' : 'var(--bg-surface)',
+                border: sub.hasBacklog ? '1px solid rgba(198, 40, 40, 0.4)' : '1px solid var(--border-card)',
               }}
             >
-              <div style={{ fontSize: '13px', fontWeight: 700, color: '#f8fafc', marginBottom: '4px' }}>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
                 {sub.subject}
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '18px', fontWeight: 800, color: sub.hasBacklog ? '#f87171' : '#34d399' }}>
+                <span style={{ fontSize: '18px', fontWeight: 800, color: sub.hasBacklog ? 'var(--primary-hover)' : '#34d399' }}>
                   {sub.score}%
                 </span>
-                <span style={{ fontSize: '11px', color: sub.hasBacklog ? '#fca5a5' : '#94a3b8' }}>
+                <span style={{ fontSize: '11px', color: sub.hasBacklog ? '#fca5a5' : 'var(--text-muted)' }}>
                   {sub.hasBacklog ? 'Backlog / Uncleared' : 'Cleared'}
                 </span>
               </div>
@@ -331,13 +334,13 @@ export default function CampusIQStudentProfilePage() {
       </div>
 
       {/* Action Intelligence History */}
-      <div className="card" style={{ padding: '22px', background: 'rgba(30, 41, 59, 0.65)', borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+      <div className="card" style={{ padding: '22px', background: 'var(--bg-card)', borderRadius: '16px', border: '1px solid var(--border-card)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
           <div>
-            <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
+            <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: 'var(--text-main)' }}>
               Action Intelligence & Support History
             </h3>
-            <p style={{ fontSize: '12px', color: '#94a3b8', margin: '2px 0 0 0' }}>
+            <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: '2px 0 0 0' }}>
               Assigned interventions, mentor observations, and measured outcome deltas
             </p>
           </div>
@@ -352,7 +355,7 @@ export default function CampusIQStudentProfilePage() {
         </div>
 
         {interventions.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '30px', color: '#94a3b8', background: 'rgba(15, 23, 42, 0.4)', borderRadius: '10px' }}>
+          <div style={{ textAlign: 'center', padding: '30px', color: 'var(--text-muted)', background: 'var(--bg-surface)', borderRadius: '10px', border: '1px solid var(--border-card)' }}>
             No interventions currently active for this student.
           </div>
         ) : (
@@ -363,14 +366,14 @@ export default function CampusIQStudentProfilePage() {
                 style={{
                   padding: '16px',
                   borderRadius: '12px',
-                  background: 'rgba(15, 23, 42, 0.55)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-card)',
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                   <div>
-                    <span style={{ fontSize: '11px', color: '#818cf8', fontWeight: 700, marginRight: '8px' }}>{inv.interventionId}</span>
-                    <strong style={{ fontSize: '14px', color: '#f8fafc' }}>{inv.concernTitle}</strong>
+                    <span style={{ fontSize: '11px', color: 'var(--primary-hover)', fontWeight: 700, marginRight: '8px' }}>{inv.interventionId}</span>
+                    <strong style={{ fontSize: '14px', color: 'var(--text-main)' }}>{inv.concernTitle}</strong>
                   </div>
                   <span
                     style={{
@@ -378,21 +381,22 @@ export default function CampusIQStudentProfilePage() {
                       fontWeight: 700,
                       padding: '3px 8px',
                       borderRadius: '4px',
-                      background: inv.status === 'Completed' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(99, 102, 241, 0.2)',
-                      color: inv.status === 'Completed' ? '#34d399' : '#818cf8',
+                      background: inv.status === 'Completed' ? 'rgba(16, 185, 129, 0.2)' : 'var(--primary-light)',
+                      color: inv.status === 'Completed' ? '#34d399' : 'var(--primary-hover)',
+                      border: `1px solid ${inv.status === 'Completed' ? 'rgba(16, 185, 129, 0.3)' : 'var(--primary-border)'}`,
                     }}
                   >
                     {inv.status}
                   </span>
                 </div>
 
-                <div style={{ fontSize: '13px', color: '#cbd5e1', marginBottom: '8px' }}>
-                  <strong>Action:</strong> {inv.recommendedAction} ({inv.actionCategory})
+                <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '8px' }}>
+                  <strong style={{ color: 'var(--text-main)' }}>Action:</strong> {inv.recommendedAction} ({inv.actionCategory})
                 </div>
 
-                <div style={{ fontSize: '12px', color: '#94a3b8', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-                  <span>Assigned: <strong>{new Date(inv.dateAssigned).toLocaleDateString()}</strong></span>
-                  <span>Mentor: <strong>{inv.mentorAssigned}</strong></span>
+                <div style={{ fontSize: '12px', color: 'var(--text-dim)', display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+                  <span>Assigned: <strong style={{ color: 'var(--text-muted)' }}>{new Date(inv.dateAssigned).toLocaleDateString()}</strong></span>
+                  <span>Mentor: <strong style={{ color: 'var(--text-muted)' }}>{inv.mentorAssigned}</strong></span>
                   {inv.observedChanges?.qualitativeSummary && (
                     <span style={{ color: '#34d399' }}>Measured: <strong>{inv.observedChanges.qualitativeSummary}</strong></span>
                   )}

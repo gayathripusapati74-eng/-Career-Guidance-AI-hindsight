@@ -29,9 +29,9 @@ const QUADRANT_META = {
     icon: Award,
   },
   'Placement Focus': {
-    badgeColor: '#06b6d4',
-    bgColor: 'rgba(6, 182, 212, 0.08)',
-    borderColor: 'rgba(6, 182, 212, 0.3)',
+    badgeColor: 'var(--primary-hover)',
+    bgColor: 'rgba(139, 0, 0, 0.1)',
+    borderColor: 'rgba(198, 40, 40, 0.35)',
     tag: 'Quad II: Academic High • Placement Support',
     description: 'Students maintaining strong academic grades but requiring practical coding and interview acceleration.',
     icon: Briefcase,
@@ -45,9 +45,9 @@ const QUADRANT_META = {
     icon: BookOpen,
   },
   'Intensive Support': {
-    badgeColor: '#ef4444',
-    bgColor: 'rgba(239, 68, 68, 0.08)',
-    borderColor: 'rgba(239, 68, 68, 0.3)',
+    badgeColor: 'var(--primary-hover)',
+    bgColor: 'rgba(139, 0, 0, 0.16)',
+    borderColor: 'rgba(198, 40, 40, 0.45)',
     tag: 'Quad IV: Dual Vulnerability',
     description: 'Students facing simultaneous academic delinquency risk and severe placement readiness deficits.',
     icon: AlertTriangle,
@@ -89,47 +89,47 @@ export default function CampusIQSegmentsPage() {
   });
 
   return (
-    <div className="page-container" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div className="page-container" style={{ padding: '24px 32px', maxWidth: '1440px', margin: '0 auto', backgroundColor: 'var(--bg-primary)' }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <span style={{ fontSize: '11.5px', fontWeight: 800, padding: '3px 8px', borderRadius: '4px', background: 'var(--primary-light)', color: 'var(--primary-hover)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               CampusIQ • Cohort Intelligence
             </span>
-            <span style={{ color: '#475569' }}>/</span>
-            <span style={{ fontSize: '12px', color: '#94a3b8' }}>Dynamic 4-Quadrant Segmentation</span>
+            <span style={{ color: 'var(--border-card)' }}>/</span>
+            <span style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>Dynamic 4-Quadrant Segmentation</span>
           </div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+          <h1 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
             Student Segmentation Matrix
           </h1>
-          <p style={{ fontSize: '13px', color: '#94a3b8', margin: '4px 0 0 0' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
             Multi-dimensional classification mapping student cohorts across Academic Stability and Placement Readiness
           </p>
         </div>
 
         {/* Department Filter & Refresh */}
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(30, 41, 59, 0.6)', padding: '6px 12px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
-            <Filter size={14} color="#94a3b8" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--bg-card)', padding: '8px 14px', borderRadius: '12px', border: '1px solid var(--border-card)' }}>
+            <Filter size={14} color="var(--text-muted)" />
             <select
               value={selectedDept}
               onChange={(e) => setSelectedDept(e.target.value)}
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: '#e2e8f0',
-                fontSize: '13px',
+                color: 'var(--text-main)',
+                fontSize: '12.5px',
                 fontWeight: 600,
                 outline: 'none',
                 cursor: 'pointer',
               }}
             >
-              <option value="All" style={{ background: '#1e293b' }}>All Departments</option>
-              <option value="CSE" style={{ background: '#1e293b' }}>Computer Science (CSE)</option>
-              <option value="IT" style={{ background: '#1e293b' }}>Information Tech (IT)</option>
-              <option value="ECE" style={{ background: '#1e293b' }}>Electronics (ECE)</option>
-              <option value="MECH" style={{ background: '#1e293b' }}>Mechanical (MECH)</option>
+              <option value="All" style={{ background: '#0D0D0D' }}>All Departments</option>
+              <option value="CSE" style={{ background: '#0D0D0D' }}>Computer Science (CSE)</option>
+              <option value="IT" style={{ background: '#0D0D0D' }}>Information Tech (IT)</option>
+              <option value="ECE" style={{ background: '#0D0D0D' }}>Electronics (ECE)</option>
+              <option value="MECH" style={{ background: '#0D0D0D' }}>Mechanical (MECH)</option>
             </select>
           </div>
 
@@ -141,16 +141,16 @@ export default function CampusIQSegmentsPage() {
               alignItems: 'center',
               gap: '6px',
               padding: '8px 14px',
-              background: 'rgba(99, 102, 241, 0.15)',
-              border: '1px solid rgba(99, 102, 241, 0.3)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-card)',
               borderRadius: '10px',
-              color: '#a5b4fc',
+              color: 'var(--text-main)',
               fontSize: '13px',
               fontWeight: 600,
               cursor: loading ? 'not-allowed' : 'pointer',
             }}
           >
-            <RefreshCw size={14} className={loading ? 'spin' : ''} />
+            <RefreshCw size={14} className={loading ? 'spin' : ''} style={{ color: 'var(--primary-hover)' }} />
             <span>Sync</span>
           </button>
         </div>
@@ -168,15 +168,15 @@ export default function CampusIQSegmentsPage() {
               key={seg.segmentName}
               onClick={() => setActiveSegment(seg.segmentName)}
               style={{
-                background: isSelected ? meta.bgColor : 'rgba(30, 41, 59, 0.5)',
-                border: `2px solid ${isSelected ? meta.badgeColor : 'rgba(255, 255, 255, 0.08)'}`,
+                background: isSelected ? meta.bgColor : 'var(--bg-card)',
+                border: `2px solid ${isSelected ? meta.badgeColor : 'var(--border-card)'}`,
                 borderRadius: '16px',
                 padding: '20px',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
                 position: 'relative',
                 overflow: 'hidden',
-                boxShadow: isSelected ? `0 8px 24px -6px ${meta.badgeColor}33` : 'none',
+                boxShadow: isSelected ? `0 8px 24px -6px rgba(139, 0, 0, 0.4)` : 'none',
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
@@ -209,7 +209,7 @@ export default function CampusIQSegmentsPage() {
                 </span>
               </div>
 
-              <div style={{ fontSize: '16px', fontWeight: 800, color: '#f8fafc', marginBottom: '4px' }}>
+              <div style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-main)', marginBottom: '4px' }}>
                 {seg.segmentName}
               </div>
               <div style={{ fontSize: '11px', fontWeight: 600, color: meta.badgeColor, marginBottom: '12px' }}>
@@ -222,28 +222,28 @@ export default function CampusIQSegmentsPage() {
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr 1fr',
                   gap: '8px',
-                  background: 'rgba(15, 23, 42, 0.4)',
+                  background: 'var(--bg-surface)',
                   padding: '10px',
                   borderRadius: '10px',
-                  border: '1px solid rgba(255, 255, 255, 0.04)',
+                  border: '1px solid var(--border-card)',
                   marginBottom: '14px',
                 }}
               >
                 <div>
-                  <div style={{ fontSize: '10px', color: '#94a3b8' }}>Cohort Size</div>
-                  <div style={{ fontSize: '15px', fontWeight: 700, color: '#f8fafc' }}>{seg.studentCount}</div>
+                  <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Cohort Size</div>
+                  <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-main)' }}>{seg.studentCount}</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '10px', color: '#94a3b8' }}>Avg Score</div>
-                  <div style={{ fontSize: '15px', fontWeight: 700, color: '#f8fafc' }}>{seg.averageSuccessScore}</div>
+                  <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Avg Score</div>
+                  <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-main)' }}>{seg.averageSuccessScore}</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '10px', color: '#94a3b8' }}>Avg Coding</div>
-                  <div style={{ fontSize: '15px', fontWeight: 700, color: '#f8fafc' }}>{seg.averageCoding}</div>
+                  <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Avg Coding</div>
+                  <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-main)' }}>{seg.averageCoding}</div>
                 </div>
               </div>
 
-              <p style={{ fontSize: '12px', color: '#94a3b8', lineHeight: 1.5, margin: 0 }}>
+              <p style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: 1.5, margin: 0 }}>
                 {meta.description}
               </p>
             </div>
@@ -257,8 +257,8 @@ export default function CampusIQSegmentsPage() {
           {/* Left: Strategy & Programs Card */}
           <div
             style={{
-              background: 'rgba(30, 41, 59, 0.6)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-card)',
               borderRadius: '16px',
               padding: '24px',
               display: 'flex',
@@ -268,18 +268,18 @@ export default function CampusIQSegmentsPage() {
           >
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                <Target size={18} color="#6366f1" />
-                <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+                <Target size={18} color="var(--primary-hover)" />
+                <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
                   Strategic Support Profile: {currentSegmentData.segmentName}
                 </h3>
               </div>
-              <p style={{ fontSize: '13px', color: '#cbd5e1', lineHeight: 1.6, margin: 0 }}>
+              <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
                 {currentSegmentData.sharedNeeds}
               </p>
             </div>
 
             <div>
-              <div style={{ fontSize: '12px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '12px' }}>
+              <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '12px' }}>
                 Recommended Institutional Programs
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -291,19 +291,19 @@ export default function CampusIQSegmentsPage() {
                       alignItems: 'center',
                       gap: '10px',
                       padding: '10px 14px',
-                      background: 'rgba(15, 23, 42, 0.5)',
+                      background: 'var(--bg-surface)',
                       borderRadius: '10px',
-                      border: '1px solid rgba(255, 255, 255, 0.04)',
+                      border: '1px solid var(--border-card)',
                     }}
                   >
-                    <CheckCircle2 size={16} color="#6366f1" />
-                    <span style={{ fontSize: '13px', fontWeight: 600, color: '#f1f5f9' }}>{prog}</span>
+                    <CheckCircle2 size={16} color="var(--primary-hover)" />
+                    <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-main)' }}>{prog}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div style={{ marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+            <div style={{ marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid var(--border-card)' }}>
               <Link
                 to="/campusiq/interventions"
                 style={{
@@ -312,12 +312,13 @@ export default function CampusIQSegmentsPage() {
                   justifyContent: 'center',
                   gap: '8px',
                   padding: '12px',
-                  background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
+                  background: 'linear-gradient(135deg, var(--primary), var(--primary-secondary))',
                   color: '#ffffff',
                   borderRadius: '10px',
                   fontSize: '13px',
                   fontWeight: 700,
                   textDecoration: 'none',
+                  boxShadow: '0 4px 14px rgba(139, 0, 0, 0.4)',
                 }}
               >
                 <span>Launch Cohort Intervention Plan</span>
@@ -329,25 +330,25 @@ export default function CampusIQSegmentsPage() {
           {/* Right: Cohort Members Directory */}
           <div
             style={{
-              background: 'rgba(30, 41, 59, 0.6)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-card)',
               borderRadius: '16px',
               padding: '24px',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
               <div>
-                <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+                <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
                   Cohort Sample ({currentSegmentData.studentCount} Total Enrolled)
                 </h3>
-                <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '2px' }}>
                   Representative students mapped to this quadrant
                 </div>
               </div>
 
               {/* Search */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(15, 23, 42, 0.5)', padding: '6px 12px', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                <Search size={14} color="#94a3b8" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--bg-surface)', padding: '6px 12px', borderRadius: '8px', border: '1px solid var(--border-card)' }}>
+                <Search size={14} color="var(--text-muted)" />
                 <input
                   type="text"
                   placeholder="Filter student..."
@@ -356,7 +357,7 @@ export default function CampusIQSegmentsPage() {
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: '#f8fafc',
+                    color: 'var(--text-main)',
                     fontSize: '12px',
                     outline: 'none',
                     width: '140px',
@@ -369,7 +370,7 @@ export default function CampusIQSegmentsPage() {
             <div style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '12px' }}>
                 <thead>
-                  <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)', color: '#94a3b8' }}>
+                  <tr style={{ borderBottom: '1px solid var(--border-card)', color: 'var(--text-muted)' }}>
                     <th style={{ padding: '8px 12px', fontWeight: 600 }}>STUDENT</th>
                     <th style={{ padding: '8px 12px', fontWeight: 600 }}>DEPT & YR</th>
                     <th style={{ padding: '8px 12px', fontWeight: 600 }}>SUCCESS SCORE</th>
@@ -382,7 +383,7 @@ export default function CampusIQSegmentsPage() {
                 <tbody>
                   {filteredStudents.length === 0 ? (
                     <tr>
-                      <td colSpan={7} style={{ padding: '24px', textAlign: 'center', color: '#94a3b8' }}>
+                      <td colSpan={7} style={{ padding: '24px', textAlign: 'center', color: 'var(--text-muted)' }}>
                         No students match the search filter.
                       </td>
                     </tr>
@@ -391,30 +392,30 @@ export default function CampusIQSegmentsPage() {
                       <tr
                         key={s.studentId}
                         style={{
-                          borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+                          borderBottom: '1px solid #201515',
                           transition: 'background 0.15s ease',
                         }}
                       >
                         <td style={{ padding: '10px 12px' }}>
-                          <div style={{ fontWeight: 700, color: '#f8fafc' }}>{s.name}</div>
-                          <div style={{ fontSize: '11px', color: '#64748b' }}>{s.studentId}</div>
+                          <div style={{ fontWeight: 700, color: 'var(--text-main)' }}>{s.name}</div>
+                          <div style={{ fontSize: '11px', color: 'var(--text-dim)' }}>{s.studentId}</div>
                         </td>
-                        <td style={{ padding: '10px 12px', color: '#cbd5e1' }}>
+                        <td style={{ padding: '10px 12px', color: 'var(--text-muted)' }}>
                           {s.department} • Y{s.year}
                         </td>
                         <td style={{ padding: '10px 12px' }}>
                           <span
                             style={{
                               fontWeight: 700,
-                              color: s.successScore >= 75 ? '#10b981' : s.successScore >= 55 ? '#f59e0b' : '#ef4444',
+                              color: s.successScore >= 75 ? '#10b981' : s.successScore >= 55 ? '#f59e0b' : 'var(--primary-hover)',
                             }}
                           >
                             {s.successScore} / 100
                           </span>
                         </td>
-                        <td style={{ padding: '10px 12px', color: '#cbd5e1' }}>{s.gpa || '—'}</td>
-                        <td style={{ padding: '10px 12px', color: '#cbd5e1' }}>{s.attendance ? `${s.attendance}%` : '—'}</td>
-                        <td style={{ padding: '10px 12px', color: '#cbd5e1' }}>{s.codingScore !== undefined ? s.codingScore : '—'}</td>
+                        <td style={{ padding: '10px 12px', color: 'var(--text-muted)' }}>{s.gpa || '—'}</td>
+                        <td style={{ padding: '10px 12px', color: 'var(--text-muted)' }}>{s.attendance ? `${s.attendance}%` : '—'}</td>
+                        <td style={{ padding: '10px 12px', color: 'var(--text-muted)' }}>{s.codingScore !== undefined ? s.codingScore : '—'}</td>
                         <td style={{ padding: '10px 12px', textAlign: 'right' }}>
                           <Link
                             to={`/campusiq/students/${s.studentId}`}
@@ -423,9 +424,10 @@ export default function CampusIQSegmentsPage() {
                               alignItems: 'center',
                               gap: '4px',
                               padding: '4px 10px',
-                              background: 'rgba(255, 255, 255, 0.06)',
+                              background: 'var(--bg-surface)',
+                              border: '1px solid var(--border-card)',
                               borderRadius: '6px',
-                              color: '#cbd5e1',
+                              color: 'var(--text-main)',
                               fontSize: '11px',
                               fontWeight: 600,
                               textDecoration: 'none',
@@ -443,7 +445,7 @@ export default function CampusIQSegmentsPage() {
             </div>
 
             <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: '11px', color: '#64748b' }}>
+              <span style={{ fontSize: '11px', color: 'var(--text-dim)' }}>
                 Showing top 10 cohort members from benchmark database
               </span>
               <Link
@@ -451,7 +453,7 @@ export default function CampusIQSegmentsPage() {
                 style={{
                   fontSize: '12px',
                   fontWeight: 600,
-                  color: '#818cf8',
+                  color: 'var(--primary-hover)',
                   textDecoration: 'none',
                   display: 'flex',
                   alignItems: 'center',
@@ -469,8 +471,8 @@ export default function CampusIQSegmentsPage() {
       {/* Strategic Explanation Callout */}
       <div
         style={{
-          background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%)',
-          border: '1px solid rgba(99, 102, 241, 0.2)',
+          background: 'rgba(139, 0, 0, 0.08)',
+          border: '1px solid var(--border-card)',
           borderRadius: '16px',
           padding: '20px 24px',
           display: 'flex',
@@ -483,21 +485,21 @@ export default function CampusIQSegmentsPage() {
             width: '40px',
             height: '40px',
             borderRadius: '10px',
-            background: 'rgba(99, 102, 241, 0.2)',
+            background: 'var(--primary-light)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#a5b4fc',
+            color: 'var(--primary-hover)',
             flexShrink: 0,
           }}
         >
           <Sparkles size={20} />
         </div>
         <div>
-          <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', marginBottom: '2px' }}>
+          <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '2px' }}>
             Why 4-Quadrant Segmentation Matters for Campus Leadership
           </div>
-          <div style={{ fontSize: '12px', color: '#94a3b8', lineHeight: 1.5 }}>
+          <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: 1.5 }}>
             Traditional institutions treat academic struggle and placement readiness as isolated problems. CampusIQ unites both axes into a single decision-support matrix, allowing deans to allocate placement bootcamps to Quadrant II and theory tutorial hours to Quadrant III without wasting faculty resources.
           </div>
         </div>

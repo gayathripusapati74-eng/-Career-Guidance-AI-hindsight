@@ -3,16 +3,15 @@ import { Link } from 'react-router-dom';
 import {
   AlertTriangle,
   Filter,
-  CheckCircle2,
-  XCircle,
-  ExternalLink,
-  PlusCircle,
-  Clock,
-  Search,
   RefreshCw,
-  TrendingDown,
-  TrendingUp,
+  Search,
+  CheckCircle2,
+  ChevronRight,
   ShieldAlert,
+  ArrowRight,
+  UserCheck,
+  Clock,
+  Sparkles,
 } from 'lucide-react';
 import { getAtRiskStudents, reviewAtRiskAlert } from '../../services/campusiqApi';
 
@@ -24,7 +23,7 @@ export default function CampusIQEarlyWarningPage() {
   const [selectedLevel, setSelectedLevel] = useState('All');
   const [selectedStatus, setSelectedStatus] = useState('Pending');
   const [reviewModalStudent, setReviewModalStudent] = useState(null);
-  const [reviewStatusChoice, setReviewStatusChoice] = useState('Reviewed');
+  const [reviewStatusChoice, setReviewStatusChoice] = useState('Under Review');
   const [reviewNotes, setReviewNotes] = useState('');
   const [submittingReview, setSubmittingReview] = useState(false);
 
@@ -37,11 +36,11 @@ export default function CampusIQEarlyWarningPage() {
         level: selectedLevel,
         status: selectedStatus,
       });
-      if (res.data.success) {
-        setQueue(res.data.queue);
+      if (res.data?.success) {
+        setQueue(res.data.queue || []);
       }
     } catch (err) {
-      console.error('Error fetching at-risk queue:', err);
+      console.error('Error fetching priority queue:', err);
     } finally {
       setLoading(false);
     }
@@ -74,66 +73,68 @@ export default function CampusIQEarlyWarningPage() {
   };
 
   return (
-    <div className="page-container" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div className="page-container" style={{ padding: '24px 32px', maxWidth: '1440px', margin: '0 auto', backgroundColor: 'var(--bg-primary)' }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 700, padding: '3px 8px', borderRadius: '4px', background: 'rgba(239, 68, 68, 0.2)', color: '#f87171', textTransform: 'uppercase' }}>
-              Phase 8 • Early-Warning Radar
+            <span style={{ fontSize: '11.5px', fontWeight: 800, padding: '3px 8px', borderRadius: '4px', background: 'var(--primary-light)', color: 'var(--primary-hover)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              CampusIQ • Early-Warning Radar
             </span>
+            <span style={{ color: 'var(--border-card)' }}>/</span>
+            <span style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>Priority Review Queue</span>
           </div>
-          <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+          <h1 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
             Early-Warning Radar & Priority Review Queue
           </h1>
-          <p style={{ color: '#94a3b8', fontSize: '14px', marginTop: '4px', margin: 0 }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '13.5px', marginTop: '4px', margin: 0 }}>
             Ranked by multi-factor urgency: detects attendance deficits, score degradation trends, and placement skill gaps before critical thresholds are breached.
           </p>
         </div>
 
         {/* Filter Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(30, 41, 59, 0.6)', padding: '8px 14px', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.08)', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'var(--bg-card)', padding: '8px 14px', borderRadius: '12px', border: '1px solid var(--border-card)', flexWrap: 'wrap' }}>
           <select
             value={selectedDept}
             onChange={(e) => setSelectedDept(e.target.value)}
-            style={{ background: 'transparent', color: '#f8fafc', border: 'none', fontSize: '13px', outline: 'none', cursor: 'pointer' }}
+            style={{ background: 'transparent', color: 'var(--text-main)', border: 'none', fontSize: '12.5px', outline: 'none', cursor: 'pointer' }}
           >
-            <option value="All" style={{ background: '#0f172a' }}>All Depts</option>
-            <option value="Computer Science & Engineering" style={{ background: '#0f172a' }}>CSE</option>
-            <option value="Information Technology" style={{ background: '#0f172a' }}>IT</option>
-            <option value="Electronics & Communication Engineering" style={{ background: '#0f172a' }}>ECE</option>
-            <option value="Mechanical Engineering" style={{ background: '#0f172a' }}>MECH</option>
+            <option value="All" style={{ background: '#0D0D0D' }}>All Depts</option>
+            <option value="Computer Science & Engineering" style={{ background: '#0D0D0D' }}>CSE</option>
+            <option value="Information Technology" style={{ background: '#0D0D0D' }}>IT</option>
+            <option value="Electronics & Communication Engineering" style={{ background: '#0D0D0D' }}>ECE</option>
+            <option value="Mechanical Engineering" style={{ background: '#0D0D0D' }}>MECH</option>
           </select>
 
-          <span style={{ color: '#475569' }}>|</span>
+          <span style={{ color: 'var(--border-card)' }}>|</span>
 
           <select
             value={selectedLevel}
             onChange={(e) => setSelectedLevel(e.target.value)}
-            style={{ background: 'transparent', color: '#f8fafc', border: 'none', fontSize: '13px', outline: 'none', cursor: 'pointer' }}
+            style={{ background: 'transparent', color: 'var(--text-main)', border: 'none', fontSize: '12.5px', outline: 'none', cursor: 'pointer' }}
           >
-            <option value="All" style={{ background: '#0f172a' }}>All Risk Levels</option>
-            <option value="Critical" style={{ background: '#0f172a' }}>Critical Only</option>
-            <option value="High" style={{ background: '#0f172a' }}>High Only</option>
-            <option value="Medium" style={{ background: '#0f172a' }}>Medium Only</option>
+            <option value="All" style={{ background: '#0D0D0D' }}>All Risk Levels</option>
+            <option value="Critical" style={{ background: '#0D0D0D' }}>Critical Only</option>
+            <option value="High" style={{ background: '#0D0D0D' }}>High Only</option>
+            <option value="Medium" style={{ background: '#0D0D0D' }}>Medium Only</option>
           </select>
 
-          <span style={{ color: '#475569' }}>|</span>
+          <span style={{ color: 'var(--border-card)' }}>|</span>
 
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            style={{ background: 'transparent', color: '#f8fafc', border: 'none', fontSize: '13px', outline: 'none', cursor: 'pointer' }}
+            style={{ background: 'transparent', color: 'var(--text-main)', border: 'none', fontSize: '12.5px', outline: 'none', cursor: 'pointer' }}
           >
-            <option value="Pending" style={{ background: '#0f172a' }}>Pending Review</option>
-            <option value="Reviewed" style={{ background: '#0f172a' }}>Reviewed</option>
-            <option value="Dismissed" style={{ background: '#0f172a' }}>Dismissed</option>
-            <option value="All" style={{ background: '#0f172a' }}>All Statuses</option>
+            <option value="Pending" style={{ background: '#0D0D0D' }}>Pending Review</option>
+            <option value="Under Review" style={{ background: '#0D0D0D' }}>Under Review</option>
+            <option value="Dismissed" style={{ background: '#0D0D0D' }}>Dismissed</option>
+            <option value="All" style={{ background: '#0D0D0D' }}>All Statuses</option>
           </select>
 
           <button
             onClick={fetchQueue}
-            style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '4px' }}
+            style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}
           >
             <RefreshCw size={14} className={loading ? 'spin' : ''} />
           </button>
@@ -141,29 +142,29 @@ export default function CampusIQEarlyWarningPage() {
       </div>
 
       {/* Urgency Explanation Banner */}
-      <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '12px', padding: '14px 18px', marginBottom: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+      <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-card)', borderRadius: '12px', padding: '14px 18px', marginBottom: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <ShieldAlert size={20} color="#f59e0b" />
-          <div style={{ fontSize: '13px', color: '#cbd5e1' }}>
-            <strong>Human-in-the-Loop Decision Support:</strong> Risk flags are diagnostic indicators, not punitive evaluations. Authorized faculty can review, annotate, or dismiss alerts with a permanent audit trail.
+          <ShieldAlert size={20} color="var(--primary-hover)" />
+          <div style={{ fontSize: '12.5px', color: 'var(--text-muted)' }}>
+            <strong style={{ color: 'var(--text-main)' }}>Human-in-the-Loop Decision Support:</strong> Risk flags are diagnostic indicators, not punitive evaluations. Authorized faculty can review, annotate, or dismiss alerts with a permanent audit trail.
           </div>
         </div>
-        <div style={{ fontSize: '12px', color: '#94a3b8' }}>
-          Queue size: <strong>{queue.length}</strong> students
+        <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>
+          Queue size: <strong style={{ color: 'var(--text-main)' }}>{queue.length}</strong> students
         </div>
       </div>
 
       {/* Priority Queue Cards */}
       {loading ? (
-        <div style={{ textAlign: 'center', padding: '60px 20px', color: '#94a3b8' }}>
+        <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-muted)' }}>
           <RefreshCw size={24} className="spin" style={{ marginBottom: '10px' }} />
           <div>Evaluating multi-source risk criteria...</div>
         </div>
       ) : queue.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '60px 20px', background: 'rgba(30, 41, 59, 0.4)', borderRadius: '14px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-          <CheckCircle2 size={36} color="#34d399" style={{ marginBottom: '12px' }} />
-          <h3 style={{ fontSize: '18px', color: '#f8fafc', margin: 0 }}>No At-Risk Alerts Found</h3>
-          <p style={{ color: '#94a3b8', fontSize: '13px', marginTop: '6px' }}>
+        <div style={{ textAlign: 'center', padding: '60px 20px', background: 'var(--bg-card)', borderRadius: '14px', border: '1px solid var(--border-card)' }}>
+          <CheckCircle2 size={36} color="var(--accent-emerald)" style={{ marginBottom: '12px' }} />
+          <h3 style={{ fontSize: '18px', color: 'var(--text-main)', margin: 0 }}>No At-Risk Alerts Found</h3>
+          <p style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '6px' }}>
             All students in the selected filter meet institutional academic and placement thresholds.
           </p>
         </div>
@@ -179,9 +180,7 @@ export default function CampusIQEarlyWarningPage() {
                 className="card"
                 style={{
                   padding: '20px',
-                  background: 'rgba(30, 41, 59, 0.7)',
-                  borderRadius: '14px',
-                  border: isCritical ? '1px solid rgba(239, 68, 68, 0.4)' : isHigh ? '1px solid rgba(245, 158, 11, 0.35)' : '1px solid rgba(255, 255, 255, 0.08)',
+                  borderLeft: isCritical ? '3px solid var(--primary-hover)' : isHigh ? '3px solid var(--accent-amber)' : '3px solid var(--border-card)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '14px',
@@ -195,8 +194,8 @@ export default function CampusIQEarlyWarningPage() {
                         width: '32px',
                         height: '32px',
                         borderRadius: '8px',
-                        background: isCritical ? 'rgba(239, 68, 68, 0.2)' : 'rgba(245, 158, 11, 0.2)',
-                        color: isCritical ? '#f87171' : '#fbbf24',
+                        background: isCritical ? 'rgba(198, 40, 40, 0.2)' : 'rgba(245, 158, 11, 0.2)',
+                        color: isCritical ? 'var(--primary-hover)' : 'var(--accent-amber)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -208,13 +207,13 @@ export default function CampusIQEarlyWarningPage() {
                     </div>
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <Link to={`/campusiq/students/${student.studentId}`} style={{ fontSize: '16px', fontWeight: 700, color: '#f8fafc', textDecoration: 'none' }}>
+                        <Link to={`/campusiq/students/${student.studentId}`} style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-main)', textDecoration: 'none' }}>
                           {student.name}
                         </Link>
-                        <span style={{ fontSize: '12px', color: '#94a3b8', background: 'rgba(255, 255, 255, 0.06)', padding: '2px 6px', borderRadius: '4px' }}>
+                        <span style={{ fontSize: '11px', color: 'var(--text-dim)', background: 'var(--bg-surface)', padding: '2px 6px', borderRadius: '4px', fontFamily: 'monospace' }}>
                           {student.studentId}
                         </span>
-                        <span style={{ fontSize: '11px', color: '#64748b' }}>
+                        <span style={{ fontSize: '11.5px', color: 'var(--text-dim)' }}>
                           {student.department} • Year {student.year}
                         </span>
                       </div>
@@ -222,17 +221,17 @@ export default function CampusIQEarlyWarningPage() {
                   </div>
 
                   {/* Badges & Actions */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                     <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: '11px', color: '#94a3b8' }}>Urgency Score</div>
-                      <div style={{ fontSize: '16px', fontWeight: 800, color: isCritical ? '#f87171' : '#fbbf24' }}>
+                      <div style={{ fontSize: '11px', color: 'var(--text-dim)' }}>Urgency Score</div>
+                      <div style={{ fontSize: '16px', fontWeight: 800, color: isCritical ? 'var(--primary-hover)' : 'var(--accent-amber)' }}>
                         {student.urgencyScore}
                       </div>
                     </div>
 
-                    <div style={{ textAlign: 'right', paddingLeft: '8px', borderLeft: '1px solid rgba(255, 255, 255, 0.1)' }}>
-                      <div style={{ fontSize: '11px', color: '#94a3b8' }}>Success Score</div>
-                      <div style={{ fontSize: '16px', fontWeight: 800, color: student.successScore >= 70 ? '#34d399' : student.successScore >= 55 ? '#fbbf24' : '#f87171' }}>
+                    <div style={{ textAlign: 'right', paddingLeft: '10px', borderLeft: '1px solid var(--border-card)' }}>
+                      <div style={{ fontSize: '11px', color: 'var(--text-dim)' }}>Success Score</div>
+                      <div style={{ fontSize: '16px', fontWeight: 800, color: student.successScore >= 70 ? 'var(--accent-emerald)' : student.successScore >= 55 ? 'var(--accent-amber)' : 'var(--primary-hover)' }}>
                         {student.successScore}/100
                       </div>
                     </div>
@@ -240,149 +239,115 @@ export default function CampusIQEarlyWarningPage() {
                     <button
                       onClick={() => {
                         setReviewModalStudent(student);
-                        setReviewStatusChoice(student.reviewStatus || 'Reviewed');
+                        setReviewStatusChoice(student.reviewStatus || 'Under Review');
                         setReviewNotes(student.reviewNotes || '');
                       }}
-                      className="btn"
-                      style={{ padding: '7px 12px', fontSize: '12px', background: 'rgba(255, 255, 255, 0.08)', color: '#e2e8f0', borderRadius: '8px' }}
+                      className="btn btn-secondary"
+                      style={{ padding: '6px 12px', fontSize: '12px' }}
                     >
-                      {student.reviewStatus === 'Reviewed' ? 'Reviewed ✓' : student.reviewStatus === 'Dismissed' ? 'Dismissed ✗' : 'Review Alert'}
+                      <span>Review Alert</span>
                     </button>
 
                     <Link
-                      to={`/campusiq/interventions?studentId=${student.studentId}&name=${encodeURIComponent(student.name)}`}
-                      className="btn btn-primary"
-                      style={{ padding: '7px 14px', fontSize: '12px', borderRadius: '8px' }}
+                      to={`/campusiq/students/${student.studentId}`}
+                      className="btn btn-outline"
+                      style={{ padding: '6px 12px', fontSize: '12px' }}
                     >
-                      <PlusCircle size={14} /> Assign Action
+                      <span>Profile →</span>
                     </Link>
                   </div>
                 </div>
 
-                {/* Dual Risk Evidence Grid */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                  {/* Academic Risk Card */}
-                  <div style={{ padding: '12px', background: 'rgba(15, 23, 42, 0.45)', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#94a3b8' }}>ACADEMIC RISK</span>
-                      <span
-                        style={{
-                          fontSize: '11px',
-                          fontWeight: 700,
-                          padding: '2px 8px',
-                          borderRadius: '4px',
-                          background: student.academicRisk?.level === 'Critical' ? 'rgba(239, 68, 68, 0.2)' : student.academicRisk?.level === 'High' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(56, 189, 248, 0.15)',
-                          color: student.academicRisk?.level === 'Critical' ? '#f87171' : student.academicRisk?.level === 'High' ? '#fbbf24' : '#38bdf8',
-                        }}
-                      >
-                        {student.academicRisk?.level} Level
+                {/* Evidence & Indicator Badges */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '10px' }}>
+                  {/* Academic Risk Evidence */}
+                  <div style={{ background: 'var(--bg-surface)', padding: '12px', borderRadius: '10px', border: '1px solid var(--border-card)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                      <span style={{ fontSize: '11.5px', fontWeight: 700, color: 'var(--text-main)' }}>ACADEMIC RISK</span>
+                      <span className={`badge ${student.academicRisk?.level === 'Critical' ? 'badge-danger' : student.academicRisk?.level === 'High' ? 'badge-warning' : 'badge-primary'}`}>
+                        {student.academicRisk?.level || 'Low'}
                       </span>
                     </div>
-
-                    <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '12px', color: '#cbd5e1' }}>
-                      {(student.academicRisk?.reasons || []).map((r, i) => (
-                        <li key={i} style={{ marginBottom: '3px' }}>{r}</li>
+                    <ul style={{ margin: 0, paddingLeft: '16px', fontSize: '11.5px', color: 'var(--text-muted)' }}>
+                      {(student.academicRisk?.reasons || ['No critical factors']).map((r, i) => (
+                        <li key={i}>{r}</li>
                       ))}
                     </ul>
-
-                    <div style={{ fontSize: '11px', color: '#64748b', marginTop: '6px' }}>
-                      Attendance: <strong>{student.indicators.attendance ?? 'N/A'}%</strong> • GPA: <strong>{student.indicators.gpa ?? 'N/A'}</strong> • Backlogs: <strong>{student.indicators.backlogs ?? 0}</strong>
-                    </div>
                   </div>
 
-                  {/* Placement Risk Card */}
-                  <div style={{ padding: '12px', background: 'rgba(15, 23, 42, 0.45)', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#94a3b8' }}>PLACEMENT READINESS RISK</span>
-                      <span
-                        style={{
-                          fontSize: '11px',
-                          fontWeight: 700,
-                          padding: '2px 8px',
-                          borderRadius: '4px',
-                          background: student.placementRisk?.level === 'Critical' ? 'rgba(239, 68, 68, 0.2)' : student.placementRisk?.level === 'High' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(56, 189, 248, 0.15)',
-                          color: student.placementRisk?.level === 'Critical' ? '#f87171' : student.placementRisk?.level === 'High' ? '#fbbf24' : '#38bdf8',
-                        }}
-                      >
-                        {student.placementRisk?.level} Level
+                  {/* Placement Risk Evidence */}
+                  <div style={{ background: 'var(--bg-surface)', padding: '12px', borderRadius: '10px', border: '1px solid var(--border-card)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                      <span style={{ fontSize: '11.5px', fontWeight: 700, color: 'var(--text-main)' }}>PLACEMENT READINESS</span>
+                      <span className={`badge ${student.placementRisk?.level === 'Critical' ? 'badge-danger' : student.placementRisk?.level === 'High' ? 'badge-warning' : 'badge-primary'}`}>
+                        {student.placementRisk?.level || 'Low'}
                       </span>
                     </div>
-
-                    <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '12px', color: '#cbd5e1' }}>
-                      {(student.placementRisk?.reasons || []).map((r, i) => (
-                        <li key={i} style={{ marginBottom: '3px' }}>{r}</li>
+                    <ul style={{ margin: 0, paddingLeft: '16px', fontSize: '11.5px', color: 'var(--text-muted)' }}>
+                      {(student.placementRisk?.reasons || ['Benchmarks met']).map((r, i) => (
+                        <li key={i}>{r}</li>
                       ))}
                     </ul>
-
-                    <div style={{ fontSize: '11px', color: '#64748b', marginTop: '6px' }}>
-                      Coding Score: <strong>{student.indicators.coding ?? 'N/A'}/100</strong>
-                    </div>
                   </div>
                 </div>
-
-                {/* Audit footnote if reviewed */}
-                {student.reviewStatus !== 'Pending' && (
-                  <div style={{ fontSize: '11px', color: '#94a3b8', background: 'rgba(255, 255, 255, 0.03)', padding: '6px 10px', borderRadius: '6px' }}>
-                    Audit: Marked as <strong>{student.reviewStatus}</strong> by {student.reviewedBy || 'Faculty'} on {new Date(student.lastReviewedAt || Date.now()).toLocaleDateString()}
-                    {student.reviewNotes && ` — "${student.reviewNotes}"`}
-                  </div>
-                )}
               </div>
             );
           })}
         </div>
       )}
 
-      {/* Review Modal Dialog */}
+      {/* Review Modal */}
       {reviewModalStudent && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '20px' }}>
-          <div style={{ background: '#0f172a', border: '1px solid rgba(255, 255, 255, 0.15)', borderRadius: '16px', padding: '24px', maxWidth: '500px', width: '100%' }}>
-            <h3 style={{ fontSize: '18px', color: '#f8fafc', margin: '0 0 10px 0' }}>
-              Review Risk Alert for {reviewModalStudent.name}
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '16px' }}>
+          <div className="card" style={{ maxWidth: '520px', width: '100%', padding: '24px' }}>
+            <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-main)', margin: '0 0 4px 0' }}>
+              Faculty Audit: Review Alert for {reviewModalStudent.name}
             </h3>
-            <p style={{ fontSize: '13px', color: '#94a3b8', margin: '0 0 16px 0' }}>
-              Student ID: <strong>{reviewModalStudent.studentId}</strong> • Urgency Score: <strong>{reviewModalStudent.urgencyScore}</strong>
+            <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: '0 0 16px 0' }}>
+              {reviewModalStudent.studentId} • {reviewModalStudent.department}
             </p>
 
-            <div style={{ marginBottom: '14px' }}>
-              <label style={{ display: 'block', fontSize: '12px', color: '#cbd5e1', marginBottom: '6px', fontWeight: 600 }}>Action Decision</label>
+            <div className="form-group">
+              <label className="form-label">Review Status Action</label>
               <select
+                className="form-select"
                 value={reviewStatusChoice}
                 onChange={(e) => setReviewStatusChoice(e.target.value)}
-                style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', border: '1px solid rgba(255, 255, 255, 0.1)', color: '#f8fafc', fontSize: '13px' }}
               >
-                <option value="Reviewed">Reviewed & Action Pending (Keeps in queue with verified badge)</option>
-                <option value="Dismissed">Dismiss Alert (False positive or acceptable extenuating circumstance)</option>
-                <option value="Pending">Reset to Pending Review</option>
+                <option value="Under Review">Under Review (Assigned to Faculty Advisor)</option>
+                <option value="Reviewed">Reviewed & Action Initiated</option>
+                <option value="Dismissed">Dismissed (False Positive / Approved Medical Leave)</option>
               </select>
             </div>
 
-            <div style={{ marginBottom: '18px' }}>
-              <label style={{ display: 'block', fontSize: '12px', color: '#cbd5e1', marginBottom: '6px', fontWeight: 600 }}>Faculty / Mentor Notes (Audit Log)</label>
+            <div className="form-group">
+              <label className="form-label">Audit Notes & Mentoring Observations</label>
               <textarea
+                rows={3}
+                className="form-textarea"
+                placeholder="Document cause of attendance drop or specific remedial plan agreed with student..."
                 value={reviewNotes}
                 onChange={(e) => setReviewNotes(e.target.value)}
-                placeholder="Document your reason or extenuating circumstance..."
-                rows={3}
-                style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', border: '1px solid rgba(255, 255, 255, 0.1)', color: '#f8fafc', fontSize: '13px', resize: 'vertical' }}
               />
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '16px' }}>
               <button
+                type="button"
                 onClick={() => setReviewModalStudent(null)}
-                className="btn"
-                style={{ padding: '8px 16px', background: 'transparent', color: '#94a3b8', border: '1px solid rgba(255, 255, 255, 0.1)' }}
+                className="btn btn-secondary"
+                style={{ fontSize: '12.5px' }}
               >
                 Cancel
               </button>
               <button
-                onClick={handleReviewSubmit}
+                type="button"
                 disabled={submittingReview}
+                onClick={handleReviewSubmit}
                 className="btn btn-primary"
-                style={{ padding: '8px 18px' }}
+                style={{ fontSize: '12.5px' }}
               >
-                {submittingReview ? 'Saving...' : 'Confirm Review'}
+                {submittingReview ? 'Recording...' : 'Save Audit Entry'}
               </button>
             </div>
           </div>

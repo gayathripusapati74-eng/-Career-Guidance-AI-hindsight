@@ -114,47 +114,47 @@ export default function CampusIQSimulatorPage() {
   const isPositive = scoreDiff >= 0;
 
   return (
-    <div className="page-container" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div className="page-container" style={{ padding: '24px 32px', maxWidth: '1440px', margin: '0 auto', backgroundColor: 'var(--bg-primary)' }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <span style={{ fontSize: '11.5px', fontWeight: 800, padding: '3px 8px', borderRadius: '4px', background: 'var(--primary-light)', color: 'var(--primary-hover)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               CampusIQ • Predictive Sandbox
             </span>
-            <span style={{ color: '#475569' }}>/</span>
-            <span style={{ fontSize: '12px', color: '#94a3b8' }}>What-If Success Simulator</span>
+            <span style={{ color: 'var(--border-card)' }}>/</span>
+            <span style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>What-If Success Simulator</span>
           </div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+          <h1 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
             What-If Scenario Simulator
           </h1>
-          <p style={{ fontSize: '13px', color: '#94a3b8', margin: '4px 0 0 0' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
             Forecast institutional score shifts and risk boundary transitions under hypothetical intervention targets
           </p>
         </div>
 
         {/* Student Selector */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(30, 41, 59, 0.6)', padding: '6px 12px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
-            <User size={14} color="#94a3b8" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--bg-card)', padding: '8px 14px', borderRadius: '12px', border: '1px solid var(--border-card)' }}>
+            <User size={14} color="var(--text-muted)" />
             <select
               value={selectedStudentId}
               onChange={(e) => handleStudentSelect(e.target.value)}
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: '#e2e8f0',
-                fontSize: '13px',
+                color: 'var(--text-main)',
+                fontSize: '12.5px',
                 fontWeight: 600,
                 outline: 'none',
                 cursor: 'pointer',
               }}
             >
-              <option value="" style={{ background: '#1e293b' }}>
+              <option value="" style={{ background: '#0D0D0D' }}>
                 Default Benchmark Profile
               </option>
               {studentsList.map((st) => (
-                <option key={st.studentId} value={st.studentId} style={{ background: '#1e293b' }}>
+                <option key={st.studentId} value={st.studentId} style={{ background: '#0D0D0D' }}>
                   {st.name} ({st.studentId} - {st.department})
                 </option>
               ))}
@@ -165,11 +165,11 @@ export default function CampusIQSimulatorPage() {
             onClick={() => handleStudentSelect(selectedStudentId)}
             title="Reset to Baseline"
             style={{
-              padding: '8px 12px',
-              background: 'rgba(255, 255, 255, 0.06)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              padding: '8px 14px',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-card)',
               borderRadius: '10px',
-              color: '#cbd5e1',
+              color: 'var(--text-main)',
               fontSize: '13px',
               display: 'flex',
               alignItems: 'center',
@@ -177,7 +177,7 @@ export default function CampusIQSimulatorPage() {
               cursor: 'pointer',
             }}
           >
-            <RotateCcw size={14} />
+            <RotateCcw size={14} style={{ color: 'var(--primary-hover)' }} />
             <span>Reset</span>
           </button>
         </div>
@@ -188,8 +188,8 @@ export default function CampusIQSimulatorPage() {
         {/* Left Column: Sliders & Parameter Controls */}
         <div
           style={{
-            background: 'rgba(30, 41, 59, 0.6)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-card)',
             borderRadius: '16px',
             padding: '24px',
             display: 'flex',
@@ -199,12 +199,12 @@ export default function CampusIQSimulatorPage() {
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Sliders size={18} color="#6366f1" />
-              <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+              <Sliders size={18} color="var(--primary-hover)" />
+              <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
                 Adjust Hypothetical Parameters
               </h3>
             </div>
-            <span style={{ fontSize: '11px', color: '#94a3b8' }}>
+            <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
               Weight Impact: Configurable
             </span>
           </div>
@@ -212,10 +212,10 @@ export default function CampusIQSimulatorPage() {
           {/* Slider 1: Attendance */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-              <label style={{ fontSize: '13px', fontWeight: 600, color: '#cbd5e1' }}>
-                Attendance Rate: <span style={{ color: '#a5b4fc' }}>{attendance}%</span>
+              <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-muted)' }}>
+                Attendance Rate: <span style={{ color: 'var(--primary-hover)', fontWeight: 700 }}>{attendance}%</span>
               </label>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>Weight: 20%</span>
+              <span style={{ fontSize: '11px', color: 'var(--text-dim)' }}>Weight: 20%</span>
             </div>
             <input
               type="range"
@@ -223,27 +223,27 @@ export default function CampusIQSimulatorPage() {
               max="100"
               value={attendance}
               onChange={(e) => setAttendance(Number(e.target.value))}
-              style={{ width: '100%', accentColor: '#6366f1', cursor: 'pointer' }}
+              style={{ width: '100%', accentColor: 'var(--primary-hover)', cursor: 'pointer' }}
             />
             <div style={{ display: 'flex', gap: '6px', marginTop: '6px' }}>
               <button
                 type="button"
                 onClick={() => setAttendance(Math.min(100, attendance + 5))}
-                style={{ padding: '2px 8px', fontSize: '11px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#cbd5e1', borderRadius: '4px', cursor: 'pointer' }}
+                style={{ padding: '2px 8px', fontSize: '11px', background: 'var(--bg-surface)', border: '1px solid var(--border-card)', color: 'var(--text-muted)', borderRadius: '4px', cursor: 'pointer' }}
               >
                 +5%
               </button>
               <button
                 type="button"
                 onClick={() => setAttendance(Math.min(100, attendance + 10))}
-                style={{ padding: '2px 8px', fontSize: '11px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#cbd5e1', borderRadius: '4px', cursor: 'pointer' }}
+                style={{ padding: '2px 8px', fontSize: '11px', background: 'var(--bg-surface)', border: '1px solid var(--border-card)', color: 'var(--text-muted)', borderRadius: '4px', cursor: 'pointer' }}
               >
                 +10%
               </button>
               <button
                 type="button"
                 onClick={() => setAttendance(75)}
-                style={{ padding: '2px 8px', fontSize: '11px', background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', color: '#a5b4fc', borderRadius: '4px', cursor: 'pointer' }}
+                style={{ padding: '2px 8px', fontSize: '11px', background: 'var(--primary-light)', border: '1px solid var(--primary-border)', color: 'var(--primary-hover)', borderRadius: '4px', cursor: 'pointer' }}
               >
                 Target 75%
               </button>
@@ -253,10 +253,10 @@ export default function CampusIQSimulatorPage() {
           {/* Slider 2: GPA */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-              <label style={{ fontSize: '13px', fontWeight: 600, color: '#cbd5e1' }}>
-                Cumulative GPA: <span style={{ color: '#a5b4fc' }}>{gpa.toFixed(1)} / 10.0</span>
+              <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-muted)' }}>
+                Cumulative GPA: <span style={{ color: 'var(--primary-hover)', fontWeight: 700 }}>{gpa.toFixed(1)} / 10.0</span>
               </label>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>Weight: 30%</span>
+              <span style={{ fontSize: '11px', color: 'var(--text-dim)' }}>Weight: 30%</span>
             </div>
             <input
               type="range"
@@ -265,17 +265,17 @@ export default function CampusIQSimulatorPage() {
               step="0.1"
               value={gpa}
               onChange={(e) => setGpa(Number(e.target.value))}
-              style={{ width: '100%', accentColor: '#6366f1', cursor: 'pointer' }}
+              style={{ width: '100%', accentColor: 'var(--primary-hover)', cursor: 'pointer' }}
             />
           </div>
 
           {/* Slider 3: Backlogs */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-              <label style={{ fontSize: '13px', fontWeight: 600, color: '#cbd5e1' }}>
-                Active Backlogs: <span style={{ color: backlogs > 0 ? '#ef4444' : '#10b981' }}>{backlogs} Subjects</span>
+              <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-muted)' }}>
+                Active Backlogs: <span style={{ color: backlogs > 0 ? 'var(--primary-hover)' : '#10b981', fontWeight: 700 }}>{backlogs} Subjects</span>
               </label>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>Penalty Factor</span>
+              <span style={{ fontSize: '11px', color: 'var(--text-dim)' }}>Penalty Factor</span>
             </div>
             <input
               type="range"
@@ -283,17 +283,17 @@ export default function CampusIQSimulatorPage() {
               max="6"
               value={backlogs}
               onChange={(e) => setBacklogs(Number(e.target.value))}
-              style={{ width: '100%', accentColor: backlogs > 0 ? '#ef4444' : '#10b981', cursor: 'pointer' }}
+              style={{ width: '100%', accentColor: backlogs > 0 ? 'var(--primary-hover)' : '#10b981', cursor: 'pointer' }}
             />
           </div>
 
           {/* Slider 4: Coding Score */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-              <label style={{ fontSize: '13px', fontWeight: 600, color: '#cbd5e1' }}>
-                Coding Assessment: <span style={{ color: '#06b6d4' }}>{codingScore} / 100</span>
+              <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-muted)' }}>
+                Coding Assessment: <span style={{ color: 'var(--primary-hover)', fontWeight: 700 }}>{codingScore} / 100</span>
               </label>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>Weight: 20%</span>
+              <span style={{ fontSize: '11px', color: 'var(--text-dim)' }}>Weight: 20%</span>
             </div>
             <input
               type="range"
@@ -301,20 +301,20 @@ export default function CampusIQSimulatorPage() {
               max="100"
               value={codingScore}
               onChange={(e) => setCodingScore(Number(e.target.value))}
-              style={{ width: '100%', accentColor: '#06b6d4', cursor: 'pointer' }}
+              style={{ width: '100%', accentColor: 'var(--primary-hover)', cursor: 'pointer' }}
             />
             <div style={{ display: 'flex', gap: '6px', marginTop: '6px' }}>
               <button
                 type="button"
                 onClick={() => setCodingScore(Math.min(100, codingScore + 15))}
-                style={{ padding: '2px 8px', fontSize: '11px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#cbd5e1', borderRadius: '4px', cursor: 'pointer' }}
+                style={{ padding: '2px 8px', fontSize: '11px', background: 'var(--bg-surface)', border: '1px solid var(--border-card)', color: 'var(--text-muted)', borderRadius: '4px', cursor: 'pointer' }}
               >
                 +15 pts
               </button>
               <button
                 type="button"
                 onClick={() => setCodingScore(65)}
-                style={{ padding: '2px 8px', fontSize: '11px', background: 'rgba(6,182,212,0.15)', border: '1px solid rgba(6,182,212,0.3)', color: '#67e8f9', borderRadius: '4px', cursor: 'pointer' }}
+                style={{ padding: '2px 8px', fontSize: '11px', background: 'var(--primary-light)', border: '1px solid var(--primary-border)', color: 'var(--primary-hover)', borderRadius: '4px', cursor: 'pointer' }}
               >
                 Target Tier-1 Cutoff (65)
               </button>
@@ -324,10 +324,10 @@ export default function CampusIQSimulatorPage() {
           {/* Slider 5: Aptitude Score */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-              <label style={{ fontSize: '13px', fontWeight: 600, color: '#cbd5e1' }}>
-                Aptitude Assessment: <span style={{ color: '#06b6d4' }}>{aptitudeScore} / 100</span>
+              <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-muted)' }}>
+                Aptitude Assessment: <span style={{ color: 'var(--primary-hover)', fontWeight: 700 }}>{aptitudeScore} / 100</span>
               </label>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>Placement Component</span>
+              <span style={{ fontSize: '11px', color: 'var(--text-dim)' }}>Placement Component</span>
             </div>
             <input
               type="range"
@@ -335,17 +335,17 @@ export default function CampusIQSimulatorPage() {
               max="100"
               value={aptitudeScore}
               onChange={(e) => setAptitudeScore(Number(e.target.value))}
-              style={{ width: '100%', accentColor: '#06b6d4', cursor: 'pointer' }}
+              style={{ width: '100%', accentColor: 'var(--primary-hover)', cursor: 'pointer' }}
             />
           </div>
 
           {/* Slider 6: LMS Video Completion */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-              <label style={{ fontSize: '13px', fontWeight: 600, color: '#cbd5e1' }}>
-                LMS Video Completion: <span style={{ color: '#8b5cf6' }}>{videoCompletion}%</span>
+              <label style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-muted)' }}>
+                LMS Video Completion: <span style={{ color: 'var(--primary-hover)', fontWeight: 700 }}>{videoCompletion}%</span>
               </label>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>Weight: 15%</span>
+              <span style={{ fontSize: '11px', color: 'var(--text-dim)' }}>Weight: 15%</span>
             </div>
             <input
               type="range"
@@ -353,7 +353,7 @@ export default function CampusIQSimulatorPage() {
               max="100"
               value={videoCompletion}
               onChange={(e) => setVideoCompletion(Number(e.target.value))}
-              style={{ width: '100%', accentColor: '#8b5cf6', cursor: 'pointer' }}
+              style={{ width: '100%', accentColor: 'var(--primary-hover)', cursor: 'pointer' }}
             />
           </div>
 
@@ -364,7 +364,7 @@ export default function CampusIQSimulatorPage() {
             style={{
               marginTop: '10px',
               padding: '14px',
-              background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
+              background: 'linear-gradient(135deg, var(--primary), var(--primary-secondary))',
               border: 'none',
               borderRadius: '12px',
               color: '#ffffff',
@@ -375,7 +375,7 @@ export default function CampusIQSimulatorPage() {
               justifyContent: 'center',
               gap: '8px',
               cursor: loading ? 'not-allowed' : 'pointer',
-              boxShadow: '0 4px 14px rgba(99, 102, 241, 0.3)',
+              boxShadow: '0 4px 14px rgba(139, 0, 0, 0.4)',
             }}
           >
             <RefreshCw size={16} className={loading ? 'spin' : ''} />
@@ -388,13 +388,13 @@ export default function CampusIQSimulatorPage() {
           {/* Top Comparison Card */}
           <div
             style={{
-              background: 'rgba(30, 41, 59, 0.6)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-card)',
               borderRadius: '16px',
               padding: '24px',
             }}
           >
-            <div style={{ fontSize: '12px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '16px' }}>
+            <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '16px' }}>
               Projected Success Trajectory
             </div>
 
@@ -402,18 +402,18 @@ export default function CampusIQSimulatorPage() {
               {/* Baseline Box */}
               <div
                 style={{
-                  background: 'rgba(15, 23, 42, 0.6)',
+                  background: 'var(--bg-surface)',
                   padding: '16px',
                   borderRadius: '12px',
-                  border: '1px solid rgba(255, 255, 255, 0.05)',
+                  border: '1px solid var(--border-card)',
                   textAlign: 'center',
                 }}
               >
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '4px' }}>CURRENT BASELINE</div>
-                <div style={{ fontSize: '28px', fontWeight: 800, color: '#cbd5e1' }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '4px' }}>CURRENT BASELINE</div>
+                <div style={{ fontSize: '28px', fontWeight: 800, color: 'var(--text-main)' }}>
                   {baseline.successScore ?? '—'}
                 </div>
-                <div style={{ fontSize: '11px', color: '#64748b' }}>out of 100</div>
+                <div style={{ fontSize: '11px', color: 'var(--text-dim)' }}>out of 100</div>
                 <div
                   style={{
                     display: 'inline-block',
@@ -422,8 +422,8 @@ export default function CampusIQSimulatorPage() {
                     borderRadius: '4px',
                     fontSize: '10px',
                     fontWeight: 700,
-                    background: 'rgba(255, 255, 255, 0.08)',
-                    color: '#94a3b8',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    color: 'var(--text-muted)',
                   }}
                 >
                   {baseline.segment || 'Benchmark'}
@@ -441,32 +441,32 @@ export default function CampusIQSimulatorPage() {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '4px',
-                    background: isPositive ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)',
-                    color: isPositive ? '#10b981' : '#ef4444',
-                    border: `1px solid ${isPositive ? 'rgba(16, 185, 129, 0.4)' : 'rgba(239, 68, 68, 0.4)'}`,
+                    background: isPositive ? 'rgba(16, 185, 129, 0.2)' : 'var(--primary-light)',
+                    color: isPositive ? '#10b981' : 'var(--primary-hover)',
+                    border: `1px solid ${isPositive ? 'rgba(16, 185, 129, 0.4)' : 'var(--primary-border)'}`,
                   }}
                 >
                   {isPositive ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
                   <span>{isPositive ? `+${scoreDiff}` : scoreDiff} pts</span>
                 </div>
-                <ArrowRight size={20} color="#64748b" />
+                <ArrowRight size={20} color="var(--border-card)" />
               </div>
 
               {/* Scenario Box */}
               <div
                 style={{
-                  background: isPositive ? 'rgba(16, 185, 129, 0.08)' : 'rgba(239, 68, 68, 0.08)',
+                  background: isPositive ? 'rgba(16, 185, 129, 0.08)' : 'rgba(139, 0, 0, 0.12)',
                   padding: '16px',
                   borderRadius: '12px',
-                  border: `1px solid ${isPositive ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`,
+                  border: `1px solid ${isPositive ? 'rgba(16, 185, 129, 0.3)' : 'var(--primary-border)'}`,
                   textAlign: 'center',
                 }}
               >
-                <div style={{ fontSize: '11px', color: '#a5b4fc', marginBottom: '4px' }}>SIMULATED TARGET</div>
-                <div style={{ fontSize: '28px', fontWeight: 800, color: isPositive ? '#10b981' : '#ef4444' }}>
+                <div style={{ fontSize: '11px', color: 'var(--primary-hover)', marginBottom: '4px' }}>SIMULATED TARGET</div>
+                <div style={{ fontSize: '28px', fontWeight: 800, color: isPositive ? '#10b981' : 'var(--primary-hover)' }}>
                   {scenario.successScore ?? '—'}
                 </div>
-                <div style={{ fontSize: '11px', color: '#94a3b8' }}>out of 100</div>
+                <div style={{ fontSize: '11px', color: 'var(--text-dim)' }}>out of 100</div>
                 <div
                   style={{
                     display: 'inline-block',
@@ -475,8 +475,8 @@ export default function CampusIQSimulatorPage() {
                     borderRadius: '4px',
                     fontSize: '10px',
                     fontWeight: 700,
-                    background: 'rgba(99, 102, 241, 0.2)',
-                    color: '#a5b4fc',
+                    background: 'var(--primary-light)',
+                    color: 'var(--primary-hover)',
                   }}
                 >
                   {scenario.segment || 'Projected'}
@@ -488,25 +488,25 @@ export default function CampusIQSimulatorPage() {
           {/* Risk Level Boundary Shifts */}
           <div
             style={{
-              background: 'rgba(30, 41, 59, 0.6)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-card)',
               borderRadius: '16px',
               padding: '24px',
             }}
           >
-            <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#f8fafc', margin: '0 0 16px 0' }}>
+            <h4 style={{ fontSize: '14px', fontWeight: 800, color: 'var(--text-main)', margin: '0 0 16px 0' }}>
               Dual-Risk Classification Dynamics
             </h4>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
               {/* Academic Risk Shift */}
-              <div style={{ background: 'rgba(15, 23, 42, 0.4)', padding: '14px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.04)' }}>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '6px' }}>Academic Risk Boundary</div>
+              <div style={{ background: 'var(--bg-surface)', padding: '14px', borderRadius: '10px', border: '1px solid var(--border-card)' }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '6px' }}>Academic Risk Boundary</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 700 }}>
-                  <span style={{ color: baseline.academicRisk?.level === 'High' ? '#ef4444' : '#f59e0b' }}>
+                  <span style={{ color: baseline.academicRisk?.level === 'High' ? 'var(--primary-hover)' : '#f59e0b' }}>
                     {baseline.academicRisk?.level || 'Medium'}
                   </span>
-                  <ArrowRight size={14} color="#64748b" />
+                  <ArrowRight size={14} color="var(--text-dim)" />
                   <span style={{ color: scenario.academicRisk?.level === 'Low' ? '#10b981' : '#f59e0b' }}>
                     {scenario.academicRisk?.level || 'Low'}
                   </span>
@@ -514,13 +514,13 @@ export default function CampusIQSimulatorPage() {
               </div>
 
               {/* Placement Risk Shift */}
-              <div style={{ background: 'rgba(15, 23, 42, 0.4)', padding: '14px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.04)' }}>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '6px' }}>Placement Risk Boundary</div>
+              <div style={{ background: 'var(--bg-surface)', padding: '14px', borderRadius: '10px', border: '1px solid var(--border-card)' }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '6px' }}>Placement Risk Boundary</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 700 }}>
-                  <span style={{ color: baseline.placementRisk?.level === 'High' ? '#ef4444' : '#f59e0b' }}>
+                  <span style={{ color: baseline.placementRisk?.level === 'High' ? 'var(--primary-hover)' : '#f59e0b' }}>
                     {baseline.placementRisk?.level || 'Medium'}
                   </span>
-                  <ArrowRight size={14} color="#64748b" />
+                  <ArrowRight size={14} color="var(--text-dim)" />
                   <span style={{ color: scenario.placementRisk?.level === 'Low' ? '#10b981' : '#f59e0b' }}>
                     {scenario.placementRisk?.level || 'Low'}
                   </span>
@@ -533,13 +533,13 @@ export default function CampusIQSimulatorPage() {
           {delta?.contributors && delta.contributors.length > 0 && (
             <div
               style={{
-                background: 'rgba(30, 41, 59, 0.6)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-card)',
                 borderRadius: '16px',
                 padding: '20px',
               }}
             >
-              <div style={{ fontSize: '13px', fontWeight: 700, color: '#f8fafc', marginBottom: '12px' }}>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '12px' }}>
                 Key Trajectory Drivers
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -551,18 +551,19 @@ export default function CampusIQSimulatorPage() {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                       padding: '8px 12px',
-                      background: 'rgba(15, 23, 42, 0.4)',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-card)',
                       borderRadius: '8px',
                       fontSize: '12px',
                     }}
                   >
                     <div>
-                      <span style={{ fontWeight: 700, color: '#f1f5f9' }}>{c.indicator}</span>
-                      <span style={{ color: '#64748b', marginLeft: '6px' }}>({c.weight} weight)</span>
+                      <span style={{ fontWeight: 700, color: 'var(--text-main)' }}>{c.indicator}</span>
+                      <span style={{ color: 'var(--text-dim)', marginLeft: '6px' }}>({c.weight} weight)</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontWeight: 700, color: '#a5b4fc' }}>{c.change}</span>
-                      <span style={{ fontSize: '11px', color: '#94a3b8' }}>• {c.impact}</span>
+                      <span style={{ fontWeight: 700, color: 'var(--primary-hover)' }}>{c.change}</span>
+                      <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>• {c.impact}</span>
                     </div>
                   </div>
                 ))}
@@ -573,8 +574,8 @@ export default function CampusIQSimulatorPage() {
           {/* Ethics & Advisory Notice */}
           <div
             style={{
-              background: 'rgba(15, 23, 42, 0.6)',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-card)',
               borderRadius: '12px',
               padding: '16px',
               display: 'flex',
@@ -582,9 +583,9 @@ export default function CampusIQSimulatorPage() {
               alignItems: 'flex-start',
             }}
           >
-            <ShieldCheck size={18} color="#6366f1" style={{ flexShrink: 0, marginTop: '2px' }} />
-            <div style={{ fontSize: '11px', color: '#94a3b8', lineHeight: 1.5 }}>
-              <strong style={{ color: '#cbd5e1' }}>Decision Support Notice:</strong> What-If calculations are non-destructive hypothetical simulations calculated by the deterministic CampusIQ scoring engine. They do not alter the student’s actual academic transcripts or placement eligibility records.
+            <ShieldCheck size={18} color="var(--primary-hover)" style={{ flexShrink: 0, marginTop: '2px' }} />
+            <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+              <strong style={{ color: 'var(--text-main)' }}>Decision Support Notice:</strong> What-If calculations are non-destructive hypothetical simulations calculated by the deterministic CampusIQ scoring engine. They do not alter the student’s actual academic transcripts or placement eligibility records.
             </div>
           </div>
         </div>

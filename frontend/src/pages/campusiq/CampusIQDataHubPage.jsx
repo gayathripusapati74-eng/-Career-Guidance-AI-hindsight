@@ -143,21 +143,21 @@ export default function CampusIQDataHubPage() {
   const historyList = historyData?.history || [];
 
   return (
-    <div className="page-container" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div className="page-container" style={{ padding: '24px 32px', maxWidth: '1440px', margin: '0 auto', backgroundColor: 'var(--bg-primary)' }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <span style={{ fontSize: '11.5px', fontWeight: 800, padding: '3px 8px', borderRadius: '4px', background: 'var(--primary-light)', color: 'var(--primary-hover)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               CampusIQ • Data Architecture
             </span>
-            <span style={{ color: '#475569' }}>/</span>
-            <span style={{ fontSize: '12px', color: '#94a3b8' }}>Multi-Modal Ingestion Hub</span>
+            <span style={{ color: 'var(--border-card)' }}>/</span>
+            <span style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>Multi-Modal Ingestion Hub</span>
           </div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+          <h1 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
             Data Integration & Validation Hub
           </h1>
-          <p style={{ fontSize: '13px', color: '#94a3b8', margin: '4px 0 0 0' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
             Unified ingestion across 8 campus data pillars with automated schema checking, error quarantine, and instant re-scoring
           </p>
         </div>
@@ -172,10 +172,10 @@ export default function CampusIQDataHubPage() {
               alignItems: 'center',
               gap: '6px',
               padding: '9px 16px',
-              background: 'rgba(239, 68, 68, 0.12)',
-              border: '1px solid rgba(239, 68, 68, 0.3)',
+              background: 'rgba(139, 0, 0, 0.15)',
+              border: '1px solid var(--primary-border)',
               borderRadius: '10px',
-              color: '#f87171',
+              color: 'var(--primary-hover)',
               fontSize: '13px',
               fontWeight: 600,
               cursor: resetting ? 'not-allowed' : 'pointer',
@@ -210,7 +210,7 @@ export default function CampusIQDataHubPage() {
 
       {/* 8 Data Pillars Coverage Grid */}
       <div style={{ marginBottom: '28px' }}>
-        <div style={{ fontSize: '13px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '12px' }}>
+        <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '12px' }}>
           Institutional Data Completeness (8 Modalities)
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '12px' }}>
@@ -225,17 +225,17 @@ export default function CampusIQDataHubPage() {
             <div
               key={idx}
               style={{
-                background: 'rgba(30, 41, 59, 0.5)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-card)',
                 borderRadius: '12px',
                 padding: '14px',
               }}
             >
-              <div style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '4px' }}>{col.name}</div>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '4px' }}>{col.name}</div>
               <div style={{ fontSize: '20px', fontWeight: 800, color: col.val >= 90 ? '#10b981' : '#f59e0b' }}>
                 {col.val}%
               </div>
-              <div style={{ fontSize: '10px', color: '#64748b', marginTop: '2px' }}>{col.note}</div>
+              <div style={{ fontSize: '10px', color: 'var(--text-dim)', marginTop: '2px' }}>{col.note}</div>
             </div>
           ))}
         </div>
@@ -246,16 +246,16 @@ export default function CampusIQDataHubPage() {
         {/* Upload Form Box */}
         <div
           style={{
-            background: 'rgba(30, 41, 59, 0.6)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-card)',
             borderRadius: '16px',
             padding: '24px',
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Upload size={18} color="#6366f1" />
-              <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+              <Upload size={18} color="var(--primary-hover)" />
+              <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
                 CSV Dataset Ingestion Studio
               </h3>
             </div>
@@ -268,15 +268,15 @@ export default function CampusIQDataHubPage() {
                 alignItems: 'center',
                 gap: '4px',
                 padding: '4px 10px',
-                background: 'rgba(255, 255, 255, 0.06)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-card)',
                 borderRadius: '6px',
-                color: '#cbd5e1',
+                color: 'var(--text-main)',
                 fontSize: '11px',
                 cursor: 'pointer',
               }}
             >
-              <Download size={12} />
+              <Download size={12} style={{ color: 'var(--primary-hover)' }} />
               <span>Sample CSV</span>
             </button>
           </div>
@@ -284,7 +284,7 @@ export default function CampusIQDataHubPage() {
           <form onSubmit={handleSubmitUpload} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {/* Category Select */}
             <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                 Select Dataset Category
               </label>
               <select
@@ -294,22 +294,22 @@ export default function CampusIQDataHubPage() {
                   width: '100%',
                   padding: '10px',
                   borderRadius: '8px',
-                  background: '#1e293b',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: '#f8fafc',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-card)',
+                  color: 'var(--text-main)',
                   fontSize: '13px',
                   outline: 'none',
                 }}
               >
-                <option value="Attendance">Attendance Tracking (Biometric/ERP)</option>
-                <option value="Academic Records">Academic Records (GPA & Backlogs)</option>
-                <option value="Placement Assessments">Placement Assessments (Coding Scores)</option>
+                <option value="Attendance" style={{ background: '#0D0D0D' }}>Attendance Tracking (Biometric/ERP)</option>
+                <option value="Academic Records" style={{ background: '#0D0D0D' }}>Academic Records (GPA & Backlogs)</option>
+                <option value="Placement Assessments" style={{ background: '#0D0D0D' }}>Placement Assessments (Coding Scores)</option>
               </select>
             </div>
 
             {/* File Pick / Drop */}
             <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                 Choose CSV File or Edit Raw Text Below
               </label>
               <input
@@ -318,7 +318,7 @@ export default function CampusIQDataHubPage() {
                 onChange={handleFileUpload}
                 style={{
                   fontSize: '12px',
-                  color: '#94a3b8',
+                  color: 'var(--text-muted)',
                   width: '100%',
                 }}
               />
@@ -326,7 +326,7 @@ export default function CampusIQDataHubPage() {
 
             {/* CSV Raw Text Area */}
             <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                 CSV Content Preview & Verification
               </label>
               <textarea
@@ -337,9 +337,9 @@ export default function CampusIQDataHubPage() {
                   width: '100%',
                   padding: '10px',
                   borderRadius: '8px',
-                  background: '#0f172a',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: '#e2e8f0',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-card)',
+                  color: 'var(--text-main)',
                   fontFamily: 'monospace',
                   fontSize: '12px',
                   outline: 'none',
@@ -353,7 +353,7 @@ export default function CampusIQDataHubPage() {
               disabled={uploading}
               style={{
                 padding: '12px',
-                background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
+                background: 'linear-gradient(135deg, var(--primary), var(--primary-secondary))',
                 border: 'none',
                 borderRadius: '10px',
                 color: '#ffffff',
@@ -364,6 +364,7 @@ export default function CampusIQDataHubPage() {
                 justifyContent: 'center',
                 gap: '8px',
                 cursor: uploading ? 'not-allowed' : 'pointer',
+                boxShadow: '0 4px 14px rgba(139, 0, 0, 0.4)',
               }}
             >
               <Upload size={16} className={uploading ? 'spin' : ''} />
@@ -375,8 +376,8 @@ export default function CampusIQDataHubPage() {
         {/* Validation Feedback & Summary Card */}
         <div
           style={{
-            background: 'rgba(30, 41, 59, 0.6)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-card)',
             borderRadius: '16px',
             padding: '24px',
             display: 'flex',
@@ -384,24 +385,24 @@ export default function CampusIQDataHubPage() {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-            <ShieldCheck size={18} color="#6366f1" />
-            <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+            <ShieldCheck size={18} color="var(--primary-hover)" />
+            <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
               Ingestion Validation Report
             </h3>
           </div>
 
           {!uploadResult ? (
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#64748b', textAlign: 'center', padding: '30px' }}>
-              <Table size={36} style={{ marginBottom: '12px', opacity: 0.5 }} />
-              <div style={{ fontSize: '13px', fontWeight: 600 }}>No active ingestion report</div>
-              <div style={{ fontSize: '11px', marginTop: '4px' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--text-dim)', textAlign: 'center', padding: '30px' }}>
+              <Table size={36} style={{ marginBottom: '12px', opacity: 0.5, color: 'var(--text-dim)' }} />
+              <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-muted)' }}>No active ingestion report</div>
+              <div style={{ fontSize: '11px', marginTop: '4px', color: 'var(--text-dim)' }}>
                 Upload or paste a CSV file on the left to trigger the automatic validation engine.
               </div>
             </div>
           ) : uploadResult.errorMessage ? (
-            <div style={{ background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '12px', padding: '16px', color: '#fca5a5' }}>
+            <div style={{ background: 'var(--primary-light)', border: '1px solid var(--primary-border)', borderRadius: '12px', padding: '16px', color: '#fca5a5' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, marginBottom: '6px' }}>
-                <AlertCircle size={16} />
+                <AlertCircle size={16} style={{ color: 'var(--primary-hover)' }} />
                 <span>Validation Failure</span>
               </div>
               <div style={{ fontSize: '12px' }}>{uploadResult.errorMessage}</div>
@@ -417,9 +418,9 @@ export default function CampusIQDataHubPage() {
                   </div>
                 </div>
 
-                <div style={{ background: uploadResult.rejectedRows > 0 ? 'rgba(239, 68, 68, 0.1)' : 'rgba(255, 255, 255, 0.04)', border: `1px solid ${uploadResult.rejectedRows > 0 ? 'rgba(239, 68, 68, 0.3)' : 'rgba(255, 255, 255, 0.08)'}`, borderRadius: '10px', padding: '12px' }}>
-                  <div style={{ fontSize: '11px', color: uploadResult.rejectedRows > 0 ? '#fca5a5' : '#94a3b8' }}>REJECTED ROWS</div>
-                  <div style={{ fontSize: '20px', fontWeight: 800, color: uploadResult.rejectedRows > 0 ? '#ef4444' : '#cbd5e1' }}>
+                <div style={{ background: uploadResult.rejectedRows > 0 ? 'var(--primary-light)' : 'var(--bg-surface)', border: `1px solid ${uploadResult.rejectedRows > 0 ? 'var(--primary-border)' : 'var(--border-card)'}`, borderRadius: '10px', padding: '12px' }}>
+                  <div style={{ fontSize: '11px', color: uploadResult.rejectedRows > 0 ? 'var(--primary-hover)' : 'var(--text-muted)' }}>REJECTED ROWS</div>
+                  <div style={{ fontSize: '20px', fontWeight: 800, color: uploadResult.rejectedRows > 0 ? 'var(--primary-hover)' : 'var(--text-main)' }}>
                     {uploadResult.rejectedRows}
                   </div>
                 </div>
@@ -428,7 +429,7 @@ export default function CampusIQDataHubPage() {
               {/* Rejected Rows Details */}
               {uploadResult.rejectedDetails && uploadResult.rejectedDetails.length > 0 && (
                 <div>
-                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#ef4444', marginBottom: '8px' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--primary-hover)', marginBottom: '8px' }}>
                     Rejected Row Audit Details ({uploadResult.rejectedDetails.length})
                   </div>
                   <div style={{ maxHeight: '180px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -436,17 +437,17 @@ export default function CampusIQDataHubPage() {
                       <div
                         key={idx}
                         style={{
-                          background: 'rgba(239, 68, 68, 0.06)',
-                          border: '1px solid rgba(239, 68, 68, 0.2)',
+                          background: 'var(--primary-light)',
+                          border: '1px solid var(--primary-border)',
                           borderRadius: '8px',
                           padding: '8px 10px',
                           fontSize: '11px',
                         }}
                       >
-                        <div style={{ fontWeight: 700, color: '#fca5a5' }}>
+                        <div style={{ fontWeight: 700, color: 'var(--primary-hover)' }}>
                           Line {rej.rowNumber}: {rej.reason}
                         </div>
-                        <div style={{ color: '#94a3b8', fontFamily: 'monospace', marginTop: '2px' }}>
+                        <div style={{ color: 'var(--text-muted)', fontFamily: 'monospace', marginTop: '2px' }}>
                           {rej.dataSnippet}
                         </div>
                       </div>
@@ -455,7 +456,7 @@ export default function CampusIQDataHubPage() {
                 </div>
               )}
 
-              <div style={{ marginTop: '16px', fontSize: '11px', color: '#94a3b8', lineHeight: 1.5 }}>
+              <div style={{ marginTop: '16px', fontSize: '11px', color: 'var(--text-muted)', lineHeight: 1.5 }}>
                 ✓ Successfully parsed rows have triggered instant score recalculations across all 200 enrolled students.
               </div>
             </div>
@@ -466,24 +467,24 @@ export default function CampusIQDataHubPage() {
       {/* Import Audit History Table */}
       <div
         style={{
-          background: 'rgba(30, 41, 59, 0.6)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-card)',
           borderRadius: '16px',
           overflow: 'hidden',
         }}
       >
-        <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border-card)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+            <h3 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
               Recent Ingestion Logs & Audit Trail
             </h3>
-            <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>
+            <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>
               Historical traceability of data imports across institutional modalities
             </div>
           </div>
           <button
             onClick={fetchHistory}
-            style={{ background: 'transparent', border: 'none', color: '#a5b4fc', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px' }}
+            style={{ background: 'transparent', border: 'none', color: 'var(--primary-hover)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px', fontWeight: 600 }}
           >
             <RefreshCw size={13} />
             <span>Refresh</span>
@@ -493,7 +494,7 @@ export default function CampusIQDataHubPage() {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '12px' }}>
             <thead>
-              <tr style={{ background: 'rgba(15, 23, 42, 0.6)', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', color: '#94a3b8' }}>
+              <tr style={{ background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-card)', color: 'var(--text-muted)' }}>
                 <th style={{ padding: '12px 16px', fontWeight: 600 }}>IMPORT ID</th>
                 <th style={{ padding: '12px 16px', fontWeight: 600 }}>CATEGORY</th>
                 <th style={{ padding: '12px 16px', fontWeight: 600 }}>FILE NAME</th>
@@ -505,19 +506,19 @@ export default function CampusIQDataHubPage() {
             <tbody>
               {historyList.length === 0 ? (
                 <tr>
-                  <td colSpan={6} style={{ padding: '24px', textAlign: 'center', color: '#94a3b8' }}>
+                  <td colSpan={6} style={{ padding: '24px', textAlign: 'center', color: 'var(--text-muted)' }}>
                     No previous import records logged yet.
                   </td>
                 </tr>
               ) : (
                 historyList.map((h, i) => (
-                  <tr key={i} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
-                    <td style={{ padding: '12px 16px', fontFamily: 'monospace', color: '#818cf8', fontWeight: 700 }}>
+                  <tr key={i} style={{ borderBottom: '1px solid #201515' }}>
+                    <td style={{ padding: '12px 16px', fontFamily: 'monospace', color: 'var(--primary-hover)', fontWeight: 700 }}>
                       {h.importId}
                     </td>
-                    <td style={{ padding: '12px 16px', color: '#e2e8f0' }}>{h.datasetCategory}</td>
-                    <td style={{ padding: '12px 16px', color: '#cbd5e1' }}>{h.fileName}</td>
-                    <td style={{ padding: '12px 16px', color: '#cbd5e1' }}>
+                    <td style={{ padding: '12px 16px', color: 'var(--text-main)' }}>{h.datasetCategory}</td>
+                    <td style={{ padding: '12px 16px', color: 'var(--text-muted)' }}>{h.fileName}</td>
+                    <td style={{ padding: '12px 16px', color: 'var(--text-muted)' }}>
                       <span style={{ color: '#10b981', fontWeight: 700 }}>{h.successfulRows}</span> / {h.totalRows}
                     </td>
                     <td style={{ padding: '12px 16px' }}>
@@ -534,7 +535,7 @@ export default function CampusIQDataHubPage() {
                         {h.status}
                       </span>
                     </td>
-                    <td style={{ padding: '12px 16px', color: '#94a3b8' }}>
+                    <td style={{ padding: '12px 16px', color: 'var(--text-dim)' }}>
                       {new Date(h.createdAt).toLocaleString()}
                     </td>
                   </tr>

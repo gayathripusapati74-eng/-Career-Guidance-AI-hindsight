@@ -2,62 +2,74 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard,
+  Shield,
+  Building,
+  GraduationCap,
+  Users,
+  UserCheck,
+  Server,
+  BarChart3,
+  Radio,
+  Layers,
+  Sliders,
+  Target,
+  TrendingUp,
+  Database,
+  FileSpreadsheet,
   MessageSquare,
   Award,
   FileText,
   Map,
   HelpCircle,
   Video,
-  Briefcase,
-  TrendingUp,
   Activity,
   BrainCircuit,
-  BarChart3,
-  Radio,
-  Users,
-  Layers,
-  Sliders,
-  Target,
-  Database,
-  FileSpreadsheet,
 } from 'lucide-react';
 
+const ROLE_NAV_ITEMS = [
+  { path: '/management', label: 'Management', icon: Building, badge: 'Exec' },
+  { path: '/admin', label: 'College Admin', icon: Shield },
+  { path: '/hod', label: 'HOD Analytics', icon: GraduationCap },
+  { path: '/faculty', label: 'Faculty Mentor', icon: UserCheck },
+  { path: '/student', label: 'Student Portal', icon: Users },
+  { path: '/system-admin', label: 'System Admin', icon: Server },
+];
+
+const ANALYTICS_NAV_ITEMS = [
+  { path: '/campusiq/dashboard', label: 'Campus Overview', icon: BarChart3 },
+  { path: '/student-success', label: 'Success Intelligence', icon: Radio, badge: 'Radar' },
+  { path: '/campusiq/students', label: 'Student Directory', icon: Users },
+  { path: '/campusiq/segments', label: '4-Quadrant Matrix', icon: Layers },
+  { path: '/campusiq/simulator', label: 'What-If Simulator', icon: Sliders, badge: 'Sim' },
+  { path: '/interventions', label: 'Action Intelligence', icon: Target },
+  { path: '/impact-analytics', label: 'Impact Analytics', icon: TrendingUp, badge: 'ROI' },
+  { path: '/campusiq/data-hub', label: 'Data Ingestion Hub', icon: Database },
+  { path: '/reports', label: 'Reports & Export', icon: FileSpreadsheet },
+];
+
 const CAREER_NAV_ITEMS = [
-  { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { path: '/chat', label: 'AI Career Chat', icon: MessageSquare, badge: 'Hindsight' },
   { path: '/skills', label: 'Skill Assessment', icon: Award },
   { path: '/resume', label: 'Resume Evaluation', icon: FileText },
   { path: '/roadmap', label: 'Career Roadmap', icon: Map },
   { path: '/quiz', label: 'AI Quiz', icon: HelpCircle },
   { path: '/interview', label: 'Mock Interview', icon: Video },
-  { path: '/jobs', label: 'Job Matches', icon: Briefcase, badge: 'Demo' },
-  { path: '/progress', label: 'Progress & Reflect', icon: TrendingUp },
-  { path: '/status', label: 'API Test & Status', icon: Activity },
-];
-
-const CAMPUSIQ_NAV_ITEMS = [
-  { path: '/campusiq/dashboard', label: 'Campus Overview', icon: BarChart3 },
-  { path: '/campusiq/early-warning', label: 'Early-Warning Radar', icon: Radio, badge: 'Radar' },
-  { path: '/campusiq/students', label: 'Student Directory', icon: Users },
-  { path: '/campusiq/segments', label: '4-Quadrant Matrix', icon: Layers },
-  { path: '/campusiq/simulator', label: 'What-If Simulator', icon: Sliders, badge: 'Sim' },
-  { path: '/campusiq/interventions', label: 'Action Intelligence', icon: Target },
-  { path: '/campusiq/data-hub', label: 'Data Ingestion Hub', icon: Database },
-  { path: '/campusiq/reports', label: 'Reports & Export', icon: FileSpreadsheet },
+  { path: '/status', label: 'API Diagnostics', icon: Activity },
 ];
 
 export default function Sidebar() {
   return (
-    <aside className="sidebar" style={{ display: 'flex', flexDirection: 'column', height: '100vh', maxHeight: '100vh' }}>
+    <aside className="sidebar" style={{ background: 'var(--bg-secondary)', borderRight: '1px solid var(--border-card)', display: 'flex', flexDirection: 'column', height: '100vh', maxHeight: '100vh' }}>
       {/* Brand Header */}
-      <div style={{ padding: '0 8px 18px 8px', borderBottom: '1px solid var(--border-card)', flexShrink: 0 }}>
+      <div style={{ padding: '0 6px 16px 6px', borderBottom: '1px solid var(--border-card)', flexShrink: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div
             style={{
               width: '34px',
               height: '34px',
               borderRadius: '8px',
-              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+              background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-secondary) 100%)',
+              border: '1px solid rgba(198, 40, 40, 0.4)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -68,32 +80,32 @@ export default function Sidebar() {
             <BrainCircuit size={18} />
           </div>
           <div>
-            <div style={{ fontSize: '14px', fontWeight: 800, color: '#f8fafc' }}>
-              CAMPUS<span className="gradient-text">IQ</span>
+            <div style={{ fontSize: '14.5px', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.02em' }}>
+              CAMPUS<span style={{ color: 'var(--primary-hover)' }}>IQ</span>
             </div>
-            <div style={{ fontSize: '10px', color: '#94a3b8' }}>Predict • Explain • Intervene</div>
+            <div style={{ fontSize: '10px', color: 'var(--text-dim)' }}>Predict • Optimize • Intervene</div>
           </div>
         </div>
       </div>
 
-      {/* Scrollable Navigation Links */}
+      {/* Scrollable Navigation */}
       <nav
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '4px',
-          marginTop: '14px',
+          gap: '3px',
+          marginTop: '12px',
           flex: 1,
           overflowY: 'auto',
           paddingRight: '4px',
         }}
       >
-        {/* Section Header: CampusIQ */}
-        <div style={{ padding: '6px 12px', fontSize: '10px', fontWeight: 800, color: '#818cf8', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-          CampusIQ Analytics
+        {/* Section 1: Role-Based Dashboards */}
+        <div style={{ padding: '6px 10px', fontSize: '10px', fontWeight: 800, color: '#ff8a80', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+          Role Dashboards
         </div>
 
-        {CAMPUSIQ_NAV_ITEMS.map((item) => {
+        {ROLE_NAV_ITEMS.map((item) => {
           const Icon = item.icon;
           return (
             <NavLink
@@ -103,18 +115,18 @@ export default function Sidebar() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '8px 12px',
+                padding: '7px 10px',
                 borderRadius: '8px',
                 fontSize: '12.5px',
                 fontWeight: 600,
-                color: isActive ? '#ffffff' : '#94a3b8',
-                background: isActive ? 'linear-gradient(90deg, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0.08) 100%)' : 'transparent',
-                borderLeft: isActive ? '3px solid #6366f1' : '3px solid transparent',
+                color: isActive ? '#ffffff' : 'var(--text-muted)',
+                background: isActive ? 'var(--primary-light)' : 'transparent',
+                borderLeft: isActive ? '3px solid var(--primary-hover)' : '3px solid transparent',
                 transition: 'all 0.15s ease',
               })}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Icon size={16} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
+                <Icon size={15} />
                 <span>{item.label}</span>
               </div>
               {item.badge && (
@@ -124,10 +136,8 @@ export default function Sidebar() {
                     fontWeight: 700,
                     padding: '2px 5px',
                     borderRadius: '4px',
-                    background: item.badge === 'Radar' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(6, 182, 212, 0.2)',
-                    color: item.badge === 'Radar' ? '#f87171' : '#67e8f9',
-                    letterSpacing: '0.04em',
-                    textTransform: 'uppercase',
+                    background: 'rgba(198, 40, 40, 0.25)',
+                    color: '#ff8a80',
                   }}
                 >
                   {item.badge}
@@ -137,10 +147,58 @@ export default function Sidebar() {
           );
         })}
 
-        {/* Section Divider & Header: Career Guidance */}
-        <div style={{ margin: '12px 0 6px 0', borderTop: '1px solid rgba(255, 255, 255, 0.06)' }} />
-        <div style={{ padding: '4px 12px', fontSize: '10px', fontWeight: 800, color: '#64748b', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-          Career Guidance & AI
+        {/* Section 2: Student Success Analytics */}
+        <div style={{ margin: '10px 0 4px 0', borderTop: '1px solid var(--border-card)' }} />
+        <div style={{ padding: '4px 10px', fontSize: '10px', fontWeight: 800, color: 'var(--text-dim)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+          Success Intelligence
+        </div>
+
+        {ANALYTICS_NAV_ITEMS.map((item) => {
+          const Icon = item.icon;
+          return (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              style={({ isActive }) => ({
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '7px 10px',
+                borderRadius: '8px',
+                fontSize: '12.5px',
+                fontWeight: 600,
+                color: isActive ? '#ffffff' : 'var(--text-muted)',
+                background: isActive ? 'var(--primary-light)' : 'transparent',
+                borderLeft: isActive ? '3px solid var(--primary-hover)' : '3px solid transparent',
+                transition: 'all 0.15s ease',
+              })}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
+                <Icon size={15} />
+                <span>{item.label}</span>
+              </div>
+              {item.badge && (
+                <span
+                  style={{
+                    fontSize: '9px',
+                    fontWeight: 700,
+                    padding: '2px 5px',
+                    borderRadius: '4px',
+                    background: item.badge === 'Radar' ? 'rgba(198, 40, 40, 0.25)' : 'rgba(6, 182, 212, 0.2)',
+                    color: item.badge === 'Radar' ? '#ff8a80' : '#67e8f9',
+                  }}
+                >
+                  {item.badge}
+                </span>
+              )}
+            </NavLink>
+          );
+        })}
+
+        {/* Section 3: AI Career Suite */}
+        <div style={{ margin: '10px 0 4px 0', borderTop: '1px solid var(--border-card)' }} />
+        <div style={{ padding: '4px 10px', fontSize: '10px', fontWeight: 800, color: 'var(--text-dim)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+          AI Career & Hindsight
         </div>
 
         {CAREER_NAV_ITEMS.map((item) => {
@@ -153,18 +211,18 @@ export default function Sidebar() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '8px 12px',
+                padding: '7px 10px',
                 borderRadius: '8px',
                 fontSize: '12.5px',
                 fontWeight: 600,
-                color: isActive ? '#ffffff' : '#94a3b8',
-                background: isActive ? 'linear-gradient(90deg, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0.08) 100%)' : 'transparent',
-                borderLeft: isActive ? '3px solid #6366f1' : '3px solid transparent',
+                color: isActive ? '#ffffff' : 'var(--text-muted)',
+                background: isActive ? 'var(--primary-light)' : 'transparent',
+                borderLeft: isActive ? '3px solid var(--primary-hover)' : '3px solid transparent',
                 transition: 'all 0.15s ease',
               })}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Icon size={16} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
+                <Icon size={15} />
                 <span>{item.label}</span>
               </div>
               {item.badge && (
@@ -174,10 +232,8 @@ export default function Sidebar() {
                     fontWeight: 700,
                     padding: '2px 5px',
                     borderRadius: '4px',
-                    background: item.badge === 'Hindsight' ? 'rgba(99, 102, 241, 0.25)' : 'rgba(6, 182, 212, 0.2)',
-                    color: item.badge === 'Hindsight' ? '#a5b4fc' : '#67e8f9',
-                    letterSpacing: '0.04em',
-                    textTransform: 'uppercase',
+                    background: 'rgba(139, 0, 0, 0.25)',
+                    color: '#ff8a80',
                   }}
                 >
                   {item.badge}
@@ -188,25 +244,22 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Sidebar Footer */}
+      {/* Footer Info */}
       <div
         style={{
           marginTop: 'auto',
-          padding: '12px 14px',
-          background: 'rgba(30, 41, 59, 0.4)',
-          borderRadius: '10px',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
+          padding: '10px 12px',
+          background: 'var(--bg-surface)',
+          borderRadius: '8px',
+          border: '1px solid var(--border-card)',
           flexShrink: 0,
         }}
       >
-        <div style={{ fontSize: '10px', color: '#94a3b8', marginBottom: '4px' }}>
-          🧠 Dual Engine Architecture
+        <div style={{ fontSize: '10px', color: 'var(--text-dim)', marginBottom: '2px' }}>
+          Enterprise Core
         </div>
-        <div style={{ fontSize: '11px', fontWeight: 600, color: '#e2e8f0', display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <span>Hindsight Cloud • CampusIQ</span>
-        </div>
-        <div style={{ fontSize: '9px', color: '#64748b', marginTop: '2px' }}>
-          Biomimetic Memory & Analytics
+        <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-main)' }}>
+          CampusIQ • Hindsight Cloud
         </div>
       </div>
     </aside>

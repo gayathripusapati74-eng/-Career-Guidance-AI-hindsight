@@ -179,21 +179,21 @@ export default function CampusIQInterventionsPage() {
   const pendingCount = interventions.filter((i) => i.status === 'Pending').length;
 
   return (
-    <div className="page-container" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div className="page-container" style={{ padding: '24px 32px', maxWidth: '1440px', margin: '0 auto', backgroundColor: 'var(--bg-primary)' }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 700, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <span style={{ fontSize: '11.5px', fontWeight: 800, padding: '3px 8px', borderRadius: '4px', background: 'var(--primary-light)', color: 'var(--primary-hover)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               CampusIQ • Action Intelligence
             </span>
-            <span style={{ color: '#475569' }}>/</span>
-            <span style={{ fontSize: '12px', color: '#94a3b8' }}>Human-in-the-Loop Interventions</span>
+            <span style={{ color: 'var(--border-card)' }}>/</span>
+            <span style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>Human-in-the-Loop Interventions</span>
           </div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+          <h1 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
             Intervention Management & Outcomes
           </h1>
-          <p style={{ fontSize: '13px', color: '#94a3b8', margin: '4px 0 0 0' }}>
+          <p style={{ fontSize: '13.5px', color: 'var(--text-muted)', margin: '4px 0 0 0' }}>
             Track targeted academic tutorials, placement bootcamps, and counseling actions from assignment to resolution
           </p>
         </div>
@@ -206,14 +206,14 @@ export default function CampusIQInterventionsPage() {
             alignItems: 'center',
             gap: '8px',
             padding: '10px 18px',
-            background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
+            background: 'linear-gradient(135deg, var(--primary), var(--primary-secondary))',
             border: 'none',
             borderRadius: '10px',
             color: '#ffffff',
             fontSize: '13px',
             fontWeight: 700,
             cursor: 'pointer',
-            boxShadow: '0 4px 14px rgba(99, 102, 241, 0.3)',
+            boxShadow: '0 4px 14px rgba(139, 0, 0, 0.4)',
           }}
         >
           <Plus size={16} />
@@ -223,36 +223,36 @@ export default function CampusIQInterventionsPage() {
 
       {/* Summary KPI Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', marginBottom: '24px' }}>
-        <div style={{ background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '14px', padding: '16px' }}>
-          <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '4px' }}>Total Interventions</div>
-          <div style={{ fontSize: '24px', fontWeight: 800, color: '#f8fafc' }}>{totalCount}</div>
-          <div style={{ fontSize: '11px', color: '#64748b', marginTop: '4px' }}>Across all campus cohorts</div>
+        <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-card)', borderRadius: '14px', padding: '16px' }}>
+          <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Total Interventions</div>
+          <div style={{ fontSize: '24px', fontWeight: 800, color: 'var(--text-main)' }}>{totalCount}</div>
+          <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '4px' }}>Across all campus cohorts</div>
         </div>
 
-        <div style={{ background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(99, 102, 241, 0.3)', borderRadius: '14px', padding: '16px' }}>
-          <div style={{ fontSize: '12px', color: '#a5b4fc', marginBottom: '4px' }}>Active In-Progress</div>
-          <div style={{ fontSize: '24px', fontWeight: 800, color: '#818cf8' }}>{inProgressCount}</div>
-          <div style={{ fontSize: '11px', color: '#64748b', marginTop: '4px' }}>Under mentor supervision</div>
+        <div style={{ background: 'var(--bg-card)', border: '1px solid var(--primary-border)', borderRadius: '14px', padding: '16px' }}>
+          <div style={{ fontSize: '12px', color: 'var(--primary-hover)', marginBottom: '4px' }}>Active In-Progress</div>
+          <div style={{ fontSize: '24px', fontWeight: 800, color: 'var(--primary-hover)' }}>{inProgressCount}</div>
+          <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '4px' }}>Under mentor supervision</div>
         </div>
 
-        <div style={{ background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(245, 158, 11, 0.3)', borderRadius: '14px', padding: '16px' }}>
+        <div style={{ background: 'var(--bg-card)', border: '1px solid rgba(245, 158, 11, 0.3)', borderRadius: '14px', padding: '16px' }}>
           <div style={{ fontSize: '12px', color: '#fcd34d', marginBottom: '4px' }}>Pending Assignment</div>
           <div style={{ fontSize: '24px', fontWeight: 800, color: '#f59e0b' }}>{pendingCount}</div>
-          <div style={{ fontSize: '11px', color: '#64748b', marginTop: '4px' }}>Awaiting faculty review</div>
+          <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '4px' }}>Awaiting faculty review</div>
         </div>
 
-        <div style={{ background: 'rgba(30, 41, 59, 0.6)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '14px', padding: '16px' }}>
+        <div style={{ background: 'var(--bg-card)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '14px', padding: '16px' }}>
           <div style={{ fontSize: '12px', color: '#6ee7b7', marginBottom: '4px' }}>Completed & Resolved</div>
           <div style={{ fontSize: '24px', fontWeight: 800, color: '#10b981' }}>{completedCount}</div>
-          <div style={{ fontSize: '11px', color: '#64748b', marginTop: '4px' }}>Post-outcome verified</div>
+          <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '4px' }}>Post-outcome verified</div>
         </div>
       </div>
 
       {/* Filter Bar */}
       <div
         style={{
-          background: 'rgba(30, 41, 59, 0.5)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-card)',
           borderRadius: '14px',
           padding: '14px 18px',
           display: 'flex',
@@ -264,8 +264,8 @@ export default function CampusIQInterventionsPage() {
         }}
       >
         {/* Search */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(15, 23, 42, 0.6)', padding: '6px 12px', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.06)', width: '260px' }}>
-          <Search size={14} color="#94a3b8" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--bg-surface)', padding: '6px 12px', borderRadius: '8px', border: '1px solid var(--border-card)', width: '260px' }}>
+          <Search size={14} color="var(--text-muted)" />
           <input
             type="text"
             placeholder="Search by student or action..."
@@ -274,7 +274,7 @@ export default function CampusIQInterventionsPage() {
             style={{
               background: 'transparent',
               border: 'none',
-              color: '#f8fafc',
+              color: 'var(--text-main)',
               fontSize: '12px',
               outline: 'none',
               width: '100%',
@@ -288,60 +288,60 @@ export default function CampusIQInterventionsPage() {
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
             style={{
-              background: 'rgba(15, 23, 42, 0.6)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              color: '#cbd5e1',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-card)',
+              color: 'var(--text-main)',
               padding: '6px 10px',
               borderRadius: '8px',
               fontSize: '12px',
               outline: 'none',
             }}
           >
-            <option value="All">All Statuses</option>
-            <option value="In-Progress">In-Progress</option>
-            <option value="Pending">Pending</option>
-            <option value="Completed">Completed</option>
+            <option value="All" style={{ background: '#0D0D0D' }}>All Statuses</option>
+            <option value="In-Progress" style={{ background: '#0D0D0D' }}>In-Progress</option>
+            <option value="Pending" style={{ background: '#0D0D0D' }}>Pending</option>
+            <option value="Completed" style={{ background: '#0D0D0D' }}>Completed</option>
           </select>
 
           <select
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
             style={{
-              background: 'rgba(15, 23, 42, 0.6)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              color: '#cbd5e1',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-card)',
+              color: 'var(--text-main)',
               padding: '6px 10px',
               borderRadius: '8px',
               fontSize: '12px',
               outline: 'none',
             }}
           >
-            <option value="All">All Priorities</option>
-            <option value="Critical">Critical</option>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
+            <option value="All" style={{ background: '#0D0D0D' }}>All Priorities</option>
+            <option value="Critical" style={{ background: '#0D0D0D' }}>Critical</option>
+            <option value="High" style={{ background: '#0D0D0D' }}>High</option>
+            <option value="Medium" style={{ background: '#0D0D0D' }}>Medium</option>
+            <option value="Low" style={{ background: '#0D0D0D' }}>Low</option>
           </select>
 
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
             style={{
-              background: 'rgba(15, 23, 42, 0.6)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              color: '#cbd5e1',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-card)',
+              color: 'var(--text-main)',
               padding: '6px 10px',
               borderRadius: '8px',
               fontSize: '12px',
               outline: 'none',
             }}
           >
-            <option value="All">All Categories</option>
-            <option value="Academic Remedial">Academic Remedial</option>
-            <option value="Placement Accelerator">Placement Accelerator</option>
-            <option value="Attendance Recovery">Attendance Recovery</option>
-            <option value="1-on-1 Mentorship">1-on-1 Mentorship</option>
-            <option value="Wellness Support">Wellness Support</option>
+            <option value="All" style={{ background: '#0D0D0D' }}>All Categories</option>
+            <option value="Academic Remedial" style={{ background: '#0D0D0D' }}>Academic Remedial</option>
+            <option value="Placement Accelerator" style={{ background: '#0D0D0D' }}>Placement Accelerator</option>
+            <option value="Attendance Recovery" style={{ background: '#0D0D0D' }}>Attendance Recovery</option>
+            <option value="1-on-1 Mentorship" style={{ background: '#0D0D0D' }}>1-on-1 Mentorship</option>
+            <option value="Wellness Support" style={{ background: '#0D0D0D' }}>Wellness Support</option>
           </select>
 
           <button
@@ -352,15 +352,15 @@ export default function CampusIQInterventionsPage() {
               alignItems: 'center',
               gap: '6px',
               padding: '6px 12px',
-              background: 'rgba(255, 255, 255, 0.06)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-card)',
               borderRadius: '8px',
-              color: '#cbd5e1',
+              color: 'var(--text-main)',
               fontSize: '12px',
               cursor: 'pointer',
             }}
           >
-            <RefreshCw size={13} className={loading ? 'spin' : ''} />
+            <RefreshCw size={13} className={loading ? 'spin' : ''} style={{ color: 'var(--primary-hover)' }} />
             <span>Sync</span>
           </button>
         </div>
@@ -369,8 +369,8 @@ export default function CampusIQInterventionsPage() {
       {/* Interventions Table / Cards */}
       <div
         style={{
-          background: 'rgba(30, 41, 59, 0.6)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-card)',
           borderRadius: '16px',
           overflow: 'hidden',
         }}
@@ -378,7 +378,7 @@ export default function CampusIQInterventionsPage() {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '12px' }}>
             <thead>
-              <tr style={{ background: 'rgba(15, 23, 42, 0.6)', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', color: '#94a3b8' }}>
+              <tr style={{ background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-card)', color: 'var(--text-muted)' }}>
                 <th style={{ padding: '12px 16px', fontWeight: 600 }}>ACTION ID & STUDENT</th>
                 <th style={{ padding: '12px 16px', fontWeight: 600 }}>CONCERN & RECOMMENDED ACTION</th>
                 <th style={{ padding: '12px 16px', fontWeight: 600 }}>CATEGORY & PRIORITY</th>
@@ -391,7 +391,7 @@ export default function CampusIQInterventionsPage() {
             <tbody>
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={7} style={{ padding: '36px', textAlign: 'center', color: '#94a3b8' }}>
+                  <td colSpan={7} style={{ padding: '36px', textAlign: 'center', color: 'var(--text-muted)' }}>
                     No interventions found matching criteria.
                   </td>
                 </tr>
@@ -404,29 +404,29 @@ export default function CampusIQInterventionsPage() {
                     <tr
                       key={item.interventionId}
                       style={{
-                        borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+                        borderBottom: '1px solid #201515',
                         transition: 'background 0.15s ease',
                       }}
                     >
                       {/* ID & Student */}
                       <td style={{ padding: '14px 16px' }}>
-                        <div style={{ fontSize: '11px', fontFamily: 'monospace', color: '#818cf8', fontWeight: 700 }}>
+                        <div style={{ fontSize: '11px', fontFamily: 'monospace', color: 'var(--primary-hover)', fontWeight: 700 }}>
                           {item.interventionId}
                         </div>
-                        <div style={{ fontWeight: 700, color: '#f8fafc', marginTop: '2px' }}>
+                        <div style={{ fontWeight: 700, color: 'var(--text-main)', marginTop: '2px' }}>
                           {item.studentName}
                         </div>
-                        <div style={{ fontSize: '11px', color: '#64748b' }}>
+                        <div style={{ fontSize: '11px', color: 'var(--text-dim)' }}>
                           {item.studentId} • {item.department}
                         </div>
                       </td>
 
                       {/* Concern & Action */}
                       <td style={{ padding: '14px 16px', maxWidth: '300px' }}>
-                        <div style={{ fontWeight: 600, color: '#e2e8f0', marginBottom: '4px' }}>
+                        <div style={{ fontWeight: 600, color: 'var(--text-main)', marginBottom: '4px' }}>
                           {item.concernTitle}
                         </div>
-                        <div style={{ fontSize: '11px', color: '#94a3b8', lineHeight: 1.4 }}>
+                        <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: 1.4 }}>
                           {item.recommendedAction}
                         </div>
                       </td>
@@ -440,8 +440,9 @@ export default function CampusIQInterventionsPage() {
                             borderRadius: '4px',
                             fontSize: '10px',
                             fontWeight: 700,
-                            background: 'rgba(99, 102, 241, 0.15)',
-                            color: '#a5b4fc',
+                            background: 'var(--primary-light)',
+                            color: 'var(--primary-hover)',
+                            border: '1px solid var(--primary-border)',
                             marginBottom: '4px',
                           }}
                         >
@@ -454,7 +455,7 @@ export default function CampusIQInterventionsPage() {
                               fontWeight: 700,
                               color:
                                 item.priority === 'Critical'
-                                  ? '#ef4444'
+                                  ? 'var(--primary-hover)'
                                   : item.priority === 'High'
                                   ? '#f97316'
                                   : '#10b981',
@@ -467,8 +468,8 @@ export default function CampusIQInterventionsPage() {
 
                       {/* Mentor & Dates */}
                       <td style={{ padding: '14px 16px' }}>
-                        <div style={{ fontWeight: 600, color: '#f1f5f9' }}>{item.mentorAssigned}</div>
-                        <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
+                        <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>{item.mentorAssigned}</div>
+                        <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '2px' }}>
                           Due: {new Date(item.dueDate).toLocaleDateString()}
                         </div>
                       </td>
@@ -488,8 +489,9 @@ export default function CampusIQInterventionsPage() {
                               ? 'rgba(16, 185, 129, 0.15)'
                               : isPending
                               ? 'rgba(245, 158, 11, 0.15)'
-                              : 'rgba(99, 102, 241, 0.15)',
-                            color: isCompleted ? '#10b981' : isPending ? '#f59e0b' : '#818cf8',
+                              : 'var(--primary-light)',
+                            color: isCompleted ? '#10b981' : isPending ? '#f59e0b' : 'var(--primary-hover)',
+                            border: `1px solid ${isCompleted ? 'rgba(16, 185, 129, 0.3)' : isPending ? 'rgba(245, 158, 11, 0.3)' : 'var(--primary-border)'}`,
                           }}
                         >
                           {isCompleted ? <CheckCircle2 size={12} /> : <Clock size={12} />}
@@ -504,7 +506,7 @@ export default function CampusIQInterventionsPage() {
                             {item.observedChanges.qualitativeSummary}
                           </div>
                         ) : (
-                          <div style={{ fontSize: '11px', color: '#64748b', fontStyle: 'italic' }}>
+                          <div style={{ fontSize: '11px', color: 'var(--text-dim)', fontStyle: 'italic' }}>
                             Awaiting follow-up assessment
                           </div>
                         )}
@@ -520,10 +522,10 @@ export default function CampusIQInterventionsPage() {
                           }}
                           style={{
                             padding: '6px 12px',
-                            background: 'rgba(255, 255, 255, 0.06)',
-                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                            background: 'var(--bg-surface)',
+                            border: '1px solid var(--border-card)',
                             borderRadius: '6px',
-                            color: '#cbd5e1',
+                            color: 'var(--text-main)',
                             fontSize: '11px',
                             fontWeight: 600,
                             cursor: 'pointer',
@@ -547,7 +549,7 @@ export default function CampusIQInterventionsPage() {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0, 0, 0, 0.7)',
+            background: 'rgba(0, 0, 0, 0.8)',
             backdropFilter: 'blur(4px)',
             display: 'flex',
             alignItems: 'center',
@@ -558,8 +560,8 @@ export default function CampusIQInterventionsPage() {
         >
           <div
             style={{
-              background: '#0f172a',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-card)',
               borderRadius: '16px',
               maxWidth: '560px',
               width: '100%',
@@ -570,14 +572,14 @@ export default function CampusIQInterventionsPage() {
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Target size={20} color="#6366f1" />
-                <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+                <Target size={20} color="var(--primary-hover)" />
+                <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
                   Assign Targeted Intervention
                 </h3>
               </div>
               <button
                 onClick={() => setShowCreateModal(false)}
-                style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer' }}
+                style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}
               >
                 <X size={20} />
               </button>
@@ -586,7 +588,7 @@ export default function CampusIQInterventionsPage() {
             <form onSubmit={handleCreateSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {/* Student Picker */}
               <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                   Target Student
                 </label>
                 <select
@@ -596,15 +598,15 @@ export default function CampusIQInterventionsPage() {
                     width: '100%',
                     padding: '10px',
                     borderRadius: '8px',
-                    background: '#1e293b',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    color: '#f8fafc',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-card)',
+                    color: 'var(--text-main)',
                     fontSize: '13px',
                     outline: 'none',
                   }}
                 >
                   {studentsList.map((st) => (
-                    <option key={st.studentId} value={st.studentId}>
+                    <option key={st.studentId} value={st.studentId} style={{ background: '#0D0D0D' }}>
                       {st.name} ({st.studentId} - {st.department}) • Score: {st.computed?.successScore}
                     </option>
                   ))}
@@ -613,7 +615,7 @@ export default function CampusIQInterventionsPage() {
 
               {/* Concern Title */}
               <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                   Concern Title
                 </label>
                 <input
@@ -626,9 +628,9 @@ export default function CampusIQInterventionsPage() {
                     width: '100%',
                     padding: '10px',
                     borderRadius: '8px',
-                    background: '#1e293b',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    color: '#f8fafc',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-card)',
+                    color: 'var(--text-main)',
                     fontSize: '13px',
                     outline: 'none',
                   }}
@@ -638,7 +640,7 @@ export default function CampusIQInterventionsPage() {
               {/* Grid: Category & Priority */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                     Action Category
                   </label>
                   <select
@@ -648,23 +650,23 @@ export default function CampusIQInterventionsPage() {
                       width: '100%',
                       padding: '10px',
                       borderRadius: '8px',
-                      background: '#1e293b',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
-                      color: '#f8fafc',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-card)',
+                      color: 'var(--text-main)',
                       fontSize: '13px',
                       outline: 'none',
                     }}
                   >
-                    <option value="Academic Remedial">Academic Remedial</option>
-                    <option value="Placement Accelerator">Placement Accelerator</option>
-                    <option value="Attendance Recovery">Attendance Recovery</option>
-                    <option value="1-on-1 Mentorship">1-on-1 Mentorship</option>
-                    <option value="Wellness Support">Wellness Support</option>
+                    <option value="Academic Remedial" style={{ background: '#0D0D0D' }}>Academic Remedial</option>
+                    <option value="Placement Accelerator" style={{ background: '#0D0D0D' }}>Placement Accelerator</option>
+                    <option value="Attendance Recovery" style={{ background: '#0D0D0D' }}>Attendance Recovery</option>
+                    <option value="1-on-1 Mentorship" style={{ background: '#0D0D0D' }}>1-on-1 Mentorship</option>
+                    <option value="Wellness Support" style={{ background: '#0D0D0D' }}>Wellness Support</option>
                   </select>
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                     Priority Level
                   </label>
                   <select
@@ -674,24 +676,24 @@ export default function CampusIQInterventionsPage() {
                       width: '100%',
                       padding: '10px',
                       borderRadius: '8px',
-                      background: '#1e293b',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
-                      color: '#f8fafc',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-card)',
+                      color: 'var(--text-main)',
                       fontSize: '13px',
                       outline: 'none',
                     }}
                   >
-                    <option value="Critical">Critical</option>
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
+                    <option value="Critical" style={{ background: '#0D0D0D' }}>Critical</option>
+                    <option value="High" style={{ background: '#0D0D0D' }}>High</option>
+                    <option value="Medium" style={{ background: '#0D0D0D' }}>Medium</option>
+                    <option value="Low" style={{ background: '#0D0D0D' }}>Low</option>
                   </select>
                 </div>
               </div>
 
               {/* Recommended Action */}
               <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                   Recommended Action Specification
                 </label>
                 <textarea
@@ -704,9 +706,9 @@ export default function CampusIQInterventionsPage() {
                     width: '100%',
                     padding: '10px',
                     borderRadius: '8px',
-                    background: '#1e293b',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    color: '#f8fafc',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-card)',
+                    color: 'var(--text-main)',
                     fontSize: '13px',
                     outline: 'none',
                   }}
@@ -715,7 +717,7 @@ export default function CampusIQInterventionsPage() {
 
               {/* Mentor */}
               <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                   Assigning Mentor / Faculty Lead
                 </label>
                 <input
@@ -726,9 +728,9 @@ export default function CampusIQInterventionsPage() {
                     width: '100%',
                     padding: '10px',
                     borderRadius: '8px',
-                    background: '#1e293b',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    color: '#f8fafc',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-card)',
+                    color: 'var(--text-main)',
                     fontSize: '13px',
                     outline: 'none',
                   }}
@@ -742,9 +744,9 @@ export default function CampusIQInterventionsPage() {
                   onClick={() => setShowCreateModal(false)}
                   style={{
                     padding: '10px 16px',
-                    background: 'rgba(255, 255, 255, 0.06)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    color: '#cbd5e1',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-card)',
+                    color: 'var(--text-muted)',
                     borderRadius: '8px',
                     cursor: 'pointer',
                     fontSize: '13px',
@@ -757,13 +759,14 @@ export default function CampusIQInterventionsPage() {
                   disabled={submitting}
                   style={{
                     padding: '10px 20px',
-                    background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
+                    background: 'linear-gradient(135deg, var(--primary), var(--primary-secondary))',
                     border: 'none',
                     color: '#ffffff',
                     borderRadius: '8px',
                     fontWeight: 700,
                     cursor: submitting ? 'not-allowed' : 'pointer',
                     fontSize: '13px',
+                    boxShadow: '0 4px 14px rgba(139, 0, 0, 0.4)',
                   }}
                 >
                   {submitting ? 'Creating...' : 'Confirm & Assign'}
@@ -780,7 +783,7 @@ export default function CampusIQInterventionsPage() {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0, 0, 0, 0.7)',
+            background: 'rgba(0, 0, 0, 0.8)',
             backdropFilter: 'blur(4px)',
             display: 'flex',
             alignItems: 'center',
@@ -791,8 +794,8 @@ export default function CampusIQInterventionsPage() {
         >
           <div
             style={{
-              background: '#0f172a',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-card)',
               borderRadius: '16px',
               maxWidth: '560px',
               width: '100%',
@@ -801,16 +804,16 @@ export default function CampusIQInterventionsPage() {
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <div>
-                <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
                   Update Intervention Status & Outcome
                 </h3>
-                <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '2px' }}>
                   {selectedIntervention.interventionId} • {selectedIntervention.studentName}
                 </div>
               </div>
               <button
                 onClick={() => setShowUpdateModal(false)}
-                style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer' }}
+                style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}
               >
                 <X size={20} />
               </button>
@@ -818,7 +821,7 @@ export default function CampusIQInterventionsPage() {
 
             <form onSubmit={handleUpdateSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                   Intervention Status
                 </label>
                 <select
@@ -828,27 +831,27 @@ export default function CampusIQInterventionsPage() {
                     width: '100%',
                     padding: '10px',
                     borderRadius: '8px',
-                    background: '#1e293b',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    color: '#f8fafc',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-card)',
+                    color: 'var(--text-main)',
                     fontSize: '13px',
                     outline: 'none',
                   }}
                 >
-                  <option value="Completed">Completed (Outcome Achieved)</option>
-                  <option value="In-Progress">In-Progress (Continuing Action)</option>
-                  <option value="Pending">Pending (Under Initial Review)</option>
+                  <option value="Completed" style={{ background: '#0D0D0D' }}>Completed (Outcome Achieved)</option>
+                  <option value="In-Progress" style={{ background: '#0D0D0D' }}>In-Progress (Continuing Action)</option>
+                  <option value="Pending" style={{ background: '#0D0D0D' }}>Pending (Under Initial Review)</option>
                 </select>
               </div>
 
               {/* Follow-up Measured Indicators */}
-              <div style={{ background: 'rgba(15, 23, 42, 0.6)', padding: '14px', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: '#a5b4fc', marginBottom: '10px' }}>
+              <div style={{ background: 'var(--bg-surface)', padding: '14px', borderRadius: '10px', border: '1px solid var(--border-card)' }}>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--primary-hover)', marginBottom: '10px' }}>
                   Record Measured Follow-Up Indicators (Optional)
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '11px', color: '#94a3b8', marginBottom: '4px' }}>
+                    <label style={{ display: 'block', fontSize: '11px', color: 'var(--text-muted)', marginBottom: '4px' }}>
                       Follow-up Att %
                     </label>
                     <input
@@ -856,11 +859,11 @@ export default function CampusIQInterventionsPage() {
                       placeholder="e.g. 78"
                       value={followUpAttendance}
                       onChange={(e) => setFollowUpAttendance(e.target.value)}
-                      style={{ width: '100%', padding: '8px', borderRadius: '6px', background: '#1e293b', border: '1px solid rgba(255,255,255,0.1)', color: '#f8fafc', fontSize: '12px' }}
+                      style={{ width: '100%', padding: '8px', borderRadius: '6px', background: 'var(--bg-card)', border: '1px solid var(--border-card)', color: 'var(--text-main)', fontSize: '12px' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '11px', color: '#94a3b8', marginBottom: '4px' }}>
+                    <label style={{ display: 'block', fontSize: '11px', color: 'var(--text-muted)', marginBottom: '4px' }}>
                       Follow-up Coding
                     </label>
                     <input
@@ -868,11 +871,11 @@ export default function CampusIQInterventionsPage() {
                       placeholder="e.g. 62"
                       value={followUpCoding}
                       onChange={(e) => setFollowUpCoding(e.target.value)}
-                      style={{ width: '100%', padding: '8px', borderRadius: '6px', background: '#1e293b', border: '1px solid rgba(255,255,255,0.1)', color: '#f8fafc', fontSize: '12px' }}
+                      style={{ width: '100%', padding: '8px', borderRadius: '6px', background: 'var(--bg-card)', border: '1px solid var(--border-card)', color: 'var(--text-main)', fontSize: '12px' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '11px', color: '#94a3b8', marginBottom: '4px' }}>
+                    <label style={{ display: 'block', fontSize: '11px', color: 'var(--text-muted)', marginBottom: '4px' }}>
                       Success Score
                     </label>
                     <input
@@ -880,7 +883,7 @@ export default function CampusIQInterventionsPage() {
                       placeholder="e.g. 70"
                       value={followUpScore}
                       onChange={(e) => setFollowUpScore(e.target.value)}
-                      style={{ width: '100%', padding: '8px', borderRadius: '6px', background: '#1e293b', border: '1px solid rgba(255,255,255,0.1)', color: '#f8fafc', fontSize: '12px' }}
+                      style={{ width: '100%', padding: '8px', borderRadius: '6px', background: 'var(--bg-card)', border: '1px solid var(--border-card)', color: 'var(--text-main)', fontSize: '12px' }}
                     />
                   </div>
                 </div>
@@ -888,7 +891,7 @@ export default function CampusIQInterventionsPage() {
 
               {/* Progress Note */}
               <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '6px' }}>
                   Mentor / Reviewer Note
                 </label>
                 <textarea
@@ -900,9 +903,9 @@ export default function CampusIQInterventionsPage() {
                     width: '100%',
                     padding: '10px',
                     borderRadius: '8px',
-                    background: '#1e293b',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    color: '#f8fafc',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-card)',
+                    color: 'var(--text-main)',
                     fontSize: '13px',
                     outline: 'none',
                   }}
@@ -916,9 +919,9 @@ export default function CampusIQInterventionsPage() {
                   onClick={() => setShowUpdateModal(false)}
                   style={{
                     padding: '10px 16px',
-                    background: 'rgba(255, 255, 255, 0.06)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    color: '#cbd5e1',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-card)',
+                    color: 'var(--text-muted)',
                     borderRadius: '8px',
                     cursor: 'pointer',
                     fontSize: '13px',
@@ -931,13 +934,14 @@ export default function CampusIQInterventionsPage() {
                   disabled={submitting}
                   style={{
                     padding: '10px 20px',
-                    background: 'linear-gradient(135deg, #10b981, #059669)',
+                    background: 'linear-gradient(135deg, var(--primary), var(--primary-secondary))',
                     border: 'none',
                     color: '#ffffff',
                     borderRadius: '8px',
                     fontWeight: 700,
                     cursor: submitting ? 'not-allowed' : 'pointer',
                     fontSize: '13px',
+                    boxShadow: '0 4px 14px rgba(139, 0, 0, 0.4)',
                   }}
                 >
                   {submitting ? 'Saving...' : 'Save & Record Outcome'}
