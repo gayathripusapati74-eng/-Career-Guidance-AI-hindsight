@@ -28,6 +28,23 @@ const chatMessageSchema = new mongoose.Schema(
       success: Boolean,
       summary: String,
     },
+    metricCards: [
+      {
+        label: String,
+        value: String,
+        status: String,
+      },
+    ],
+    quickActions: [
+      {
+        label: String,
+        path: String,
+      },
+    ],
+    createdReminder: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+    },
   },
   {
     timestamps: true,

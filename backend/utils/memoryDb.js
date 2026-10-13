@@ -182,6 +182,114 @@ dataImports.push(
   }
 );
 
+const reminders = new Map();
+
+// Seed realistic initial reminders for Faculty and Student personas
+(function seedReminders() {
+  const seedList = [
+    {
+      id: 'rem-fac-001',
+      _id: 'rem-fac-001',
+      user: 'user-faculty-cse-001',
+      title: 'Follow up with Aarav Sharma on attendance recovery plan (target 75%)',
+      description: 'Aarav has 68% attendance. Needs 16 consecutive classes to cross 75% threshold before Mid-terms.',
+      category: 'attendance',
+      priority: 'urgent',
+      dueDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 2),
+      relatedStudentId: 'STU2026-001',
+      relatedStudentName: 'Aarav Sharma',
+      isCompleted: false,
+      completedAt: null,
+      source: 'ai_copilot',
+      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 1),
+    },
+    {
+      id: 'rem-fac-002',
+      _id: 'rem-fac-002',
+      user: 'user-faculty-cse-001',
+      title: 'Review Mid-term Coding Assessment performance for CSE Section A',
+      description: 'Audit 5 students with CGPA > 7.5 but coding assessment score < 50 for placement bootcamp enrollment.',
+      category: 'placement',
+      priority: 'high',
+      dueDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 4),
+      relatedStudentId: null,
+      relatedStudentName: null,
+      isCompleted: false,
+      completedAt: null,
+      source: 'manual',
+      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2),
+    },
+    {
+      id: 'rem-fac-003',
+      _id: 'rem-fac-003',
+      user: 'user-faculty-cse-001',
+      title: 'Schedule remedial coaching for Data Structures backlogs',
+      description: 'Organize 2-hour Saturday review clinic for students with backlogs in Core CSE.',
+      category: 'academic',
+      priority: 'medium',
+      dueDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 5),
+      relatedStudentId: null,
+      relatedStudentName: null,
+      isCompleted: false,
+      completedAt: null,
+      source: 'manual',
+      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3),
+    },
+    {
+      id: 'rem-stu-001',
+      _id: 'rem-stu-001',
+      user: 'user-student-001',
+      title: 'Attend 16 consecutive lectures without absence to reach 75% attendance',
+      description: 'Current attendance is 68.3% (41/60 sessions). Must attend next 16 sessions to reach 75.0% threshold.',
+      category: 'attendance',
+      priority: 'urgent',
+      dueDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
+      relatedStudentId: 'STU2026-001',
+      relatedStudentName: 'Aarav Sharma',
+      isCompleted: false,
+      completedAt: null,
+      source: 'ai_copilot',
+      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 1),
+    },
+    {
+      id: 'rem-stu-002',
+      _id: 'rem-stu-002',
+      user: 'user-student-001',
+      title: 'Complete Algorithmic Problem Solving Assessment on CampusIQ',
+      description: 'Strengthen technical coding benchmark for placement eligibility.',
+      category: 'placement',
+      priority: 'high',
+      dueDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3),
+      relatedStudentId: 'STU2026-001',
+      relatedStudentName: 'Aarav Sharma',
+      isCompleted: false,
+      completedAt: null,
+      source: 'ai_copilot',
+      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 1),
+    },
+    {
+      id: 'rem-stu-003',
+      _id: 'rem-stu-003',
+      user: 'user-student-002',
+      title: 'Review Mock Interview feedback and schedule follow-up session',
+      description: 'Review communication and technical explanation notes with assigned mentor.',
+      category: 'mentoring',
+      priority: 'medium',
+      dueDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 4),
+      relatedStudentId: 'STU2026-004',
+      relatedStudentName: 'Sneha Iyer',
+      isCompleted: false,
+      completedAt: null,
+      source: 'ai_copilot',
+      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2),
+    },
+  ];
+
+  for (const r of seedList) {
+    reminders.set(r.id, r);
+  }
+})();
+
 module.exports = {
   users,
   assessments,
@@ -195,4 +303,6 @@ module.exports = {
   interventions,
   dataImports,
   campusiqConfig,
+  reminders,
 };
+

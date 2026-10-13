@@ -184,7 +184,7 @@ async function register(req, res) {
  */
 async function login(req, res) {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body || {};
 
     if (!email || !password) {
       return res.status(400).json({
@@ -193,7 +193,7 @@ async function login(req, res) {
       });
     }
 
-    const cleanEmail = email.toLowerCase().trim();
+    const cleanEmail = String(email).toLowerCase().trim();
     const isMongo = mongoose.connection.readyState === 1;
     let user = null;
 
@@ -221,7 +221,14 @@ async function login(req, res) {
       });
     }
 
-    const isMatch = await user.comparePassword(password);
+    let isMatch = false;
+    if (typeof user.comparePassword === 'function') {
+      isMatch = await user.comparePassword(password);
+    } else if (user.password) {
+      const bcrypt = require('bcryptjs');
+      isMatch = await bcrypt.compare(password, user.password);
+    }
+
     if (!isMatch) {
       return res.status(401).json({
         success: false,

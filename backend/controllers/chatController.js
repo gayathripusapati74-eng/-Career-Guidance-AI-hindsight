@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const ChatMessage = require('../models/ChatMessage');
 const { generateCareerChatResponse } = require('../services/ai');
+const { generateCopilotResponse } = require('../services/copilotService');
 const { recallCareerMemory, retainCareerMemory } = require('../services/hindsight');
 const { messages: memoryMessages } = require('../utils/memoryDb');
 
@@ -42,14 +43,25 @@ async function sendMessage(req, res) {
       recentHistory = memoryMessages.filter((m) => m.user === userId).slice(-6);
     }
 
-    // 3. Generate AI Guidance using Recalled Context
-    console.log(`[Chat Flow] 2. Generating AI response with ${memories.length} recalled memories`);
-    const aiResult = await generateCareerChatResponse({
-      message: cleanMessage,
-      user,
-      memories,
-      history: recentHistory,
-    });
+    // 3. Generate AI Guidance using CampusIQ Copilot Engine
+    console.log(`[Chat Flow] 2. Generating Copilot response for role: ${user.role || 'student'}`);
+    let aiResult;
+    try {
+      aiResult = await generateCopilotResponse({
+        message: cleanMessage,
+        user,
+        memories,
+        history: recentHistory,
+      });
+    } catch (copilotErr) {
+      console.warn('[Copilot Service Warn]:', copilotErr.message, 'Falling back to Career AI');
+      aiResult = await generateCareerChatResponse({
+        message: cleanMessage,
+        user,
+        memories,
+        history: recentHistory,
+      });
+    }
 
     // 4. Retain new career facts into Hindsight
     let retainedMemory = null;
@@ -91,6 +103,9 @@ async function sendMessage(req, res) {
       user: userId,
       sender: 'ai',
       text: aiResult.reply,
+      metricCards: aiResult.metricCards || [],
+      quickActions: aiResult.quickActions || [],
+      createdReminder: aiResult.createdReminder || null,
       memoriesRecalled: memories.map((m) => ({
         text: m.text,
         score: m.score,
@@ -114,6 +129,9 @@ async function sendMessage(req, res) {
     return res.json({
       success: true,
       reply: aiResult.reply,
+      metricCards: aiResult.metricCards || [],
+      quickActions: aiResult.quickActions || [],
+      createdReminder: aiResult.createdReminder || null,
       memoriesRecalled: memories,
       retainedMemory,
       hindsightConfigured: recallResult.configured,

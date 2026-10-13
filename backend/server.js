@@ -32,6 +32,7 @@ const progressRoutes = require('./routes/progressRoutes');
 const memoryRoutes = require('./routes/memoryRoutes');
 const statusRoutes = require('./routes/statusRoutes');
 const campusiqRoutes = require('./routes/campusiqRoutes');
+const reminderRoutes = require('./routes/reminderRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -78,6 +79,7 @@ app.use('/api/progress', progressRoutes);
 app.use('/api/memory', memoryRoutes);
 app.use('/api/status', statusRoutes);
 app.use('/api/campusiq', campusiqRoutes);
+app.use('/api/reminders', reminderRoutes);
 
 // Base API probe endpoint
 app.get('/', (req, res) => {
@@ -102,6 +104,7 @@ app.get('/', (req, res) => {
       memory: '/api/memory',
       status: '/api/status',
       campusiq: '/api/campusiq',
+      reminders: '/api/reminders',
     },
   });
 });
