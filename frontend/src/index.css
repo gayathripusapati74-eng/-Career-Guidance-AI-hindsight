@@ -1,29 +1,29 @@
 :root {
   /* CampusIQ Dark Black & Deep Red Theme Tokens */
-  --bg-primary: #080808;       /* Main application background */
-  --bg-secondary: #0D0D0D;     /* Sidebar / deeper background */
-  --bg-navbar: #101010;        /* Top navbar background */
-  --bg-card: #151010;          /* Cards and panels */
-  --bg-surface: #1C1112;       /* Elevated surfaces & hover rows */
+  --bg-primary: #0B0B0D;       /* Main application background */
+  --bg-secondary: #111114;     /* Sidebar / deeper background */
+  --bg-navbar: #151518;        /* Top navbar background */
+  --bg-card: #1C1C20;          /* Cards and panels */
+  --bg-surface: #222227;       /* Elevated surfaces & hover rows */
   
   /* Red Accents */
-  --primary: #8B0000;          /* Primary dark red */
-  --primary-secondary: #A31520;/* Secondary dark red */
-  --primary-hover: #C62828;    /* Hover and active accent */
-  --primary-light: rgba(139, 0, 0, 0.18);
-  --border-card: #352020;      /* Dark charcoal / subtle red border */
-  --border-focus: #C62828;     /* Focus outline */
+  --primary: #A71930;          /* Primary dark red */
+  --primary-secondary: #8B1225;/* Secondary dark red */
+  --primary-hover: #C6283D;    /* Hover and active accent */
+  --primary-light: rgba(167, 25, 48, 0.18);
+  --border-card: #333339;      /* Dark charcoal / subtle red border */
+  --border-focus: #C6283D;     /* Focus outline */
   
   /* Functional Status Accents (Restrained) */
   --accent-emerald: #10b981;   /* Only for verified positive outcomes */
   --accent-amber: #f59e0b;     /* Only for moderate warnings */
-  --accent-rose: #C62828;      /* Critical risk & high priority */
+  --accent-rose: #C6283D;      /* Critical risk & high priority */
   --accent-cyan: #06b6d4;      /* Secondary data category */
 
   /* Typography */
-  --text-main: #F5F5F5;        /* Primary high-contrast text */
+  --text-main: #FFFFFF;        /* Primary high-contrast text */
   --text-muted: #B8B0B0;       /* Secondary readable text */
-  --text-dim: #857A7A;         /* Muted annotations & metadata */
+  --text-dim: #7E7E88;         /* Muted annotations & metadata */
 
   --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -32,7 +32,7 @@
   --radius-lg: 16px;
   --radius-full: 9999px;
   --shadow-card: 0 8px 24px -4px rgba(0, 0, 0, 0.7), 0 2px 6px -2px rgba(0, 0, 0, 0.5);
-  --shadow-red-subtle: 0 4px 16px rgba(139, 0, 0, 0.25);
+  --shadow-red-subtle: 0 4px 16px rgba(167, 25, 48, 0.25);
 }
 
 * {
@@ -44,7 +44,7 @@
 body {
   background-color: var(--bg-primary);
   background-image: 
-    radial-gradient(at 0% 0%, rgba(139, 0, 0, 0.08) 0px, transparent 40%),
+    radial-gradient(at 0% 0%, rgba(167, 25, 48, 0.08) 0px, transparent 40%),
     radial-gradient(at 100% 100%, rgba(53, 32, 32, 0.15) 0px, transparent 40%);
   background-attachment: fixed;
   color: var(--text-main);
@@ -108,7 +108,7 @@ a:hover {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-secondary) 100%);
   color: #ffffff;
   border: 1px solid rgba(198, 40, 40, 0.4);
-  box-shadow: 0 4px 14px rgba(139, 0, 0, 0.35);
+  box-shadow: 0 4px 14px rgba(167, 25, 48, 0.35);
 }
 .btn-primary:hover {
   transform: translateY(-1px);
@@ -180,7 +180,7 @@ a:hover {
 .card-interactive:hover {
   transform: translateY(-2px);
   border-color: rgba(198, 40, 40, 0.45);
-  box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.7), 0 0 16px rgba(139, 0, 0, 0.2);
+  box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.7), 0 0 16px rgba(167, 25, 48, 0.2);
 }
 
 /* Badges */
@@ -196,7 +196,7 @@ a:hover {
 }
 
 .badge-primary {
-  background: rgba(139, 0, 0, 0.2);
+  background: rgba(167, 25, 48, 0.2);
   color: #ff8a80;
   border: 1px solid rgba(198, 40, 40, 0.35);
 }
@@ -245,7 +245,7 @@ a:hover {
   font-size: 13.5px;
   font-family: inherit;
   color: var(--text-main);
-  background: #0D0D0D;
+  background: #111114;
   border: 1px solid var(--border-card);
   border-radius: var(--radius-md);
   outline: none;
@@ -280,7 +280,7 @@ a:hover {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #C62828;
+  background: #C6283D;
   animation: pulseGlowRed 2s infinite;
 }
 

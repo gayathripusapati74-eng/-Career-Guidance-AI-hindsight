@@ -2,13 +2,23 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import api from '../services/api';
 
 export const INSTITUTIONAL_ROLES = [
-  { id: 'management', label: 'Management / Leadership', path: '/management', badge: 'Leadership', desc: 'Strategic campus KPIs, retention & ROI' },
-  { id: 'admin', label: 'College Administrator', path: '/admin', badge: 'Admin', desc: 'Department, course & accounts ops' },
-  { id: 'hod', label: 'HOD / Coordinator', path: '/hod', badge: 'HOD', desc: 'Department analytics & cohort reviews' },
-  { id: 'faculty', label: 'Faculty / Mentor', path: '/faculty', badge: 'Faculty', desc: 'Assigned mentees, alerts & interventions' },
-  { id: 'student', label: 'Student Portal', path: '/student', badge: 'Student', desc: 'Personal academics, revision & growth' },
-  { id: 'system_admin', label: 'System Administrator', path: '/system-admin', badge: 'SysAdmin', desc: 'Audit logs, security & integration health' },
+  { id: 'admin', label: 'Institutional Admin', path: '/admin/dashboard', badge: 'Admin', desc: 'Campus-wide analytics, at-risk radar, interventions, reports & config' },
+  { id: 'faculty', label: 'Faculty / Advisor', path: '/faculty/dashboard', badge: 'Faculty', desc: 'Assigned cohort mentees, early warnings, interventions & reviews' },
+  { id: 'student', label: 'Student Portal', path: '/student/dashboard', badge: 'Student', desc: 'Personal academics, attendance, study recommendations & AI mentor' },
 ];
+
+export function getRoleDashboardPath(role) {
+  switch (role) {
+    case 'admin':
+      return '/admin/dashboard';
+    case 'faculty':
+      return '/faculty/dashboard';
+    case 'student':
+      return '/student/dashboard';
+    default:
+      return '/student/dashboard';
+  }
+}
 
 const AuthContext = createContext(null);
 
@@ -19,10 +29,8 @@ export function AuthProvider({ children }) {
   });
   const [token, setToken] = useState(() => localStorage.getItem('token') || null);
   const [loading, setLoading] = useState(true);
-  const [currentRole, setCurrentRole] = useState(() => {
-    return localStorage.getItem('campusiq_role') || 'management';
-  });
 
+  // Sync session with server-side record on mount / token change
   useEffect(() => {
     async function checkAuth() {
       if (token) {
@@ -32,12 +40,9 @@ export function AuthProvider({ children }) {
             const userData = res.data.user;
             setUser(userData);
             localStorage.setItem('user', JSON.stringify(userData));
-            if (userData.role && !localStorage.getItem('campusiq_role')) {
-              setCurrentRole(userData.role);
-            }
           }
         } catch (err) {
-          console.warn('Session verification failed, logging out.');
+          console.warn('[Session Verification] Invalid or expired session. Logging out.');
           logout();
         }
       }
@@ -46,84 +51,113 @@ export function AuthProvider({ children }) {
     checkAuth();
   }, [token]);
 
-  const switchRole = (newRole) => {
-    setCurrentRole(newRole);
-    localStorage.setItem('campusiq_role', newRole);
-    if (user) {
-      const updatedUser = { ...user, role: newRole };
-      setUser(updatedUser);
-      localStorage.setItem('user', JSON.stringify(updatedUser));
+  // Login: Server determines and verifies role exclusively
+  const login = async (email, password) => {
+    try {
+      const res = await api.post('/auth/login', { email, password });
+      if (res.data?.success) {
+        const verifiedUser = res.data.user;
+        const verifiedRole = verifiedUser.role || 'student';
+
+        setToken(res.data.token);
+        setUser(verifiedUser);
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('user', JSON.stringify(verifiedUser));
+
+        return {
+          success: true,
+          role: verifiedRole,
+          dashboardPath: getRoleDashboardPath(verifiedRole),
+          user: verifiedUser,
+        };
+      }
+      return { success: false, message: res.data?.message || 'Login failed' };
+    } catch (err) {
+      return {
+        success: false,
+        message: err.response?.data?.message || err.message || 'Server connection failed',
+      };
     }
   };
 
-  const login = async (email, password, desiredRole = null) => {
-    const res = await api.post('/auth/login', { email, password });
-    if (res.data?.success) {
-      const roleToSet = desiredRole || res.data.user?.role || currentRole || 'management';
-      const updatedUser = { ...res.data.user, role: roleToSet };
-      setToken(res.data.token);
-      setUser(updatedUser);
-      setCurrentRole(roleToSet);
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(updatedUser));
-      localStorage.setItem('campusiq_role', roleToSet);
-      return { success: true, role: roleToSet };
-    }
-    return { success: false, message: res.data?.message || 'Login failed' };
-  };
-
+  // Register: New registrations default to student role
   const register = async (formData) => {
-    const res = await api.post('/auth/register', formData);
-    if (res.data?.success) {
-      const roleToSet = formData.role || 'management';
-      const updatedUser = { ...res.data.user, role: roleToSet };
-      setToken(res.data.token);
-      setUser(updatedUser);
-      setCurrentRole(roleToSet);
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(updatedUser));
-      localStorage.setItem('campusiq_role', roleToSet);
-      return { success: true };
+    try {
+      const res = await api.post('/auth/register', formData);
+      if (res.data?.success) {
+        const verifiedUser = res.data.user;
+        const verifiedRole = verifiedUser.role || 'student';
+
+        setToken(res.data.token);
+        setUser(verifiedUser);
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('user', JSON.stringify(verifiedUser));
+
+        return {
+          success: true,
+          role: verifiedRole,
+          dashboardPath: getRoleDashboardPath(verifiedRole),
+          user: verifiedUser,
+        };
+      }
+      return { success: false, message: res.data?.message || 'Registration failed' };
+    } catch (err) {
+      return {
+        success: false,
+        message: err.response?.data?.message || err.message || 'Registration failed',
+      };
     }
-    return { success: false, message: res.data?.message || 'Registration failed' };
   };
 
-  const logout = () => {
-    setUser(null);
-    setToken(null);
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+  // Logout: Invalidate token on server and wipe client state
+  const logout = async () => {
+    try {
+      if (token) {
+        await api.post('/auth/logout');
+      }
+    } catch (e) {
+      // Ignore network errors on logout
+    } finally {
+      setUser(null);
+      setToken(null);
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+    }
   };
 
   const updateProfile = async (profileData) => {
     const res = await api.put('/auth/profile', profileData);
     if (res.data?.success) {
-      setUser(res.data.user);
-      localStorage.setItem('user', JSON.stringify(res.data.user));
-      return { success: true, user: res.data.user };
+      const updatedUser = res.data.user;
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      return { success: true };
     }
     return { success: false, message: res.data?.message || 'Profile update failed' };
   };
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        token,
-        isAuthenticated: Boolean(token && user),
-        loading,
-        currentRole,
-        availableRoles: INSTITUTIONAL_ROLES,
-        switchRole,
-        login,
-        register,
-        logout,
-        updateProfile,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  const currentRole = user?.role || 'student';
+  const isAdmin = currentRole === 'admin';
+  const isFaculty = currentRole === 'faculty';
+  const isStudent = currentRole === 'student';
+
+  const value = {
+    user,
+    token,
+    loading,
+    isAuthenticated: !!token && !!user,
+    currentRole,
+    isAdmin,
+    isFaculty,
+    isStudent,
+    login,
+    register,
+    logout,
+    updateProfile,
+    getRoleDashboardPath,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
@@ -133,3 +167,5 @@ export function useAuth() {
   }
   return context;
 }
+
+export default AuthContext;

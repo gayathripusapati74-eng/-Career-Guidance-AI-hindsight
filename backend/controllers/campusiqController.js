@@ -66,10 +66,22 @@ async function getAllStudents(filter = {}) {
  */
 async function getAnalyticsOverview(req, res) {
   try {
+    if (req.user && req.user.role === 'student') {
+      return res.status(403).json({
+        success: false,
+        message: 'Forbidden: Students cannot access institution-wide executive analytics.',
+      });
+    }
+
     const { department, year } = req.query;
     const filter = {};
     if (department && department !== 'All') filter.department = department;
     if (year && year !== 'All') filter.year = Number(year);
+
+    // If faculty, default to faculty's department if no department specified
+    if (req.user && req.user.role === 'faculty' && !filter.department && req.user.department) {
+      filter.department = req.user.department;
+    }
 
     const students = await getAllStudents(filter);
     const totalStudents = students.length;
@@ -244,7 +256,25 @@ async function getStudents(req, res) {
       limit = 25,
     } = req.query;
 
+    if (req.user && req.user.role === 'student') {
+      return res.status(403).json({
+        success: false,
+        message: 'Forbidden: Students are not authorized to view the institution-wide student directory.',
+      });
+    }
+
     let students = await getAllStudents();
+
+    // Faculty scoping: Restrict to faculty's department or assigned mentees
+    if (req.user && req.user.role === 'faculty') {
+      const facDept = req.user.department;
+      const facMentor = req.user.assignedMentor;
+      students = students.filter((s) => {
+        if (facMentor && s.assignedMentor === facMentor) return true;
+        if (facDept && (s.department === facDept || s.department.toLowerCase().includes(facDept.toLowerCase()))) return true;
+        return false;
+      });
+    }
 
     // 1. Text Search (Student ID or Name)
     if (search && search.trim()) {
@@ -331,6 +361,17 @@ async function getStudents(req, res) {
 async function getStudentById(req, res) {
   try {
     const { studentId } = req.params;
+
+    // 1. Horizontal privilege escalation prevention for Students
+    if (req.user && req.user.role === 'student') {
+      if (req.user.studentId && req.user.studentId !== studentId) {
+        return res.status(403).json({
+          success: false,
+          message: 'Forbidden: Access denied. Students can only view their own academic record. Horizontal privilege escalation blocked.',
+        });
+      }
+    }
+
     let student = null;
 
     if (isMongoActive()) {
@@ -341,6 +382,20 @@ async function getStudentById(req, res) {
 
     if (!student) {
       return res.status(404).json({ success: false, message: `Student with ID ${studentId} not found` });
+    }
+
+    // 2. Department & Mentorship boundary check for Faculty
+    if (req.user && req.user.role === 'faculty') {
+      const facDept = req.user.department;
+      const facMentor = req.user.assignedMentor;
+      const matchesMentor = facMentor && student.assignedMentor === facMentor;
+      const matchesDept = facDept && (student.department === facDept || student.department.toLowerCase().includes(facDept.toLowerCase()));
+      if (!matchesMentor && !matchesDept) {
+        return res.status(403).json({
+          success: false,
+          message: 'Forbidden: Access denied. Faculty members can only view students within their assigned department or mentorship cohort.',
+        });
+      }
     }
 
     // Fetch related interventions
@@ -368,8 +423,26 @@ async function getStudentById(req, res) {
  */
 async function getAtRiskStudents(req, res) {
   try {
+    if (req.user && req.user.role === 'student') {
+      return res.status(403).json({
+        success: false,
+        message: 'Forbidden: Students are not authorized to view the at-risk early warning queue.',
+      });
+    }
+
     const { department, year, level, status = 'All' } = req.query;
     let students = await getAllStudents();
+
+    // Faculty scoping: Filter queue to assigned department or mentees
+    if (req.user && req.user.role === 'faculty') {
+      const facDept = req.user.department;
+      const facMentor = req.user.assignedMentor;
+      students = students.filter((s) => {
+        if (facMentor && s.assignedMentor === facMentor) return true;
+        if (facDept && (s.department === facDept || s.department.toLowerCase().includes(facDept.toLowerCase()))) return true;
+        return false;
+      });
+    }
 
     // Filter students who have at least Medium academic or placement risk
     students = students.filter((s) => {
@@ -679,6 +752,20 @@ async function getInterventions(req, res) {
       ? await Intervention.find().sort({ dateAssigned: -1 }).lean()
       : Array.from(memoryInterventions.values()).sort((a, b) => new Date(b.dateAssigned) - new Date(a.dateAssigned));
 
+    // Role-based visibility scoping
+    if (req.user && req.user.role === 'student') {
+      const studentId = req.user.studentId;
+      list = list.filter((i) => i.studentId === studentId);
+    } else if (req.user && req.user.role === 'faculty') {
+      const facDept = req.user.department;
+      const facMentor = req.user.assignedMentor;
+      list = list.filter((i) => {
+        if (facMentor && i.mentorAssigned && i.mentorAssigned.includes(facMentor)) return true;
+        if (facDept && i.department === facDept) return true;
+        return false;
+      });
+    }
+
     if (status && status !== 'All') {
       list = list.filter((i) => i.status === status);
     }
@@ -722,6 +809,13 @@ async function createIntervention(req, res) {
       dueDate,
       followUpDate,
     } = req.body;
+
+    if (req.user && req.user.role === 'student') {
+      return res.status(403).json({
+        success: false,
+        message: 'Forbidden: Students are not authorized to create interventions.',
+      });
+    }
 
     if (!studentId || !concernTitle || !recommendedAction || !actionCategory) {
       return res.status(400).json({ success: false, message: 'studentId, concernTitle, recommendedAction, and actionCategory are required' });
@@ -785,6 +879,13 @@ async function createIntervention(req, res) {
  */
 async function updateIntervention(req, res) {
   try {
+    if (req.user && req.user.role === 'student') {
+      return res.status(403).json({
+        success: false,
+        message: 'Forbidden: Students are not authorized to update faculty interventions.',
+      });
+    }
+
     const { id } = req.params;
     const { status, note, followUpIndicators, outcomeReview } = req.body;
 
@@ -1110,6 +1211,13 @@ async function updateConfig(req, res) {
  */
 async function exportReport(req, res) {
   try {
+    if (req.user && req.user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        message: 'Forbidden: Report exports containing protected institutional data are restricted exclusively to Administrators.',
+      });
+    }
+
     const { type = 'risk-register' } = req.query;
     const students = await getAllStudents();
 
@@ -1156,10 +1264,249 @@ async function exportReport(req, res) {
   }
 }
 
+/**
+ * 16. GET /api/campusiq/student/me
+ * Secure Self Student Profile (No URL parameter needed)
+ */
+async function getStudentSelfProfile(req, res) {
+  try {
+    const studentId = req.user?.studentId || 'STU2026-001';
+    let student = isMongoActive()
+      ? await Student.findOne({ studentId }).lean()
+      : memoryStudents.get(studentId);
+
+    if (!student) {
+      const all = await getAllStudents();
+      student = all.find((s) => s.email === req.user?.email) || all[0];
+    }
+
+    if (!student) {
+      return res.status(404).json({ success: false, message: 'Student profile not found' });
+    }
+
+    const allInt = isMongoActive()
+      ? await Intervention.find({ studentId: student.studentId }).lean()
+      : Array.from(memoryInterventions.values()).filter((i) => i.studentId === student.studentId);
+
+    return res.json({
+      success: true,
+      student,
+      interventions: allInt,
+    });
+  } catch (err) {
+    console.error('[CampusIQ Student Self Profile Error]:', err);
+    return res.status(500).json({ success: false, message: 'Failed to retrieve student profile', error: err.message });
+  }
+}
+
+/**
+ * 17. GET /api/campusiq/student/dashboard
+ * Constructive, supportive student success metrics & personalized recommendations
+ */
+async function getStudentDashboardData(req, res) {
+  try {
+    const studentId = req.user?.studentId || 'STU2026-001';
+    let student = isMongoActive()
+      ? await Student.findOne({ studentId }).lean()
+      : memoryStudents.get(studentId);
+
+    if (!student) {
+      const all = await getAllStudents();
+      student = all.find((s) => s.email === req.user?.email) || all[0];
+    }
+
+    if (!student) {
+      return res.status(404).json({ success: false, message: 'Student academic record not found' });
+    }
+
+    const allInt = isMongoActive()
+      ? await Intervention.find({ studentId: student.studentId }).lean()
+      : Array.from(memoryInterventions.values()).filter((i) => i.studentId === student.studentId);
+
+    const recommendations = [
+      {
+        id: 'REC-1',
+        title: 'Algorithms & Data Structures Lab Practice',
+        category: 'Coding Benchmark',
+        priority: (student.placement?.codingScore || 0) < 60 ? 'High' : 'Normal',
+        description: 'Complete 3 weekly graph algorithms problems on the portal to enhance campus placement readiness.',
+        actionUrl: '/chat',
+        actionLabel: 'Consult AI Mentor',
+      },
+      {
+        id: 'REC-2',
+        title: 'Core Theory & Peer Study Circle',
+        category: 'Academic Health',
+        priority: (student.academic?.gpa || 0) < 7.5 ? 'High' : 'Normal',
+        description: 'Participate in Thursday study group for Operating Systems memory management and architecture.',
+        actionUrl: '/roadmap',
+        actionLabel: 'View Study Roadmap',
+      },
+      {
+        id: 'REC-3',
+        title: 'AI Mock Technical Interview',
+        category: 'Placement Readiness',
+        priority: 'Normal',
+        description: 'Simulate technical and behavioral hiring rounds with instant AI feedback and diagnostic scoring.',
+        actionUrl: '/interview',
+        actionLabel: 'Start Mock Interview',
+      },
+    ];
+
+    const upcomingTasks = [
+      { id: 'TSK-101', title: 'Mid-Term Lab Practical Evaluation', subject: student.department, dueDate: 'In 4 days', type: 'Lab Practical', status: 'Upcoming' },
+      { id: 'TSK-102', title: 'Database Systems Normalization Project', subject: 'DBMS', dueDate: 'In 7 days', type: 'Assignment', status: 'In-Progress' },
+      { id: 'TSK-103', title: 'Campus Placement Aptitude Benchmark Test', subject: 'Training & Placement Cell', dueDate: 'In 12 days', type: 'Assessment', status: 'Scheduled' },
+    ];
+
+    const supportResources = [
+      { title: 'Academic Peer Tutoring Center', location: 'Block B, Room 204', timings: 'Mon - Fri, 3:00 PM - 6:00 PM', contact: 'tutoring@campus.edu.in' },
+      { title: 'Faculty Mentorship Office Hours', location: student.assignedMentor || 'Faculty Cabin 12', timings: 'Tue & Thu, 2:00 PM - 4:00 PM', contact: 'mentorship@campus.edu.in' },
+      { title: 'Student Counselling & Wellness Helpline', location: 'Health & Wellness Center', timings: '24/7 Confidential Assistance', contact: 'wellness@campus.edu.in' },
+    ];
+
+    return res.json({
+      success: true,
+      student: {
+        studentId: student.studentId,
+        name: student.name,
+        email: student.email,
+        department: student.department,
+        year: student.year,
+        semester: student.semester,
+        assignedMentor: student.assignedMentor,
+        academic: student.academic,
+        placement: student.placement,
+        behavioral: student.behavioral,
+        computed: {
+          academicHealthScore: student.computed?.successScore || 78,
+          attendancePercentage: student.academic?.attendancePercentage || 85,
+          currentGpa: student.academic?.gpa || 7.5,
+          codingScore: student.placement?.codingScore || 65,
+          activeBacklogs: student.academic?.backlogs || 0,
+          dataCoverage: student.computed?.dataCoverage || 95,
+        },
+      },
+      recommendations,
+      upcomingTasks,
+      supportResources,
+      interventions: allInt.map((i) => ({
+        interventionId: i.interventionId,
+        concernTitle: i.concernTitle,
+        recommendedAction: i.recommendedAction,
+        actionCategory: i.actionCategory,
+        mentorAssigned: i.mentorAssigned,
+        status: i.status,
+        dueDate: i.dueDate,
+        followUpDate: i.followUpDate,
+      })),
+    });
+  } catch (err) {
+    console.error('[CampusIQ Student Dashboard Error]:', err);
+    return res.status(500).json({ success: false, message: 'Failed to retrieve student dashboard data', error: err.message });
+  }
+}
+
+/**
+ * 18. GET /api/campusiq/faculty/dashboard
+ * Faculty / Academic Advisor Dashboard: Scoped to assigned mentees and department
+ */
+async function getFacultyDashboardData(req, res) {
+  try {
+    const facDept = req.user?.department || 'Computer Science & Engineering';
+    const facMentor = req.user?.assignedMentor;
+    const facName = req.user ? `${req.user.firstName} ${req.user.lastName}` : 'Dr. S. Sharma';
+
+    let allStudents = await getAllStudents();
+
+    let mentees = allStudents.filter((s) => {
+      if (facMentor && s.assignedMentor === facMentor) return true;
+      if (facDept && (s.department === facDept || s.department.toLowerCase().includes(facDept.toLowerCase()))) return true;
+      return false;
+    });
+
+    if (mentees.length === 0) {
+      mentees = allStudents.slice(0, 50);
+    }
+
+    const attentionNeeded = mentees
+      .filter((s) => {
+        const urg = s.computed?.urgencyScore || 0;
+        const acad = s.computed?.academicRisk?.level;
+        const place = s.computed?.placementRisk?.level;
+        return urg >= 50 || acad === 'Critical' || acad === 'High' || place === 'Critical';
+      })
+      .sort((a, b) => (b.computed?.urgencyScore || 0) - (a.computed?.urgencyScore || 0));
+
+    let totalScore = 0;
+    let totalAttendance = 0;
+    let totalGpa = 0;
+    for (const s of mentees) {
+      totalScore += s.computed?.successScore || 0;
+      totalAttendance += s.academic?.attendancePercentage || 0;
+      totalGpa += s.academic?.gpa || 0;
+    }
+    const menteeCount = mentees.length;
+
+    const allInt = isMongoActive() ? await Intervention.find().lean() : Array.from(memoryInterventions.values());
+    const menteeIds = new Set(mentees.map((s) => s.studentId));
+    const activeInterventions = allInt.filter(
+      (i) => menteeIds.has(i.studentId) || (facMentor && i.mentorAssigned?.includes(facMentor))
+    );
+
+    const upcomingFollowUps = activeInterventions.filter((i) => i.status === 'In-Progress' || i.status === 'Pending').slice(0, 5);
+
+    return res.json({
+      success: true,
+      facultyProfile: {
+        name: facName,
+        department: facDept,
+        assignedMentorTitle: facMentor || `Prof. ${facName}`,
+        totalAssignedMentees: menteeCount,
+        requiresAttentionCount: attentionNeeded.length,
+      },
+      cohortSummary: {
+        totalMentees: menteeCount,
+        criticalAlertCount: attentionNeeded.length,
+        avgSuccessScore: Math.round((totalScore / menteeCount) * 10) / 10,
+        avgAttendance: Math.round(totalAttendance / menteeCount),
+        avgGpa: Math.round((totalGpa / menteeCount) * 10) / 10,
+        activeInterventionsCount: activeInterventions.length,
+      },
+      urgentMentees: attentionNeeded.slice(0, 10).map((s) => ({
+        studentId: s.studentId,
+        name: s.name,
+        email: s.email,
+        department: s.department,
+        semester: s.semester,
+        successScore: s.computed?.successScore,
+        urgencyScore: s.computed?.urgencyScore,
+        attendance: s.academic?.attendancePercentage,
+        gpa: s.academic?.gpa,
+        backlogs: s.academic?.backlogs,
+        academicRisk: s.computed?.academicRisk?.level,
+        placementRisk: s.computed?.placementRisk?.level,
+        primaryFactors: s.computed?.academicRisk?.factors || ['Attendance drift below 75% threshold', 'Midterm examination score deviation'],
+        recommendedIntervention: s.computed?.academicRisk?.recommendedAction || 'Schedule 1-on-1 Academic Advising',
+        reviewStatus: s.computed?.reviewStatus || 'Pending',
+      })),
+      assignedMentees: mentees.slice(0, 20),
+      activeInterventions,
+      upcomingFollowUps,
+    });
+  } catch (err) {
+    console.error('[CampusIQ Faculty Dashboard Error]:', err);
+    return res.status(500).json({ success: false, message: 'Failed to retrieve faculty dashboard data', error: err.message });
+  }
+}
+
 module.exports = {
   getAnalyticsOverview,
   getStudents,
   getStudentById,
+  getStudentSelfProfile,
+  getStudentDashboardData,
+  getFacultyDashboardData,
   getAtRiskStudents,
   reviewAtRiskAlert,
   getSegmentsOverview,

@@ -16,3 +16,6 @@ export const resetDemoData = () => api.post('/campusiq/data-hub/reset-demo');
 export const getConfig = () => api.get('/campusiq/config');
 export const updateConfig = (data) => api.post('/campusiq/config', data);
 export const getExportUrl = (type) => `/api/campusiq/reports/export?type=${type}`;
+export const getStudentDashboard = () => api.get('/campusiq/student/dashboard');
+export const getStudentSelfProfile = () => api.get('/campusiq/student/me');
+export const getFacultyDashboard = () => api.get('/campusiq/faculty/dashboard');

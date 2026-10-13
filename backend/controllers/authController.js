@@ -5,11 +5,12 @@ const User = require('../models/User');
 const Progress = require('../models/Progress');
 const { retainCareerMemory, getUserBankId } = require('../services/hindsight');
 const { users: memoryUsers, progressMap } = require('../utils/memoryDb');
+const { revokeToken } = require('../middleware/auth');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'career_guidance_ai_jwt_super_secret_key_hackathon_2026';
 
 function generateToken(id) {
-  return jwt.sign({ id: String(id) }, JWT_SECRET, { expiresIn: '7d' });
+  return jwt.sign({ id: String(id), jti: `${Date.now()}-${Math.random()}` }, JWT_SECRET, { expiresIn: '7d' });
 }
 
 /**
@@ -72,6 +73,8 @@ async function register(req, res) {
 
     let user = null;
     let userId = null;
+    const assignedStudentId = `STU2026-${String(Math.floor(Math.random() * 800) + 201).padStart(3, '0')}`;
+    const userRole = 'student'; // Always default to student for public registration to prevent self-escalation
 
     if (isMongo) {
       user = await User.create({
@@ -79,6 +82,8 @@ async function register(req, res) {
         lastName: lastName.trim(),
         email: cleanEmail,
         password,
+        role: userRole,
+        studentId: assignedStudentId,
         careerGoal: defaultGoal,
         targetRole: defaultRole,
         experienceLevel: experienceLevel || 'beginner',
@@ -103,6 +108,8 @@ async function register(req, res) {
         lastName: lastName.trim(),
         email: cleanEmail,
         password: hashedPassword,
+        role: userRole,
+        studentId: assignedStudentId,
         careerGoal: defaultGoal,
         targetRole: defaultRole,
         experienceLevel: experienceLevel || 'beginner',
@@ -151,6 +158,9 @@ async function register(req, res) {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        role: user.role || 'student',
+        studentId: user.studentId || null,
+        department: user.department || null,
         careerGoal: user.careerGoal,
         targetRole: user.targetRole,
         experienceLevel: user.experienceLevel,
@@ -230,6 +240,10 @@ async function login(req, res) {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        role: user.role || 'student',
+        studentId: user.studentId || null,
+        department: user.department || null,
+        assignedMentor: user.assignedMentor || null,
         careerGoal: user.careerGoal,
         targetRole: user.targetRole,
         experienceLevel: user.experienceLevel,
@@ -262,6 +276,10 @@ async function getMe(req, res) {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        role: user.role || 'student',
+        studentId: user.studentId || null,
+        department: user.department || null,
+        assignedMentor: user.assignedMentor || null,
         careerGoal: user.careerGoal,
         targetRole: user.targetRole,
         experienceLevel: user.experienceLevel,
@@ -287,6 +305,11 @@ async function updateProfile(req, res) {
     const { careerGoal, targetRole, experienceLevel, currentSkills } = req.body;
     const user = req.user;
     const userId = user._id || user.id;
+
+    // Security check: Ignore any client attempts to elevate role or change studentId
+    if (req.body.role || req.body.studentId) {
+      console.warn(`[Security Warning] Prevented privilege escalation attempt by user ${userId}`);
+    }
 
     if (careerGoal) user.careerGoal = careerGoal.trim();
     if (targetRole) user.targetRole = targetRole.trim();
@@ -314,6 +337,10 @@ async function updateProfile(req, res) {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        role: user.role || 'student',
+        studentId: user.studentId || null,
+        department: user.department || null,
+        assignedMentor: user.assignedMentor || null,
         careerGoal: user.careerGoal,
         targetRole: user.targetRole,
         experienceLevel: user.experienceLevel,
@@ -330,9 +357,32 @@ async function updateProfile(req, res) {
   }
 }
 
+/**
+ * Logout and invalidate session
+ * POST /api/auth/logout
+ */
+async function logout(req, res) {
+  try {
+    if (req.token) {
+      revokeToken(req.token);
+    }
+    return res.json({
+      success: true,
+      message: 'Logged out successfully. Session invalidated.',
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to logout',
+      error: err.message,
+    });
+  }
+}
+
 module.exports = {
   register,
   login,
   getMe,
   updateProfile,
+  logout,
 };

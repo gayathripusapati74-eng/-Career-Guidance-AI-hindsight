@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import RoleRoute from './components/RoleRoute';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 
-// Career Guidance & Hindsight Pages (Preserved 100%)
+// Career Guidance & Hindsight Pages (100% Preserved)
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import DashboardPage from './pages/DashboardPage';
@@ -19,12 +20,12 @@ import JobsPage from './pages/JobsPage';
 import ProgressPage from './pages/ProgressPage';
 import StatusPage from './pages/StatusPage';
 
-// CampusIQ — Role-Based Dashboards
-import ManagementDashboardPage from './pages/roles/ManagementDashboardPage';
+// CampusIQ — Role-Specific Dashboards
 import AdminDashboardPage from './pages/roles/AdminDashboardPage';
-import HODDashboardPage from './pages/roles/HODDashboardPage';
 import FacultyDashboardPage from './pages/roles/FacultyDashboardPage';
 import StudentDashboardPage from './pages/roles/StudentDashboardPage';
+import ManagementDashboardPage from './pages/roles/ManagementDashboardPage';
+import HODDashboardPage from './pages/roles/HODDashboardPage';
 import SystemAdminDashboardPage from './pages/roles/SystemAdminDashboardPage';
 
 // CampusIQ — Analytics & Success Intelligence Suite
@@ -39,6 +40,12 @@ import CampusIQImpactAnalyticsPage from './pages/campusiq/CampusIQImpactAnalytic
 import CampusIQDataHubPage from './pages/campusiq/CampusIQDataHubPage';
 import CampusIQReportsPage from './pages/campusiq/CampusIQReportsPage';
 
+// Component that dynamically routes authenticated users to their permitted dashboard
+function RoleDashboardRedirect() {
+  const { currentRole, getRoleDashboardPath } = useAuth();
+  return <Navigate to={getRoleDashboardPath(currentRole)} replace />;
+}
+
 function DashboardLayout() {
   return (
     <div className="app-container">
@@ -47,31 +54,42 @@ function DashboardLayout() {
         <Navbar />
         <main style={{ flex: 1, backgroundColor: 'var(--bg-primary)' }}>
           <Routes>
-            {/* Role-Based Dashboards */}
-            <Route path="/management" element={<ManagementDashboardPage />} />
-            <Route path="/admin" element={<AdminDashboardPage />} />
-            <Route path="/hod" element={<HODDashboardPage />} />
-            <Route path="/faculty" element={<FacultyDashboardPage />} />
-            <Route path="/student" element={<StudentDashboardPage />} />
-            <Route path="/system-admin" element={<SystemAdminDashboardPage />} />
+            {/* 1. ADMIN EXCLUSIVE ROUTES (Protected against Faculty & Student manual URL typing) */}
+            <Route element={<RoleRoute allowedRoles={['admin']} />}>
+              <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+              <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+              <Route path="/management" element={<ManagementDashboardPage />} />
+              <Route path="/system-admin" element={<SystemAdminDashboardPage />} />
+              <Route path="/campusiq/data-hub" element={<CampusIQDataHubPage />} />
+              <Route path="/campusiq/reports" element={<CampusIQReportsPage />} />
+              <Route path="/reports" element={<Navigate to="/campusiq/reports" replace />} />
+            </Route>
 
-            {/* CampusIQ Analytics & Success Intelligence */}
-            <Route path="/campusiq" element={<Navigate to="/management" replace />} />
-            <Route path="/campusiq/dashboard" element={<CampusIQDashboardPage />} />
-            <Route path="/student-success" element={<CampusIQEarlyWarningPage />} />
-            <Route path="/campusiq/early-warning" element={<CampusIQEarlyWarningPage />} />
-            <Route path="/campusiq/students" element={<CampusIQStudentsPage />} />
-            <Route path="/campusiq/students/:studentId" element={<CampusIQStudentProfilePage />} />
-            <Route path="/campusiq/segments" element={<CampusIQSegmentsPage />} />
-            <Route path="/campusiq/simulator" element={<CampusIQSimulatorPage />} />
-            <Route path="/interventions" element={<CampusIQInterventionsPage />} />
-            <Route path="/campusiq/interventions" element={<CampusIQInterventionsPage />} />
-            <Route path="/impact-analytics" element={<CampusIQImpactAnalyticsPage />} />
-            <Route path="/campusiq/data-hub" element={<CampusIQDataHubPage />} />
-            <Route path="/reports" element={<CampusIQReportsPage />} />
-            <Route path="/campusiq/reports" element={<CampusIQReportsPage />} />
+            {/* 2. FACULTY & ADVISOR ROUTES (Accessible to Faculty & Admin) */}
+            <Route element={<RoleRoute allowedRoles={['faculty', 'admin']} />}>
+              <Route path="/faculty/dashboard" element={<FacultyDashboardPage />} />
+              <Route path="/faculty" element={<Navigate to="/faculty/dashboard" replace />} />
+              <Route path="/hod" element={<HODDashboardPage />} />
+              <Route path="/campusiq" element={<Navigate to="/campusiq/dashboard" replace />} />
+              <Route path="/campusiq/dashboard" element={<CampusIQDashboardPage />} />
+              <Route path="/campusiq/early-warning" element={<CampusIQEarlyWarningPage />} />
+              <Route path="/student-success" element={<Navigate to="/campusiq/early-warning" replace />} />
+              <Route path="/campusiq/students" element={<CampusIQStudentsPage />} />
+              <Route path="/campusiq/students/:studentId" element={<CampusIQStudentProfilePage />} />
+              <Route path="/campusiq/segments" element={<CampusIQSegmentsPage />} />
+              <Route path="/campusiq/simulator" element={<CampusIQSimulatorPage />} />
+              <Route path="/campusiq/interventions" element={<CampusIQInterventionsPage />} />
+              <Route path="/interventions" element={<Navigate to="/campusiq/interventions" replace />} />
+              <Route path="/impact-analytics" element={<CampusIQImpactAnalyticsPage />} />
+            </Route>
 
-            {/* Career Guidance & Hindsight Suite (100% Preserved) */}
+            {/* 3. STUDENT EXCLUSIVE PORTAL (Constructive, Non-Stigmatizing) */}
+            <Route element={<RoleRoute allowedRoles={['student', 'admin']} />}>
+              <Route path="/student/dashboard" element={<StudentDashboardPage />} />
+              <Route path="/student" element={<Navigate to="/student/dashboard" replace />} />
+            </Route>
+
+            {/* 4. CAREER GUIDANCE & HINDSIGHT SUITE (Accessible to all authenticated personas) */}
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/skills" element={<SkillsPage />} />
@@ -83,7 +101,8 @@ function DashboardLayout() {
             <Route path="/progress" element={<ProgressPage />} />
             <Route path="/status" element={<StatusPage />} />
 
-            <Route path="*" element={<Navigate to="/management" replace />} />
+            {/* Default Catch-all: Route user to their own role-specific dashboard */}
+            <Route path="*" element={<RoleDashboardRedirect />} />
           </Routes>
         </main>
       </div>
@@ -96,17 +115,17 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          {/* Public Routes */}
+          {/* Public Authentication Routes */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
 
-          {/* Protected Routes */}
+          {/* Protected Application Routes */}
           <Route element={<ProtectedRoute />}>
             <Route path="/*" element={<DashboardLayout />} />
           </Route>
 
-          {/* Root redirect */}
-          <Route path="/" element={<Navigate to="/management" replace />} />
+          {/* Root Redirect to role-specific dashboard */}
+          <Route path="/" element={<RoleDashboardRedirect />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

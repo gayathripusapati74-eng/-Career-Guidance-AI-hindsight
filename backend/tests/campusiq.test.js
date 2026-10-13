@@ -2,17 +2,24 @@ const http = require('http');
 
 const BASE_URL = 'http://localhost:5000';
 
+let authToken = null;
+
 function makeRequest(method, path, body = null) {
   return new Promise((resolve, reject) => {
     const url = new URL(path, BASE_URL);
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    if (authToken) {
+      headers['Authorization'] = `Bearer ${authToken}`;
+    }
+
     const options = {
       method,
       hostname: url.hostname,
       port: url.port,
       path: url.pathname + url.search,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
     };
 
     const req = http.request(options, (res) => {
@@ -56,6 +63,19 @@ async function runCampusIQTests() {
   }
 
   try {
+    // Authenticate as Institutional Admin
+    console.log('[Auth] Authenticating as Institutional Admin...');
+    const loginRes = await makeRequest('POST', '/api/auth/login', {
+      email: 'admin@campus.edu.in',
+      password: 'Admin@123',
+    });
+    if (loginRes.data?.token) {
+      authToken = loginRes.data.token;
+      console.log('  ✓ PASS: Successfully obtained Admin Bearer token\n');
+    } else {
+      console.error('  ✗ FAIL: Admin authentication failed:', loginRes.data);
+    }
+
     // Test 1: Campus Analytics Overview
     console.log('[1/11] Testing GET /api/campusiq/analytics');
     const analytics = await makeRequest('GET', '/api/campusiq/analytics');

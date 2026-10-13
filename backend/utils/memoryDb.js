@@ -15,35 +15,87 @@ const quizzes = [];
 const interviews = new Map();
 const progressMap = new Map();
 
-// Seed a default demo candidate user
+// Seed institutional role accounts & demo candidate user
 (async () => {
   const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash('Password123!', salt);
-  const demoId = 'demo-candidate-id-001';
+  const hash = async (pwd) => bcrypt.hash(pwd, salt);
 
-  users.set(demoId, {
-    _id: demoId,
-    id: demoId,
-    firstName: 'Demo',
-    lastName: 'Candidate',
-    email: 'demo.candidate@example.com',
-    password: hashedPassword,
+  const makeUser = async (id, firstName, lastName, email, plainPassword, role, extra = {}) => {
+    const hashedPassword = await hash(plainPassword);
+    return {
+      _id: id,
+      id,
+      firstName,
+      lastName,
+      email: email.toLowerCase().trim(),
+      password: hashedPassword,
+      role,
+      studentId: extra.studentId || null,
+      department: extra.department || null,
+      assignedMentor: extra.assignedMentor || null,
+      careerGoal: extra.careerGoal || 'Full Stack Developer',
+      targetRole: extra.targetRole || 'Full Stack Developer',
+      experienceLevel: extra.experienceLevel || 'intermediate',
+      currentSkills: extra.currentSkills || [
+        { name: 'JavaScript', score: 75, level: 'intermediate' },
+        { name: 'Python', score: 70, level: 'intermediate' },
+      ],
+      hindsightBankId: `career-bank-${id}`,
+      comparePassword: async function (pass) {
+        return bcrypt.compare(pass, this.password);
+      },
+    };
+  };
+
+  // 1. Institutional Admin Account
+  const adminUser = await makeUser('user-admin-001', 'Institutional', 'Admin', 'admin@campus.edu.in', 'Admin@123', 'admin', {
+    department: 'Central Administration',
+    careerGoal: 'Education Administration',
+  });
+  users.set(adminUser.id, adminUser);
+
+  // 2. Faculty / Mentor (CSE)
+  const facultyCse = await makeUser('user-faculty-cse-001', 'Dr. S.', 'Sharma', 'faculty.cse@campus.edu.in', 'Faculty@123', 'faculty', {
+    department: 'Computer Science & Engineering',
+    assignedMentor: 'Dr. S. Sharma (Prof. CSE)',
+  });
+  users.set(facultyCse.id, facultyCse);
+
+  // 3. Faculty / Mentor (IT)
+  const facultyIt = await makeUser('user-faculty-it-001', 'Dr. V.', 'Nambiar', 'faculty.it@campus.edu.in', 'Faculty@123', 'faculty', {
+    department: 'Information Technology',
+    assignedMentor: 'Dr. V. Nambiar (Assoc. Prof. IT)',
+  });
+  users.set(facultyIt.id, facultyIt);
+
+  // 4. Student 1: Aarav Sharma (STU2026-001)
+  const student1 = await makeUser('user-student-001', 'Aarav', 'Sharma', 'student.aarav@campus.edu.in', 'Student@123', 'student', {
+    studentId: 'STU2026-001',
+    department: 'Computer Science & Engineering',
+  });
+  users.set(student1.id, student1);
+
+  // 5. Student 2: Sneha Iyer (STU2026-004)
+  const student2 = await makeUser('user-student-002', 'Sneha', 'Iyer', 'student.sneha@campus.edu.in', 'Student@123', 'student', {
+    studentId: 'STU2026-004',
+    department: 'Computer Science & Engineering',
+  });
+  users.set(student2.id, student2);
+
+  // 6. Preserved Demo Candidate Account (Admin role by default for legacy tests)
+  const demoCandidate = await makeUser('demo-candidate-id-001', 'Demo', 'Candidate', 'demo.candidate@example.com', 'Password123!', 'admin', {
     careerGoal: 'Full Stack Developer',
     targetRole: 'Full Stack Developer',
-    experienceLevel: 'beginner',
     currentSkills: [
       { name: 'JavaScript', score: 68, level: 'intermediate' },
       { name: 'React', score: 75, level: 'intermediate' },
       { name: 'SQL', score: 42, level: 'beginner' },
     ],
-    hindsightBankId: 'career-bank-demo-candidate',
-    comparePassword: async function (pass) {
-      return bcrypt.compare(pass, this.password);
-    },
   });
+  users.set(demoCandidate.id, demoCandidate);
 
-  progressMap.set(demoId, {
-    user: demoId,
+  progressMap.set(demoCandidate.id, {
+    user: demoCandidate.id,
     skillAssessmentsCount: 1,
     quizzesTaken: 1,
     interviewsCompleted: 0,

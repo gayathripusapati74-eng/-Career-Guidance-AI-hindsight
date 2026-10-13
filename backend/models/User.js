@@ -49,6 +49,23 @@ const userSchema = new mongoose.Schema(
         lastAssessed: { type: Date, default: Date.now },
       },
     ],
+    role: {
+      type: String,
+      enum: ['admin', 'faculty', 'student'],
+      default: 'student',
+    },
+    studentId: {
+      type: String,
+      trim: true,
+    },
+    department: {
+      type: String,
+      trim: true,
+    },
+    assignedMentor: {
+      type: String,
+      trim: true,
+    },
     hindsightBankId: {
       type: String,
     },
