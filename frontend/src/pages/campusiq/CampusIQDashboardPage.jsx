@@ -52,6 +52,44 @@ export default function CampusIQDashboardPage() {
   const summary = data?.summary || {};
   const distributions = data?.distributions || {};
 
+  const rawSegments = distributions.segments;
+  const segmentsList = Array.isArray(rawSegments)
+    ? rawSegments
+    : Object.entries(rawSegments || distributions.segmentCounts || {}).map(([segment, count]) => ({
+        segment,
+        count,
+        percentage: summary.totalStudents ? Math.round((count / summary.totalStudents) * 100) : 0,
+      }));
+  const deptComparisons = distributions.departmentComparisons || [];
+
+  if (loading && !data) {
+    return (
+      <div style={{ display: 'flex', minHeight: '60vh', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--bg-primary)' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div className="spinner" style={{ margin: '0 auto 16px auto', borderTopColor: 'var(--primary-hover)' }}></div>
+          <p style={{ color: 'var(--text-main)', fontSize: '15px', fontWeight: 600 }}>Loading Campus Overview Analytics...</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Synthesizing academic, attendance, and placement signals</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error && !data) {
+    return (
+      <div style={{ padding: '32px', maxWidth: '800px', margin: '60px auto', textAlign: 'center' }}>
+        <div className="card" style={{ padding: '32px' }}>
+          <AlertCircle size={40} color="var(--primary-hover)" style={{ margin: '0 auto 16px auto' }} />
+          <h2 style={{ color: 'var(--text-main)', fontSize: '20px', marginBottom: '8px' }}>Unable to Load Campus Overview</h2>
+          <p style={{ color: 'var(--text-muted)', fontSize: '13.5px', marginBottom: '20px' }}>{error}</p>
+          <button onClick={fetchAnalytics} className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+            <RefreshCw size={14} />
+            <span>Retry Loading Analytics</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="page-container" style={{ padding: '24px 32px', maxWidth: '1440px', margin: '0 auto', backgroundColor: 'var(--bg-primary)' }}>
       {/* Top Banner / Breadcrumb */}
@@ -336,7 +374,7 @@ export default function CampusIQDashboardPage() {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-            {(distributions.segments || []).map((seg) => {
+            {segmentsList.map((seg) => {
               let borderColor = 'var(--border-card)';
               let tagColor = 'var(--text-muted)';
               if (seg.segment === 'High Performers') {
@@ -385,6 +423,70 @@ export default function CampusIQDashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* Department Comparisons Table */}
+      {deptComparisons.length > 0 && (
+        <div className="card" style={{ padding: '22px', marginBottom: '24px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+            <div>
+              <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: 'var(--text-main)' }}>
+                Department Performance Benchmarks
+              </h3>
+              <p style={{ fontSize: '12px', color: 'var(--text-dim)', margin: '2px 0 0 0' }}>
+                Comparative cross-departmental breakdown of success score, attendance, and at-risk students
+              </p>
+            </div>
+            <Link to="/campusiq/students" style={{ fontSize: '12px', color: 'var(--primary-hover)', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
+              <span>View Directory</span>
+              <ChevronRight size={14} />
+            </Link>
+          </div>
+
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+              <thead>
+                <tr style={{ borderBottom: '1px solid var(--border-card)', color: 'var(--text-dim)', textAlign: 'left' }}>
+                  <th style={{ padding: '10px 12px', fontWeight: 600 }}>DEPARTMENT</th>
+                  <th style={{ padding: '10px 12px', fontWeight: 600 }}>STUDENTS</th>
+                  <th style={{ padding: '10px 12px', fontWeight: 600 }}>AVG SUCCESS</th>
+                  <th style={{ padding: '10px 12px', fontWeight: 600 }}>AVG GPA</th>
+                  <th style={{ padding: '10px 12px', fontWeight: 600 }}>ATTENDANCE</th>
+                  <th style={{ padding: '10px 12px', fontWeight: 600 }}>CODING</th>
+                  <th style={{ padding: '10px 12px', fontWeight: 600 }}>AT-RISK</th>
+                </tr>
+              </thead>
+              <tbody>
+                {deptComparisons.map((dept) => (
+                  <tr key={dept.department} style={{ borderBottom: '1px solid var(--border-card)' }}>
+                    <td style={{ padding: '12px', color: 'var(--text-main)', fontWeight: 600 }}>{dept.department}</td>
+                    <td style={{ padding: '12px', color: 'var(--text-muted)' }}>{dept.studentCount}</td>
+                    <td style={{ padding: '12px', color: dept.avgSuccessScore >= 70 ? 'var(--accent-emerald)' : dept.avgSuccessScore >= 55 ? 'var(--accent-amber)' : 'var(--primary-hover)', fontWeight: 700 }}>
+                      {dept.avgSuccessScore}
+                    </td>
+                    <td style={{ padding: '12px', color: 'var(--text-muted)' }}>{dept.avgGpa || '—'}</td>
+                    <td style={{ padding: '12px', color: dept.avgAttendance >= 75 ? 'var(--text-main)' : 'var(--primary-hover)' }}>
+                      {dept.avgAttendance}%
+                    </td>
+                    <td style={{ padding: '12px', color: 'var(--text-muted)' }}>{dept.avgCoding || '—'}</td>
+                    <td style={{ padding: '12px' }}>
+                      <span style={{
+                        padding: '3px 8px',
+                        borderRadius: '4px',
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        background: dept.atRiskCount > 0 ? 'rgba(198, 40, 40, 0.15)' : 'rgba(16, 185, 129, 0.15)',
+                        color: dept.atRiskCount > 0 ? 'var(--primary-hover)' : 'var(--accent-emerald)',
+                      }}>
+                        {dept.atRiskCount} Flagged
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

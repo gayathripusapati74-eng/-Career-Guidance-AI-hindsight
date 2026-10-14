@@ -100,7 +100,14 @@ async function getAnalyticsOverview(req, res) {
           averageCoding: 0,
           dataCompletenessRate: 100,
         },
-        distributions: {},
+        distributions: {
+          scoreBuckets: {},
+          academicRisk: {},
+          placementRisk: {},
+          segments: [],
+          segmentCounts: {},
+          departmentComparisons: [],
+        },
       });
     }
 
@@ -227,7 +234,12 @@ async function getAnalyticsOverview(req, res) {
         scoreBuckets,
         academicRisk: academicRiskDist,
         placementRisk: placementRiskDist,
-        segments: segmentDist,
+        segments: Object.entries(segmentDist).map(([segment, count]) => ({
+          segment,
+          count,
+          percentage: totalStudents > 0 ? Math.round((count / totalStudents) * 100) : 0,
+        })),
+        segmentCounts: segmentDist,
         departmentComparisons: deptComparisons,
       },
     });
