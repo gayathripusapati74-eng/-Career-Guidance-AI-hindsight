@@ -22,6 +22,7 @@ import {
   X,
 } from 'lucide-react';
 import { getAnalyticsOverview, getStudents, getDataHubHistory, getExportUrl } from '../../services/campusiqApi';
+import { SkeletonCards } from '../../components/SkeletonLoader';
 
 export default function AdminDashboardPage() {
   const [analytics, setAnalytics] = useState(null);
@@ -167,49 +168,53 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Admin Executive Metric Strip */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '14px', marginBottom: '24px' }}>
-        <div className="card" style={{ padding: '18px' }}>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Enrolled Students</div>
-          <div style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)' }}>{summary.totalStudents}</div>
-          <div style={{ fontSize: '11px', color: 'var(--accent-emerald)', marginTop: '2px' }}>● 100% Data Completeness</div>
-        </div>
-
-        <div className="card" style={{ padding: '18px' }}>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Campus Attendance Rate</div>
-          <div style={{ fontSize: '26px', fontWeight: 800, color: summary.averageAttendance >= 75 ? 'var(--accent-emerald)' : 'var(--accent-amber)' }}>
-            {summary.averageAttendance}%
+      {loading ? (
+        <SkeletonCards count={6} minWidth="190px" />
+      ) : (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '14px', marginBottom: '24px' }}>
+          <div className="card" style={{ padding: '18px' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Enrolled Students</div>
+            <div style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)' }}>{summary.totalStudents}</div>
+            <div style={{ fontSize: '11px', color: 'var(--accent-emerald)', marginTop: '2px' }}>● 100% Data Completeness</div>
           </div>
-          <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '2px' }}>75% Statutory Minimum</div>
-        </div>
 
-        <div className="card" style={{ padding: '18px' }}>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Cumulative Mean GPA</div>
-          <div style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)' }}>{summary.averageGpa} / 10</div>
-          <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '2px' }}>Institution Average</div>
-        </div>
-
-        <div className="card" style={{ padding: '18px' }}>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Active Risk Alerts</div>
-          <div style={{ fontSize: '26px', fontWeight: 800, color: 'var(--primary-hover)' }}>{summary.academicRiskCount}</div>
-          <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '2px' }}>Requires Faculty Review</div>
-        </div>
-
-        <div className="card" style={{ padding: '18px' }}>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Active Interventions</div>
-          <div style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)' }}>
-            {summary.interventions?.inProgress || 2} <span style={{ fontSize: '13px', color: 'var(--text-dim)' }}>/ {summary.interventions?.total || 3}</span>
+          <div className="card" style={{ padding: '18px' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Campus Attendance Rate</div>
+            <div style={{ fontSize: '26px', fontWeight: 800, color: summary.averageAttendance >= 75 ? 'var(--accent-emerald)' : 'var(--accent-amber)' }}>
+              {summary.averageAttendance}%
+            </div>
+            <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '2px' }}>75% Statutory Minimum</div>
           </div>
-          <div style={{ fontSize: '11px', color: 'var(--accent-emerald)', marginTop: '2px' }}>
-            {summary.interventions?.completed || 1} Completed Cases
+
+          <div className="card" style={{ padding: '18px' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Cumulative Mean GPA</div>
+            <div style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)' }}>{summary.averageGpa} / 10</div>
+            <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '2px' }}>Institution Average</div>
+          </div>
+
+          <div className="card" style={{ padding: '18px' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Active Risk Alerts</div>
+            <div style={{ fontSize: '26px', fontWeight: 800, color: 'var(--primary-hover)' }}>{summary.academicRiskCount}</div>
+            <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '2px' }}>Requires Faculty Review</div>
+          </div>
+
+          <div className="card" style={{ padding: '18px' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Active Interventions</div>
+            <div style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)' }}>
+              {summary.interventions?.inProgress || 2} <span style={{ fontSize: '13px', color: 'var(--text-dim)' }}>/ {summary.interventions?.total || 3}</span>
+            </div>
+            <div style={{ fontSize: '11px', color: 'var(--accent-emerald)', marginTop: '2px' }}>
+              {summary.interventions?.completed || 1} Completed Cases
+            </div>
+          </div>
+
+          <div className="card" style={{ padding: '18px' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Retention Indicator</div>
+            <div style={{ fontSize: '26px', fontWeight: 800, color: 'var(--accent-emerald)' }}>96.4%</div>
+            <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '2px' }}>Projected Cohort Continuity</div>
           </div>
         </div>
-
-        <div className="card" style={{ padding: '18px' }}>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Retention Indicator</div>
-          <div style={{ fontSize: '26px', fontWeight: 800, color: 'var(--accent-emerald)' }}>96.4%</div>
-          <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '2px' }}>Projected Cohort Continuity</div>
-        </div>
-      </div>
+      )}
 
       {/* Section Tab Bar */}
       <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid var(--border-card)', marginBottom: '20px' }}>

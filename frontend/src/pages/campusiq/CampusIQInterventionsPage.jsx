@@ -24,6 +24,7 @@ import {
   updateIntervention,
   getStudents,
 } from '../../services/campusiqApi';
+import EmptyState from '../../components/EmptyState';
 
 export default function CampusIQInterventionsPage() {
   const [interventions, setInterventions] = useState([]);
@@ -389,10 +390,50 @@ export default function CampusIQInterventionsPage() {
               </tr>
             </thead>
             <tbody>
-              {filtered.length === 0 ? (
+              {loading ? (
+                Array.from({ length: 6 }).map((_, rIdx) => (
+                  <tr key={`skel-int-${rIdx}`} style={{ borderBottom: '1px solid #201515' }}>
+                    <td style={{ padding: '14px 16px' }}>
+                      <div className="skeleton-pulse" style={{ width: '110px', height: '14px', borderRadius: '4px', marginBottom: '6px' }} />
+                      <div className="skeleton-pulse" style={{ width: '80px', height: '12px', borderRadius: '4px' }} />
+                    </td>
+                    <td style={{ padding: '14px 16px' }}>
+                      <div className="skeleton-pulse" style={{ width: '180px', height: '14px', borderRadius: '4px', marginBottom: '6px' }} />
+                      <div className="skeleton-pulse" style={{ width: '130px', height: '11px', borderRadius: '4px' }} />
+                    </td>
+                    <td style={{ padding: '14px 16px' }}>
+                      <div className="skeleton-pulse" style={{ width: '90px', height: '18px', borderRadius: '4px', marginBottom: '6px' }} />
+                      <div className="skeleton-pulse" style={{ width: '45px', height: '11px', borderRadius: '4px' }} />
+                    </td>
+                    <td style={{ padding: '14px 16px' }}>
+                      <div className="skeleton-pulse" style={{ width: '100px', height: '13px', borderRadius: '4px' }} />
+                    </td>
+                    <td style={{ padding: '14px 16px' }}>
+                      <div className="skeleton-pulse" style={{ width: '75px', height: '20px', borderRadius: '10px' }} />
+                    </td>
+                    <td style={{ padding: '14px 16px' }}>
+                      <div className="skeleton-pulse" style={{ width: '90px', height: '13px', borderRadius: '4px' }} />
+                    </td>
+                    <td style={{ padding: '14px 16px', textAlign: 'right' }}>
+                      <div className="skeleton-pulse" style={{ width: '65px', height: '24px', borderRadius: '6px', marginLeft: 'auto' }} />
+                    </td>
+                  </tr>
+                ))
+              ) : filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={7} style={{ padding: '36px', textAlign: 'center', color: 'var(--text-muted)' }}>
-                    No interventions found matching criteria.
+                  <td colSpan={7} style={{ padding: '24px' }}>
+                    <EmptyState
+                      icon={Target}
+                      title="No interventions found"
+                      description="No action interventions match the currently selected status, category, or search filters."
+                      actionLabel="Reset Filters"
+                      onAction={() => {
+                        setStatusFilter('All');
+                        setPriorityFilter('All');
+                        setCategoryFilter('All');
+                        setSearchQuery('');
+                      }}
+                    />
                   </td>
                 </tr>
               ) : (

@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { getStudents } from '../../services/campusiqApi';
+import EmptyState from '../../components/EmptyState';
 
 export default function CampusIQStudentsPage() {
   const [students, setStudents] = useState([]);
@@ -199,15 +200,42 @@ export default function CampusIQStudentsPage() {
             </thead>
             <tbody>
               {loading ? (
-                <tr>
-                  <td colSpan={11} style={{ textAlign: 'center', padding: '50px 20px', color: 'var(--text-muted)' }}>
-                    Loading student records...
-                  </td>
-                </tr>
+                Array.from({ length: 8 }).map((_, rIdx) => (
+                  <tr key={`skel-${rIdx}`} style={{ borderBottom: '1px solid var(--border-card)' }}>
+                    <td style={{ padding: '14px 16px' }}>
+                      <div className="skeleton-pulse" style={{ width: '120px', height: '14px', borderRadius: '4px', marginBottom: '6px' }} />
+                      <div className="skeleton-pulse" style={{ width: '80px', height: '10px', borderRadius: '4px' }} />
+                    </td>
+                    <td style={{ padding: '14px 16px' }}><div className="skeleton-pulse" style={{ width: '80px', height: '14px', borderRadius: '4px' }} /></td>
+                    <td style={{ padding: '14px 16px' }}><div className="skeleton-pulse" style={{ width: '40px', height: '14px', borderRadius: '4px' }} /></td>
+                    <td style={{ padding: '14px 16px' }}><div className="skeleton-pulse" style={{ width: '50px', height: '14px', borderRadius: '4px' }} /></td>
+                    <td style={{ padding: '14px 16px' }}><div className="skeleton-pulse" style={{ width: '40px', height: '14px', borderRadius: '4px' }} /></td>
+                    <td style={{ padding: '14px 16px' }}><div className="skeleton-pulse" style={{ width: '35px', height: '14px', borderRadius: '4px' }} /></td>
+                    <td style={{ padding: '14px 16px' }}><div className="skeleton-pulse" style={{ width: '40px', height: '14px', borderRadius: '4px' }} /></td>
+                    <td style={{ padding: '14px 16px' }}><div className="skeleton-pulse" style={{ width: '55px', height: '18px', borderRadius: '10px' }} /></td>
+                    <td style={{ padding: '14px 16px' }}><div className="skeleton-pulse" style={{ width: '55px', height: '18px', borderRadius: '10px' }} /></td>
+                    <td style={{ padding: '14px 16px' }}><div className="skeleton-pulse" style={{ width: '90px', height: '14px', borderRadius: '4px' }} /></td>
+                    <td style={{ padding: '14px 16px', textAlign: 'right' }}><div className="skeleton-pulse" style={{ width: '60px', height: '24px', borderRadius: '6px', marginLeft: 'auto' }} /></td>
+                  </tr>
+                ))
               ) : students.length === 0 ? (
                 <tr>
-                  <td colSpan={11} style={{ textAlign: 'center', padding: '50px 20px', color: 'var(--text-muted)' }}>
-                    No student records match the active filters.
+                  <td colSpan={11} style={{ padding: '24px' }}>
+                    <EmptyState
+                      icon={Search}
+                      title="No students match the criteria"
+                      description={search ? `No student records found matching "${search}". Try clearing search keywords or loosening filters.` : "No student records found for the selected department or segment filters."}
+                      actionLabel="Reset All Filters"
+                      onAction={() => {
+                        setSearch('');
+                        setSelectedDept('All');
+                        setSelectedYear('All');
+                        setSelectedSegment('All');
+                        setSelectedAcadRisk('All');
+                        setSelectedPlaceRisk('All');
+                        setPage(1);
+                      }}
+                    />
                   </td>
                 </tr>
               ) : (

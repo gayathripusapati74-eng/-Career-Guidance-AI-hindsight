@@ -14,6 +14,8 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { getAtRiskStudents, reviewAtRiskAlert } from '../../services/campusiqApi';
+import EmptyState from '../../components/EmptyState';
+import { SkeletonCards } from '../../components/SkeletonLoader';
 
 export default function CampusIQEarlyWarningPage() {
   const [queue, setQueue] = useState([]);
@@ -156,18 +158,20 @@ export default function CampusIQEarlyWarningPage() {
 
       {/* Priority Queue Cards */}
       {loading ? (
-        <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-muted)' }}>
-          <RefreshCw size={24} className="spin" style={{ marginBottom: '10px' }} />
-          <div>Evaluating multi-source risk criteria...</div>
-        </div>
+        <SkeletonCards count={3} />
       ) : queue.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '60px 20px', background: 'var(--bg-card)', borderRadius: '14px', border: '1px solid var(--border-card)' }}>
-          <CheckCircle2 size={36} color="var(--accent-emerald)" style={{ marginBottom: '12px' }} />
-          <h3 style={{ fontSize: '18px', color: 'var(--text-main)', margin: 0 }}>No At-Risk Alerts Found</h3>
-          <p style={{ color: 'var(--text-muted)', fontSize: '13px', marginTop: '6px' }}>
-            All students in the selected filter meet institutional academic and placement thresholds.
-          </p>
-        </div>
+        <EmptyState
+          icon={CheckCircle2}
+          title="No At-Risk Alerts Found"
+          description="All students in the selected department, year, and risk filter meet institutional benchmarks."
+          actionLabel="Reset Filter Scope"
+          onAction={() => {
+            setSelectedDept('All');
+            setSelectedYear('All');
+            setSelectedLevel('All');
+            setSelectedStatus('All');
+          }}
+        />
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           {queue.map((student, idx) => {

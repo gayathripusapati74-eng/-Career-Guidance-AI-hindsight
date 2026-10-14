@@ -20,6 +20,7 @@ import {
   ShieldAlert,
 } from 'lucide-react';
 import { getStudentDashboard } from '../../services/campusiqApi';
+import SkeletonPage from '../../components/SkeletonLoader';
 
 export default function StudentDashboardPage() {
   const { user } = useAuth();
@@ -46,14 +47,7 @@ export default function StudentDashboardPage() {
   }, []);
 
   if (loading) {
-    return (
-      <div style={{ display: 'flex', minHeight: '60vh', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ textAlign: 'center' }}>
-          <div className="spinner" style={{ margin: '0 auto 16px auto' }}></div>
-          <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Loading Your Personalized Academic Hub...</p>
-        </div>
-      </div>
-    );
+    return <SkeletonPage title="Loading Your Personalized Academic Hub..." />;
   }
 
   const student = dashboardData?.student || {};

@@ -20,6 +20,7 @@ import {
   UserCheck,
 } from 'lucide-react';
 import { getFacultyDashboard, createIntervention } from '../../services/campusiqApi';
+import SkeletonPage from '../../components/SkeletonLoader';
 
 export default function FacultyDashboardPage() {
   const { user } = useAuth();
@@ -91,14 +92,7 @@ export default function FacultyDashboardPage() {
   };
 
   if (loading) {
-    return (
-      <div style={{ display: 'flex', minHeight: '60vh', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ textAlign: 'center' }}>
-          <div className="spinner" style={{ margin: '0 auto 16px auto' }}></div>
-          <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Loading Faculty Caseload & Mentee Alerts...</p>
-        </div>
-      </div>
-    );
+    return <SkeletonPage title="Loading Faculty Caseload & Mentee Alerts..." />;
   }
 
   const profile = dashboardData?.facultyProfile || {};
