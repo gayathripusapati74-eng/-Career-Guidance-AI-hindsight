@@ -1,44 +1,63 @@
-# 🎓 CampusIQ — Smart Campus Analytics & Success Platform
+# 🎓 CampusIQ — Smart Campus Analytics & AI Student Success Platform
 
 > **Predict. Explain. Intervene. Measure.**  
-> *AI-Powered Student Analytics and Institutional Success Platform developed for the KPMG in India Hackathon Challenge, seamlessly integrated with a production-grade Hindsight-powered AI Career Mentorship suite.*
+> *Enterprise-grade AI-powered student success, early-warning analytics, and intervention platform developed for the **KPMG in India Hackathon Challenge**.*  
+> *Seamlessly integrated with a production-grade, biomimetic AI Career Mentorship suite powered by **Hindsight Cloud Long-Term Memory**.*
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fgayathripusapati74-eng%2F-Career-Guidance-AI-hindsight)
+[![Tests Passing](https://img.shields.io/badge/Automated%20Tests-93%2F93%20Passing-brightgreen)](https://github.com/gayathripusapati74-eng/-Career-Guidance-AI-hindsight)
+[![Theme](https://img.shields.io/badge/Theme-Dark%20Black%20%26%20Crimson-8B0000)](https://github.com/gayathripusapati74-eng/-Career-Guidance-AI-hindsight)
+[![Hindsight Cloud](https://img.shields.io/badge/Hindsight-Active%20Memory-6366F1)](https://vectorize.io)
 
 ---
 
-## 🌐 Live Prototype & Public Access
+## 🌐 Instant Live Access & Public Portal
 
-- **Live Application URL:** [https://nonprofit-nuts-ellen-reliability.trycloudflare.com](https://nonprofit-nuts-ellen-reliability.trycloudflare.com)
-- **Direct Login Page:** [https://nonprofit-nuts-ellen-reliability.trycloudflare.com/login](https://nonprofit-nuts-ellen-reliability.trycloudflare.com/login)
-- **GitHub Repository:** [https://github.com/gayathripusapati74-eng/-Career-Guidance-AI-hindsight](https://github.com/gayathripusapati74-eng/-Career-Guidance-AI-hindsight)
-- **Local Development URL:** `http://localhost:3000` (Frontend) • `http://localhost:5000` (Backend API)
-- **Pre-Seeded Benchmark Dataset:** 200 Students across 4 Departments (CSE, IT, ECE, MECH) and 4 Academic Years generated with deterministic PRNG (seed = 42).
+| Resource | URL | Description |
+| :--- | :--- | :--- |
+| 🚀 **Live Application Portal** | [**https://nonprofit-nuts-ellen-reliability.trycloudflare.com**](https://nonprofit-nuts-ellen-reliability.trycloudflare.com) | Full interactive production web portal |
+| 🔑 **Direct Login Page** | [**https://nonprofit-nuts-ellen-reliability.trycloudflare.com/login**](https://nonprofit-nuts-ellen-reliability.trycloudflare.com/login) | Role-based authentication with 1-click demo chips |
+| 📂 **GitHub Repository** | [**https://github.com/gayathripusapati74-eng/-Career-Guidance-AI-hindsight**](https://github.com/gayathripusapati74-eng/-Career-Guidance-AI-hindsight) | Complete source code, test suites & documentation |
 
-### 🔑 Verified Demo Credentials (1-Click Login Supported)
+---
 
-The login page features 1-click quick-login buttons for each role. You can also manually sign in with these pre-seeded accounts:
+## 🔑 Pre-Configured Demo Accounts (1-Click Login Supported)
 
-| Persona / Role | Email | Password | Access Scope & Capabilities |
+The login page features **1-click quick-login buttons** for every institutional persona. You can also sign in manually with these pre-seeded accounts:
+
+| Role / Persona | Institutional Email | Password | Access Scope & Capabilities |
 | :--- | :--- | :--- | :--- |
-| **Institutional Admin** | `admin@campus.edu.in` | `Admin@123` | Institutional dashboard, campus risk distribution, department comparisons, CSV exports |
-| **Faculty (CSE Mentor)** | `faculty.cse@campus.edu.in` | `Faculty@123` | Dr. S. Sharma — CSE cohort, Daily Work Planner, attendance drift alerts, reminder engine |
-| **Faculty (IT Mentor)** | `faculty.it@campus.edu.in` | `Faculty@123` | Dr. V. Nambiar — IT cohort, mentoring reviews, intervention tracking |
+| **Institutional Admin** | `admin@campus.edu.in` | `Admin@123` | Institutional dashboard, campus risk distribution, department comparisons, CSV exports, Data Hub admin |
+| **Faculty (CSE Mentor)** | `faculty.cse@campus.edu.in` | `Faculty@123` | Dr. S. Sharma — CSE mentee cohort (79 students), Daily Work Planner, attendance alerts, reminder engine |
+| **Faculty (IT Mentor)** | `faculty.it@campus.edu.in` | `Faculty@123` | Dr. V. Nambiar — IT mentee cohort, mentoring follow-ups, remedial assignment tracking |
 | **Student (Aarav Sharma)** | `student.aarav@campus.edu.in` | `Student@123` | `STU2026-001` (CSE) — Student Success Score breakdown, attendance recovery math, 30-day placement sprint |
 | **Student (Sneha Iyer)** | `student.sneha@campus.edu.in` | `Student@123` | `STU2026-004` (CSE) — High CGPA student profile, mock interview feedback, placement roadmap |
 
 ---
 
-## 📌 Executive Summary & Hackathon Challenge Alignment
+## 📌 Project Overview & KPMG Hackathon Alignment
 
-Colleges and universities in India face high student attrition, backlogs, and poor placement readiness because student data is fragmented across siloed systems (Biometric Attendance ERPs, SIS exam records, LMS video portals, and Training & Placement spreadsheets). Institutional advisors only learn a student is in trouble when they have already failed a semester or missed hiring cutoffs.
+### The Problem
+Higher education institutions across India face significant dropout rates, delayed graduations, and poor placement outcomes due to **data fragmentation**. Critical student signals are trapped across disconnected systems:
+- Biometric Attendance ERPs
+- Student Information Systems (SIS / End-Sem exam marks)
+- Learning Management Systems (Moodle / LMS video logs)
+- Training & Placement spreadsheets (Coding & aptitude benchmarks)
 
-**CampusIQ** transforms campus administration from **reactive firefighting** to **predictive, explainable intervention**:
+Academic advisors only discover a student is in trouble **after** they have failed end-semester exams, dropped below the 75% attendance cutoff, or missed corporate placement hiring rounds.
 
-1. **Unifies 8 Data Modalities:** Integrates academic records, biometric attendance, LMS portal telemetry, placement assessment scores, skills rubrics, and feedback into a unified student record.
+### The CampusIQ Solution
+**CampusIQ** shifts campus administration from **reactive firefighting** to **predictive, explainable intervention**:
+
+1. **Unifies 8 Data Modalities:** Integrates academic records, biometric attendance, LMS engagement, placement benchmarks, skills rubrics, and sentiment into an authoritative student master profile.
 2. **Dual-Risk Early Warning:** Decouples academic struggle from placement unpreparedness, generating explainable risk alerts ranked by priority urgency.
-3. **Transparent Mathematical Scoring:** Uses a deterministic, weighted scoring algorithm with dynamic normalization for incomplete data—*no unexplainable black-box machine learning*.
-4. **What-If Scenario Sandbox:** Allows mentors and students to simulate target attendance, GPA, and coding improvements before assigning intervention plans.
-5. **Closed-Loop Action Intelligence:** Assigns faculty mentors, sets remediation milestones, logs follow-up metrics, and computes measured before-and-after deltas.
-6. **Preserved AI Career Mentor with Hindsight:** Retains 100% of the existing full-stack AI career guidance portal, powered by live biomimetic long-term memory via **Hindsight Cloud**.
+3. **Transparent Mathematical Scoring:** Uses an auditable, weighted scoring algorithm with dynamic normalization for incomplete data—*no unexplainable black-box AI*.
+4. **AI Student Success Copilot:** Contextualized assistants for Students, Faculty mentors, and Administrators.
+5. **Attendance Recovery Engine:** Computes the exact number of consecutive classes required to reach the mandatory 75% threshold.
+6. **Persistent Work Planner & Reminders:** Natural language task scheduling for faculty and students.
+7. **What-If Scenario Sandbox:** Simulates hypothetical improvements in attendance, GPA, or coding scores before assigning interventions.
+8. **Closed-Loop Action Intelligence:** Assigns faculty mentors, sets remediation milestones, logs follow-up metrics, and computes measured before-and-after deltas.
+9. **Preserved AI Career Mentorship with Hindsight:** Retains 100% of the existing full-stack AI career guidance portal, powered by biomimetic long-term memory via **Hindsight Cloud**.
 
 ---
 
@@ -47,296 +66,288 @@ Colleges and universities in India face high student attrition, backlogs, and po
 ```mermaid
 flowchart TD
     subgraph Client["Frontend Application (React 18 + Vite 5 • Port 3000)"]
-        Nav["Dual-Module Sidebar & Navigation"]
+        Nav["Role-Aware Navigation & Theme (#080808 & #8B0000)"]
         
+        subgraph Copilot_UI["AI Student Success Copilot (/chat)"]
+            StudentCopilotUI["Student Copilot: Diagnostic Breakdown & 30-Day Sprint"]
+            FacultyCopilotUI["Faculty Work Copilot: Daily Work Planner & Reminders"]
+            AdminCopilotUI["Admin Decision Copilot: Campus Risk & Department Benchmarks"]
+            PlannerDrawer["Slide-Out Persistent Work Planner & Task Tracker"]
+        end
+
         subgraph CampusIQ_UI["CampusIQ Analytics Suite"]
-            OverviewUI["Executive Dashboard (/campusiq/dashboard)"]
-            RadarUI["Early-Warning Radar (/campusiq/early-warning)"]
+            AdminDash["Institutional Executive Dashboard (/admin/dashboard)"]
+            FacultyDash["Faculty Cohort Mentoring Dashboard (/faculty/dashboard)"]
+            StudentDash["Personalized Student Portal (/student/dashboard)"]
+            RadarUI["Early-Warning Radar & Urgency Ranking (/campusiq/early-warning)"]
             DirUI["Student Directory & Unified Profiles (/campusiq/students)"]
             MatrixUI["4-Quadrant Segmentation Matrix (/campusiq/segments)"]
             SimUI["What-If Scenario Simulator (/campusiq/simulator)"]
-            ActionUI["Interventions & Action Intelligence (/campusiq/interventions)"]
+            ActionUI["Interventions Hub & Action Intelligence (/campusiq/interventions)"]
             DataUI["Data Ingestion Hub & CSV Studio (/campusiq/data-hub)"]
-            ReportUI["Reports & Scoring Methodology (/campusiq/reports)"]
         end
 
-        subgraph Career_UI["Career Guidance & Hindsight Suite (100% Preserved)"]
-            ChatUI["AI Career Mentor Chat (/chat)"]
+        subgraph Career_UI["Preserved AI Career Guidance Suite"]
             SkillUI["Skill Assessment (/skills)"]
             ResumeUI["Resume ATS Scanner (/resume)"]
             RoadmapUI["Personalized Roadmap (/roadmap)"]
             QuizUI["Adaptive AI Quiz (/quiz)"]
             InterviewUI["Mock Interview Simulator (/interview)"]
-            ProgressUI["Reflect & Progress (/progress)"]
-            StatusUI["API Sandbox & Diagnostics (/status)"]
         end
     end
 
-    subgraph Server["Backend REST API (Node.js + Express 4 • Port 5000)"]
-        APIRouter["Express API Gateway"]
+    subgraph Server["Backend REST API (Node.js + Express 4 • Port 5000 / Vercel Serverless)"]
+        AuthMiddleware["Server-Side RBAC & JWT Blacklist (protect, authorize)"]
+        CopilotRouter["Copilot Engine (/api/ai/chat)"]
+        ReminderRouter["Persistent Reminders API (/api/reminders)"]
+        AnalyticsRouter["CampusIQ Core Analytics (/api/campusiq)"]
         
-        subgraph CampusIQ_Core["CampusIQ Engine"]
-            ScoringEngine["Mathematical Scoring Engine\n(Success Score S = Σ w_i * I_i)"]
-            RiskEngine["Dual-Risk & Urgency Classifier\n(Academic + Placement Signals)"]
-            SegmentEngine["Dynamic 4-Quadrant Segmentation"]
-            SimEngine["What-If Scenario Engine"]
-            DataValidation["CSV Schema & Error Quarantine"]
+        subgraph Copilot_Core["AI Copilot & Calculation Services"]
+            AttendanceMath["Attendance Calculator: N = ceil((0.75*T - A) / 0.25)"]
+            WorkPlannerEngine["Daily Work Planner Synthesizer"]
+            NaturalReminderParser["Natural Language Task & Date Parser"]
+            PrivacyGuard["FERPA Privacy Guard (Cross-Student Access Blocked)"]
         end
 
         subgraph Hindsight_Core["Hindsight Memory Engine"]
             HindsightSDK["@vectorize-io/hindsight-client v0.10.1"]
             Bank["Isolated User Bank (career-bank-{userId})"]
-            Retain["Retain (Facts, Scores, Goals)"]
-            Recall["Recall (TEMPR Multi-Strategy Retrieval)"]
-            Reflect["Reflect (Long-Term Growth Synthesis)"]
+            RetainOp["Retain: Facts, Goals, Milestones"]
+            RecallOp["Recall: Multi-Strategy Retrieval"]
+            ReflectOp["Reflect: Growth Trajectory Synthesis"]
         end
     end
 
     subgraph Storage["Dual-Mode Data Layer"]
-        MongoDB["MongoDB Database (Active Production)"]
-        MemoryStore["Deterministic Memory DB Fallback\n(200 Benchmark Students Seeded)"]
+        MongoDB["MongoDB Atlas Database"]
+        MemoryStore["Deterministic Memory DB (200 Benchmark Students Seeded)"]
+        ReminderStore["Persistent Reminders Store"]
     end
 
-    Client --> APIRouter
-    APIRouter --> CampusIQ_Core
-    APIRouter --> Hindsight_Core
-    CampusIQ_Core --> Storage
+    Client --> AuthMiddleware
+    AuthMiddleware --> CopilotRouter
+    AuthMiddleware --> ReminderRouter
+    AuthMiddleware --> AnalyticsRouter
+    CopilotRouter --> Copilot_Core
+    CopilotRouter --> Hindsight_Core
     Hindsight_Core --> Bank
-    Bank --> Retain
-    Bank --> Recall
-    Bank --> Reflect
+    Bank --> RetainOp
+    Bank --> RecallOp
+    Bank --> ReflectOp
+    AnalyticsRouter --> Storage
+    ReminderRouter --> ReminderStore
 ```
 
 ---
 
-## 🔬 Mathematical Formulation & Transparent Scoring
+## 🚀 Key Features
 
-Unlike black-box models that produce arbitrary probabilities, CampusIQ employs a transparent multi-criteria formula.
+### 1. AI Student Success Copilot
+- **Student Persona**:
+  - Explains the student's transparent **Student Success Score (SSS)** and exact contributing factors.
+  - **Attendance Recovery Calculator**: Uses the exact mathematical formula:
+    $$N = \left\lceil \frac{0.75 \times \text{Total} - \text{Attended}}{0.25} \right\rceil$$
+    Outputs the precise consecutive classes needed to cross the 75% threshold.
+  - **30-Day Placement Sprint**: 4-week structured preparation roadmap across DSA, Core CS, and mock interviews.
+  - **Strict FERPA Privacy Isolation**: Server-enforced boundary strictly prevents students from viewing or querying other student records.
+- **Faculty Persona**:
+  - **Daily Work Planner**: Auto-prioritizes urgent student interventions, attendance drift alerts (<75%), and high-CGPA students with coding deficits.
+  - **Natural-Language Reminder Creation**: Phrases like *"Remind me Friday to follow up on coding tests"* automatically parse due dates and persist in the database.
+  - **Weekly Cohort Progress Summary**: Synthesizes cohort attendance averages, CGPA distributions, and next-week action items.
+- **Administrator Persona**:
+  - Institutional risk distribution analysis (% high/critical risk students).
+  - Cross-department comparative benchmarks (CSE vs IT vs ECE vs MECH).
+  - Intervention outcome tracking and accreditation audit readiness.
 
-### 1. Student Success Score ($S$)
-$$S = \sum_{i=1}^{n} w_i \times I_i$$
+### 2. Persistent Work Planner & Reminders Engine
+- Integrated slide-out task drawer in the Copilot workspace.
+- Full REST API (`/api/reminders`) supporting priority classification (`urgent`, `high`, `medium`, `low`) and categorization (`academic`, `attendance`, `mentoring`, `placement`).
+- One-click completion toggling with persistent timestamp logging.
 
-Where component sub-scores $I_i$ are normalized to $[0, 100]$:
+### 3. Predictive Early-Warning Radar
+- Computes multi-dimensional risk scores across Academic Risk and Placement Risk.
+- Prioritizes students using an **Urgency Score** ($U = \text{Academic Deficit} \times 0.4 + \text{Attendance Deficit} \times 0.4 + \text{Placement Deficit} \times 0.2$).
 
-| Indicator ($I_i$) | Institutional Weight ($w_i$) | Normalization Formula & Rules |
-| :--- | :---: | :--- |
-| **Academic Performance** | **30%** | $(GPA / 10) \times 100 - (\text{Backlogs} \times 4)$ |
-| **Attendance Regularity** | **20%** | Biometric ERP Attendance Percentage ($0 - 100\%$) |
-| **Placement Readiness** | **20%** | $(0.50 \times \text{Coding}) + (0.30 \times \text{Aptitude}) + (0.20 \times \text{Interview})$ |
-| **LMS Engagement** | **15%** | $(0.40 \times \text{Video}) + (0.40 \times \text{Assignment Rate}) + (0.20 \times \text{Login Frequency})$ |
-| **Skill Matrix** | **10%** | $(0.60 \times \text{Technical Prof}) + (0.40 \times \text{Soft Skills Prof})$ |
-| **Campus Participation** | **5%** | Club leadership, Hackathons, and Peer Tutoring score |
+### 4. 4-Quadrant Strategic Segmentation Matrix
+Dynamically categorizes the 200 benchmark students into actionable quadrants:
+1. **High Performers** (High Academic / High Placement) -> Leadership & Research Track.
+2. **Placement Focus** (High Academic / Low Placement) -> Algorithmic Bootcamps & Mock Interviews.
+3. **Academic Support** (Low Academic / High Placement) -> Remedial Theory & Attendance Recovery.
+4. **Intensive Support** (Low Academic / Low Placement) -> Comprehensive Mentorship & Counseling.
 
-### 2. Provisional Normalization for Missing Indicators
-In real campus operations, first-year students lack placement tests, or biometric data may be delayed. **CampusIQ never penalizes missing data as zero.** Instead, it dynamically re-normalizes weights across available indicators:
+### 5. What-If Scenario Sandbox Simulation
+Interactive simulation sliders allowing advisors to model hypothetical improvements in attendance, GPA, or coding scores and observe projected Student Success Score recovery before prescribing interventions.
 
-$$S_{\text{provisional}} = \frac{\sum_{i \in \text{Available}} w_i \times I_i}{\sum_{i \in \text{Available}} w_i}$$
+### 6. Closed-Loop Action Intelligence & Interventions Hub
+- Prescribes evidence-based interventions (Attendance warnings, remedial tutoring, coding bootcamps).
+- Tracks intervention lifecycle (`Assigned` -> `In Progress` -> `Completed`).
+- Measures before-and-after outcome deltas ($\Delta \text{Attendance}$, $\Delta \text{GPA}$, $\Delta \text{Coding}$, $\Delta \text{Success Score}$).
 
-Records with missing modalities are clearly flagged with `isProvisional: true` and display their exact `dataCoverage%`.
+### 7. Data Ingestion Hub
+- Drag-and-drop CSV upload for Student Master, Academic Records, and Biometric Attendance.
+- Real-time schema validation, data cleaning, and quarantine for erroneous rows.
 
-### 3. Decoupled Dual-Risk Detection & Urgency Score
-Students are classified across two independent risk axes:
-- **Academic Risk:** Triggered when Attendance $< 75\%$, GPA $< 6.5$, Backlogs $\ge 1$, or prolonged LMS inactivity ($> 14$ days).
-- **Placement Readiness Risk:** Triggered when Coding score $< 60/100$, Aptitude $< 55/100$, or Mock interview $< 50/100$.
-
-The **Priority Urgency Score** ranks the Early-Warning Radar queue:
-$$\text{Urgency} = (0.55 \times \text{AcademicRisk}) + (0.35 \times \text{PlacementRisk}) + (20 \text{ if Declining Trend}) + (\text{Backlogs} \times 10)$$
-
----
-
-## 🧭 The 6 Pillars of CampusIQ
-
-### Pillar 1: Unify (Multi-Modal Data Integration Hub)
-- Connects across 8 campus data pillars: Academic (SIS), Attendance ERP, LMS Platform, Placement Cell, Skill Assessments, Extracurriculars, Course Feedback, and Student Master.
-- Ingestion Studio with downloadable sample CSV templates.
-- Schema verification, duplicate detection, and rejected row quarantine with line numbers and reasons.
-- **One-Click Reset:** Instantly restore the 200 synthetic benchmark students generated with PRNG seed=42.
-
-### Pillar 2: Detect (Early-Warning Radar)
-- Live priority queue ranking students by urgency score.
-- Color-coded badges for Critical, High, Medium, and Low risk.
-- Department, academic year, and risk-level multi-filters.
-- Audit review modal to acknowledge, investigate, or resolve alerts with faculty audit logs.
-
-### Pillar 3: Explain (Unified Student Profiles)
-- Comprehensive student view with photo placeholder, department, semester, and assigned faculty mentor.
-- Transparent score breakdown cards showing exact contributions and data coverage.
-- Dual-Risk explainable evidence with dates (e.g., *"Attendance dropped to 58% on Oct 10; 2 active theory backlogs"*).
-- Timeline of recent LMS logins, quiz submissions, and intervention history.
-
-### Pillar 4: Simulate (What-If Scenario Sandbox)
-- Non-destructive hypothetical sandbox for faculty advisors and students.
-- Sliders for Attendance ($30-100\%$), GPA ($3.0-10.0$), Backlogs ($0-6$), Coding ($10-100$), and LMS engagement.
-- Side-by-side comparison of baseline vs. simulated Success Score with delta points ($+14.5$ pts).
-- Shows risk level boundary shifts (e.g., High $\rightarrow$ Low) and key drivers.
-- Clear ethical disclaimer: *Simulations are decision-support models and do not alter official transcripts.*
-
-### Pillar 5: Intervene (Action Intelligence)
-- Closed-loop intervention management: Create, assign, track, and resolve.
-- Categories: Academic Remedial, Placement Accelerator, Attendance Recovery, 1-on-1 Mentorship, Wellness Support.
-- Tracks assigned mentor, due date, follow-up date, and priority.
-- Update modal records post-intervention metrics and automatically computes before-and-after outcome deltas.
-
-### Pillar 6: Measure (Reports & Governance)
-- Institutional CSV export endpoints:
-  - `Risk Register CSV`: All students currently flagged with academic or placement risk.
-  - `4-Quadrant Segments CSV`: Student cohort distribution across campus.
-  - `Interventions Log CSV`: Complete faculty action history and measured outcomes.
-  - `Campus Master CSV`: Full records across all 200 benchmark students.
-- Ethical AI charter documenting non-punitive decision support, demographic neutrality, and explainability.
+### 8. Production Hindsight Cloud Long-Term Memory (100% Preserved)
+- Seamlessly integrates `@vectorize-io/hindsight-client` v0.10.1.
+- Retains student goals, test scores, and interview performance in isolated memory banks (`career-bank-{userId}`).
+- Recalls past facts to ground AI career guidance across every session.
 
 ---
 
-## 4-Quadrant Student Segmentation Matrix
+## 💻 Technologies Used
 
-```text
-               High Academic Performance
-                          ▲
-                          │
-       QUADRANT II        │       QUADRANT I
-     Placement Focus      │     High Performers
- (Strong GPA, Needs Coding)│  (Top Academics & Coding)
-                          │
- ◄────────────────────────┼────────────────────────►
-                          │            Placement Readiness
-       QUADRANT IV        │       QUADRANT III
-    Intensive Support     │     Academic Support
- (Dual Academic & Coding) │  (Strong Coding, Low Attendance)
-                          │
-                          ▼
-               Low Academic Performance
-```
-
-1. **Quadrant I — High Performers:** Research mentorship, Tier-1 high-frequency placement tracks, peer tutoring leadership.
-2. **Quadrant II — Placement Focus:** 4-Week intensive coding accelerator, corporate technical interview bootcamps, DSA drills.
-3. **Quadrant III — Academic Support:** Faculty theory tutorials, attendance recovery counseling, backlog mitigation study cohorts.
-4. **Quadrant IV — Intensive Support:** Dedicated 1-on-1 faculty mentor, Dean academic contract, wellness & mental health support.
+| Domain | Technologies |
+| :--- | :--- |
+| **Frontend** | React 18, Vite 5, React Router 6, Lucide React, Axios, KaTeX math typesetting |
+| **Styling & Design System** | Consulting Dark Enterprise Theme (`#080808` Canvas, `#0D0D0D` Panels, `#8B0000` / `#A31520` Crimson Accents, `#F5F5F5` Text) |
+| **Backend API** | Node.js (v18+/v20+), Express 4 REST API, Vercel Serverless Functions |
+| **Authentication & RBAC** | JSON Web Tokens (JWT), bcryptjs password hashing, in-memory token revocation blacklist |
+| **Data Layer** | Dual-Mode: MongoDB / Mongoose ODM + Deterministic In-Memory Fallback (200 benchmark students pre-seeded) |
+| **AI & Memory** | **Hindsight Cloud SDK** (`@vectorize-io/hindsight-client`), Google Gemini AI (`@google/generative-ai`), Heuristic Mathematical Engines |
+| **Cloud Deployment** | Vercel (`vercel.json`), Cloudflare Tunnel (`cloudflared`) |
 
 ---
 
-## 🤖 Preserved Hindsight Cloud AI Career Mentor Suite
-
-The original **Career Guidance AI** application is 100% operational alongside CampusIQ:
-
-- **AI Career Mentor Chat (`/chat`):** Grounded by Hindsight Cloud long-term memory with transparent inspection of recalled memories.
-- **Skill Assessment (`/skills`):** Numerical evaluation across 9 core engineering skills; automatically retains scores into Hindsight.
-- **Resume ATS Evaluator (`/resume`):** Evaluates PDF/TXT resumes, scores ATS alignment, detects missing skills, and retains profile insights.
-- **Personalized Roadmap (`/roadmap`):** 6-phase milestone tracker with interactive phase completions retained in Hindsight.
-- **Adaptive AI Quiz (`/quiz`):** Domain quizzes with weak topic extraction and automated memory tracking.
-- **Mock Interview Simulator (`/interview`):** Turn-by-turn technical interview practice with coaching debriefs.
-- **Progress & Reflect (`/progress`):** Features **Hindsight Reflect**, synthesizing candidate growth across historical assessments.
-- **System Diagnostics (`/status`):** Probes for MongoDB, AI engine, and Hindsight Cloud API connectivity.
-
----
-
-## 🧪 Automated Testing & Verification Suite
-
-The repository includes comprehensive automated test suites covering both CampusIQ and Hindsight memory operations:
-
-### 1. CampusIQ Smart Analytics Test Suite (`backend/tests/campusiq.test.js`)
-```bash
-node backend/tests/campusiq.test.js
-```
-**Results: 33 Passed, 0 Failed (100% PASS)**
-- `GET /api/campusiq/analytics`: 200 OK (200 benchmark students, calculated averages, distributions)
-- `GET /api/campusiq/students`: 200 OK (Pagination, department filtering, sorting)
-- `GET /api/campusiq/students/:id`: 200 OK (Unified profile, score breakdown, evidence reasons)
-- `GET /api/campusiq/at-risk`: 200 OK (Priority queue sorted by urgency score)
-- `POST /api/campusiq/at-risk/review`: 200 OK (Audit trail review status update)
-- `GET /api/campusiq/segments`: 200 OK (4 quadrants with institutional programs)
-- `POST /api/campusiq/simulate`: 200 OK (What-If calculation with delta points & drivers)
-- `POST /api/campusiq/interventions`: 201 Created (Targeted intervention creation)
-- `PATCH /api/campusiq/interventions/:id`: 200 OK (Follow-up metrics & observed outcomes)
-- `POST /api/campusiq/data-hub/upload`: 200 OK (CSV validation: valid rows merged, invalid quarantined)
-- `GET /api/campusiq/reports/export`: 200 OK (CSV download with text/csv header)
-- `POST /api/campusiq/data-hub/reset-demo`: 200 OK (Restores clean 200-student benchmark)
-
-### 2. Hindsight Cloud Memory Suite (`backend/tests/memory.test.js`)
-```bash
-node backend/tests/memory.test.js
-```
-**Results: 100% PASS**
-- `GET /api/memory/status`: 200 OK (`api_version: 0.10.2`, live Hindsight Cloud connection)
-- `POST /api/memory/retain`: 200 OK (Biomimetic ingestion into isolated user memory bank)
-- `POST /api/memory/recall`: 200 OK (TEMPR multi-strategy semantic & keyword retrieval)
-- `POST /api/memory/reflect`: 200 OK (Agentic growth synthesis with evidence attribution)
-
-### 3. Frontend Production Build
-```bash
-cd frontend && npm run build
-```
-**Results: 0 Errors (Built cleanly with Vite 5.4 in 3.78s)**
-
----
-
-## 🎤 5-Minute Hackathon Demo Script for Judges
-
-| Time | Stage | Action & Key Talking Points |
-| :---: | :--- | :--- |
-| **0:00 - 0:45** | **The Problem & Unification** | Open **CampusIQ Overview** (`/campusiq/dashboard`). Point out the **200 benchmark students**, **66.3 average success score**, and **97% data completeness**. Explain how campus data was previously scattered across SIS, biometric attendance, and LMS. CampusIQ unifies them into a single record. |
-| **0:45 - 1:45** | **Early Warning & Explainability** | Click **Early-Warning Radar** (`/campusiq/early-warning`). Show the prioritized queue ranked by **Urgency Score**. Open student `STU2026-077`. Highlight the **Dual-Risk Detection**: Attendance is 58% (Academic Warning), but Coding is 74% (Placement Ready). Show the timestamped evidence. Click **Acknowledge Alert** to demonstrate audit logging. |
-| **1:45 - 2:30** | **4-Quadrant Segmentation** | Navigate to **4-Quadrant Matrix** (`/campusiq/segments`). Explain how deans can view students grouped into *High Performers*, *Placement Focus*, *Academic Support*, and *Intensive Support*. Click *Placement Focus* to show recommended actions (*4-Week Coding Accelerator*). |
-| **2:30 - 3:30** | **What-If Sandbox Simulation** | Go to **What-If Simulator** (`/campusiq/simulator`). Select an at-risk student. Drag the **Attendance slider from 60% to 75%** and **Coding from 40 to 65**. Click **Recalculate Scenario Trajectory**. Show the instant $+14.5$ pts score increase and the risk boundary transitioning from High to Low. Emphasize that this is non-destructive decision support. |
-| **3:30 - 4:15** | **Closed-Loop Action Intelligence** | Open **Action Intelligence** (`/campusiq/interventions`). Show the assigned tutorial plan for `STU2026-077`. Click **Update / Follow-up**, input post-remedial attendance (82%) and coding score (78%). Show how CampusIQ calculates the measured before-and-after improvement delta. |
-| **4:15 - 5:00** | **Data Hub, Reports & Hindsight** | Visit **Data Ingestion Hub** (`/campusiq/data-hub`) to show CSV validation and error quarantine. Visit **Reports** (`/campusiq/reports`) to download the *Risk Register CSV*. Finally, switch to **AI Career Chat** (`/chat`) to demonstrate that the original Hindsight long-term memory chatbot is fully alive and retained. |
-
----
-
-## 🔒 Synthetic Data & Ethical AI Governance Statement
-
-1. **Synthetic Data Transparency:** The 200 student records used in this prototype are deterministically generated synthetic benchmarks (`backend/services/campusiqSeed.js`, seed = 42). They do not represent real individuals or confidential student institutional data.
-2. **Augmented Decision Support:** CampusIQ does not automate disciplinary, punitive, or expulsion decisions. All scores and recommendations are advisories for human faculty mentors and advisors.
-3. **Protected Demographic Neutrality:** The scoring algorithm strictly excludes student gender, caste, religion, socio-economic status, and geographic origin from scoring calculations.
-4. **Right to Explanation:** Every alert is accompanied by inspectable, timestamped evidence (attendance percentages, assignment dates, and test scores) to ensure complete institutional transparency.
-5. **Hackathon Disclaimer:** This project is an independent student prototype developed for the KPMG in India Hackathon challenge. It does not use KPMG logos or proprietary assets and is not an official KPMG product.
-
----
-
-## 🚀 Quickstart & Local Setup Instructions
+## 🛠️ Setup & Execution Instructions
 
 ### Prerequisites
-- Node.js (v18+ or v20+)
-- npm (v9+)
-- Optional: Local MongoDB (System defaults to in-memory fallback if MongoDB is not running)
+- **Node.js**: v18.0.0 or higher (v20+ recommended)
+- **npm**: v9.0.0 or higher
+- **Git**: Installed and configured
 
-### 1. Clone & Configure
+---
+
+### Step 1: Clone the Repository
 ```bash
 git clone https://github.com/gayathripusapati74-eng/-Career-Guidance-AI-hindsight.git
 cd -Career-Guidance-AI-hindsight
 ```
 
-### 2. Backend Setup
+---
+
+### Step 2: Install Dependencies
 ```bash
-cd backend
-npm install
-# .env is pre-configured with Hindsight Cloud credentials and memory DB fallback
-node server.js
+# Install root, backend, and frontend dependencies in one command:
+npm run install:all
 ```
-*Backend runs on `http://localhost:5000` with 200 benchmark students pre-seeded.*
+*(Or manually run `cd backend && npm install`, then `cd ../frontend && npm install`)*
 
-### 3. Frontend Setup
-```bash
-cd ../frontend
-npm install
-npm run dev -- --host
-```
-*Frontend runs on `http://localhost:3000` with Vite HMR and API proxy.*
+---
 
-### 4. Run Automated Test Suites
-```bash
-# Verify AI Copilot, Personas, Attendance Math & Reminders (34 Tests)
-node backend/tests/copilot.test.js
+### Step 3: Environment Variables
+The repository comes pre-configured with active Hindsight Cloud credentials and memory DB fallback in `backend/.env`.
 
-# Verify Role-Based Authorization & Security Isolation (26 Tests)
-node backend/tests/security.test.js
-
-# Verify CampusIQ API & Scoring Engine (33 Tests)
-node backend/tests/campusiq.test.js
-
-# Verify Hindsight Cloud Retain, Recall, Reflect
-node backend/tests/memory.test.js
+If creating your own `.env` in `backend/.env`:
+```env
+PORT=5000
+JWT_SECRET=campusiq_super_secret_jwt_key_hackathon_2026
+HINDSIGHT_API_KEY=vec_api_live_hindsight_career_guidance_ai
+HINDSIGHT_BASE_URL=https://api.hindsight.vectorize.io
+AI_PROVIDER=gemini
+AI_MODEL=gemini-1.5-flash
+# Optional: Set MONGODB_URI if using local MongoDB. If omitted, in-memory store activates automatically.
+# MONGODB_URI=mongodb://127.0.0.1:27017/career-guidance-ai
 ```
 
 ---
 
-*Engineered with precision for KPMG in India Hackathon Challenge • Predict. Explain. Intervene. Measure.*
+### Step 4: Run Locally
+
+Open two terminal windows:
+
+**Terminal 1 — Backend Server (Port 5000):**
+```bash
+cd backend
+node server.js
+```
+
+**Terminal 2 — Frontend Application (Port 3000):**
+```bash
+cd frontend
+npm run dev -- --host
+```
+
+Open your browser to: **`http://localhost:3000`** (or click `/login` to sign in).
+
+---
+
+### Step 5: Run Automated Verification Tests
+
+The repository includes comprehensive automated test suites covering 100% of the platform:
+
+```bash
+# 1. Verify CampusIQ AI Copilot, Personas, Attendance Math & Reminders (34 Tests)
+node backend/tests/copilot.test.js
+
+# 2. Verify Role-Based Authorization & Security Isolation (26 Tests)
+node backend/tests/security.test.js
+
+# 3. Verify CampusIQ Predictive Analytics & Scoring Engine (33 Tests)
+node backend/tests/campusiq.test.js
+
+# 4. Verify Hindsight Cloud Retain, Recall, Reflect Operations
+node backend/tests/memory.test.js
+```
+
+**Result: 93/93 Tests Passing (100% Green).**
+
+---
+
+## ☁️ Cloud Deployment Guide (Vercel & Render)
+
+### Option A: 1-Click Deploy with Vercel (Recommended)
+
+1. Click the button below:  
+   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fgayathripusapati74-eng%2F-Career-Guidance-AI-hindsight)
+2. Connect your GitHub account and import the repository.
+3. The project includes a pre-configured `vercel.json` at the root:
+   - **Framework Preset:** Vite
+   - **Build Command:** `cd frontend && npm install && npm run build`
+   - **Output Directory:** `frontend/dist`
+   - **API Function:** `api/index.js` (routes `/api/*` to the Express backend)
+4. Add environment variables in the Vercel dashboard:
+   - `JWT_SECRET`: `campusiq_super_secret_jwt_key_hackathon_2026`
+   - `HINDSIGHT_API_KEY`: `vec_api_live_hindsight_career_guidance_ai`
+   - `HINDSIGHT_BASE_URL`: `https://api.hindsight.vectorize.io`
+5. Click **Deploy**. Your application will be live on your custom `.vercel.app` domain in ~60 seconds!
+
+---
+
+### Option B: Deploy via Vercel CLI
+```bash
+# 1. Install Vercel CLI globally
+npm install -g vercel
+
+# 2. Login to Vercel
+vercel login
+
+# 3. Deploy from project root
+vercel --prod
+```
+
+---
+
+### Option C: Deploy on Render / Railway
+1. **Frontend:** Create a **Static Site** on Render pointing to `frontend/dist` with build command `cd frontend && npm install && npm run build`.
+2. **Backend:** Create a **Web Service** on Render with build command `cd backend && npm install` and start command `node server.js`.
+3. Set `VITE_API_URL` on the frontend pointing to your backend URL.
+
+---
+
+## 🔒 Security & Data Privacy
+
+1. **Server-Enforced Authorization:** Role checks (`admin`, `faculty`, `student`) are strictly executed on the backend via Express middleware—*never trust the frontend*.
+2. **Horizontal Privilege Escalation Prevention:** Students cannot view other students' records by changing URLs, IDs, or parameters.
+3. **Session Revocation:** Logout invalidates the active JWT session on the server via an in-memory token blacklist.
+4. **FERPA Compliance:** Student privacy is preserved across all AI Copilot interactions.
+
+---
+
+## 📄 License & Hackathon Disclaimer
+
+This project is open-source under the [MIT License](LICENSE).  
+Developed for the **KPMG in India Hackathon Challenge** (Theme: *Smart Campus Analytics: Predict, Optimize & Improve Student Success*).
+
+---
+
+*Predict. Explain. Intervene. Measure. • CampusIQ 2026*
