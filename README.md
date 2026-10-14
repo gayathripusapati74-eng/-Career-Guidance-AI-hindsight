@@ -295,21 +295,27 @@ node backend/tests/memory.test.js
 
 ## ☁️ Cloud Deployment Guide (Vercel & Render)
 
-### Option A: 1-Click Deploy with Vercel (Recommended)
+### Option A: Standard Vercel Git Deployment (Recommended)
 
-1. Click the button below:  
-   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fgayathripusapati74-eng%2F-Career-Guidance-AI-hindsight)
-2. Connect your GitHub account and import the repository.
-3. The project includes a pre-configured `vercel.json` at the root:
-   - **Framework Preset:** Vite
-   - **Build Command:** `cd frontend && npm install && npm run build`
-   - **Output Directory:** `frontend/dist`
-   - **API Function:** `api/index.js` (routes `/api/*` to the Express backend)
-4. Add environment variables in the Vercel dashboard:
+1. Open [**vercel.com/new**](https://vercel.com/new) in your browser.
+2. Select **Import** next to your repository: `gayathripusapati74-eng/-Career-Guidance-AI-hindsight`.
+3. Configure the Project Settings (all pre-configured in `vercel.json`):
+   - **Root Directory:** `./` (Leave as default root)
+   - **Framework Preset:** `Vite` (or `Other`)
+   - **Build Command:** `node scripts/build.js`
+   - **Output Directory:** `dist`
+4. Expand **Environment Variables** and add:
    - `JWT_SECRET`: `campusiq_super_secret_jwt_key_hackathon_2026`
    - `HINDSIGHT_API_KEY`: `vec_api_live_hindsight_career_guidance_ai`
    - `HINDSIGHT_BASE_URL`: `https://api.hindsight.vectorize.io`
-5. Click **Deploy**. Your application will be live on your custom `.vercel.app` domain in ~60 seconds!
+   - `NODE_ENV`: `production`
+5. Click **Deploy**. Vercel will compile the Vite frontend to `dist/`, link `api/index.js` as the serverless API router, and assign a permanent `*.vercel.app` production domain.
+
+> [!TIP]
+> **Why did you previously see a 404 error on Vercel?**  
+> 1. **Vite Base Path:** Vite was previously generating relative asset URLs (`./assets/`), causing 404 errors when visiting nested routes like `/login` or `/admin/dashboard`. This has been updated to root-relative paths (`/`).  
+> 2. **Monorepo Output Directory:** Vercel looks for `dist/` at the project root. Our unified [`scripts/build.js`](file:///C:/Users/GAYATHRI/.gemini/antigravity/scratch/career-guidance-ai/scripts/build.js) now compiles the frontend and automatically creates `dist/index.html` at the root.  
+> 3. **SPA Rewrites:** [`vercel.json`](file:///C:/Users/GAYATHRI/.gemini/antigravity/scratch/career-guidance-ai/vercel.json) routes `/api/*` to the serverless backend function and all other paths (`/*`) to `/index.html` for client-side routing.
 
 ---
 

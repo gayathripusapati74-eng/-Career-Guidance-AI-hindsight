@@ -5,7 +5,7 @@
   "private": true,
   "main": "api/index.js",
   "scripts": {
-    "build": "cd frontend && npm install && npm run build",
+    "build": "node scripts/build.js",
     "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
     "dev:backend": "cd backend && node server.js",
     "dev:frontend": "cd frontend && npm run dev",
