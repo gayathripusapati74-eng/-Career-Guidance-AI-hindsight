@@ -7,10 +7,23 @@
 
 ## 🌐 Live Prototype & Public Access
 
-- **Public Cloudflare Tunnel URL:** [https://luis-significantly-frontpage-campbell.trycloudflare.com](https://luis-significantly-frontpage-campbell.trycloudflare.com)
+- **Live Application URL:** [https://nonprofit-nuts-ellen-reliability.trycloudflare.com](https://nonprofit-nuts-ellen-reliability.trycloudflare.com)
+- **Direct Login Page:** [https://nonprofit-nuts-ellen-reliability.trycloudflare.com/login](https://nonprofit-nuts-ellen-reliability.trycloudflare.com/login)
+- **GitHub Repository:** [https://github.com/gayathripusapati74-eng/-Career-Guidance-AI-hindsight](https://github.com/gayathripusapati74-eng/-Career-Guidance-AI-hindsight)
 - **Local Development URL:** `http://localhost:3000` (Frontend) • `http://localhost:5000` (Backend API)
-- **GitHub Repository:** [gayathripusapati74-eng/-Career-Guidance-AI-hindsight](https://github.com/gayathripusapati74-eng/-Career-Guidance-AI-hindsight.git)
 - **Pre-Seeded Benchmark Dataset:** 200 Students across 4 Departments (CSE, IT, ECE, MECH) and 4 Academic Years generated with deterministic PRNG (seed = 42).
+
+### 🔑 Verified Demo Credentials (1-Click Login Supported)
+
+The login page features 1-click quick-login buttons for each role. You can also manually sign in with these pre-seeded accounts:
+
+| Persona / Role | Email | Password | Access Scope & Capabilities |
+| :--- | :--- | :--- | :--- |
+| **Institutional Admin** | `admin@campus.edu.in` | `Admin@123` | Institutional dashboard, campus risk distribution, department comparisons, CSV exports |
+| **Faculty (CSE Mentor)** | `faculty.cse@campus.edu.in` | `Faculty@123` | Dr. S. Sharma — CSE cohort, Daily Work Planner, attendance drift alerts, reminder engine |
+| **Faculty (IT Mentor)** | `faculty.it@campus.edu.in` | `Faculty@123` | Dr. V. Nambiar — IT cohort, mentoring reviews, intervention tracking |
+| **Student (Aarav Sharma)** | `student.aarav@campus.edu.in` | `Student@123` | `STU2026-001` (CSE) — Student Success Score breakdown, attendance recovery math, 30-day placement sprint |
+| **Student (Sneha Iyer)** | `student.sneha@campus.edu.in` | `Student@123` | `STU2026-004` (CSE) — High CGPA student profile, mock interview feedback, placement roadmap |
 
 ---
 
@@ -311,6 +324,12 @@ npm run dev -- --host
 
 ### 4. Run Automated Test Suites
 ```bash
+# Verify AI Copilot, Personas, Attendance Math & Reminders (34 Tests)
+node backend/tests/copilot.test.js
+
+# Verify Role-Based Authorization & Security Isolation (26 Tests)
+node backend/tests/security.test.js
+
 # Verify CampusIQ API & Scoring Engine (33 Tests)
 node backend/tests/campusiq.test.js
 

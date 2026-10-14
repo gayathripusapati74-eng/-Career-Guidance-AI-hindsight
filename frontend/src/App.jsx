@@ -40,9 +40,22 @@ import CampusIQImpactAnalyticsPage from './pages/campusiq/CampusIQImpactAnalytic
 import CampusIQDataHubPage from './pages/campusiq/CampusIQDataHubPage';
 import CampusIQReportsPage from './pages/campusiq/CampusIQReportsPage';
 
-// Component that dynamically routes authenticated users to their permitted dashboard
+// Component that dynamically routes authenticated users to their permitted dashboard, or to /login if unauthenticated
 function RoleDashboardRedirect() {
-  const { currentRole, getRoleDashboardPath } = useAuth();
+  const { currentRole, getRoleDashboardPath, isAuthenticated, loading } = useAuth();
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', minHeight: '100vh', alignItems: 'center', justifyContent: 'center', backgroundColor: '#080808' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div className="spinner" style={{ margin: '0 auto 16px auto', borderTopColor: '#8B0000' }}></div>
+          <p style={{ color: '#F5F5F5', fontSize: '14px' }}>Loading CampusIQ...</p>
+        </div>
+      </div>
+    );
+  }
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
   return <Navigate to={getRoleDashboardPath(currentRole)} replace />;
 }
 
