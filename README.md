@@ -15,8 +15,10 @@
 
 | Resource | URL | Description |
 | :--- | :--- | :--- |
-| 🚀 **Live Application Portal** | [**https://nonprofit-nuts-ellen-reliability.trycloudflare.com**](https://nonprofit-nuts-ellen-reliability.trycloudflare.com) | Full interactive production web portal |
-| 🔑 **Direct Login Page** | [**https://nonprofit-nuts-ellen-reliability.trycloudflare.com/login**](https://nonprofit-nuts-ellen-reliability.trycloudflare.com/login) | Role-based authentication with 1-click demo chips |
+| ⚡ **Live Vercel Production Portal** | [**https://temporary-brisk-argon-m0750rv.vercel.app**](https://temporary-brisk-argon-m0750rv.vercel.app) | **Official Vercel Cloud Serverless Deployment (SPA + API)** |
+| 🔑 **Vercel Direct Login** | [**https://temporary-brisk-argon-m0750rv.vercel.app/login**](https://temporary-brisk-argon-m0750rv.vercel.app/login) | Verified live login portal with 1-click persona switching |
+| 📌 **Claim Deployment to Your Vercel** | [**Claim Deployment Link**](https://vercel.com/claim-deployment?code=f69275b1-e77b-40e9-8802-4806df54ae1c) | **1-Click claim link to keep deployment permanently in your Vercel account** |
+| 🛡️ **Alternative Live Tunnel** | [**https://nonprofit-nuts-ellen-reliability.trycloudflare.com**](https://nonprofit-nuts-ellen-reliability.trycloudflare.com) | Direct Cloudflare Tunnel to local high-performance runtime |
 | 📂 **GitHub Repository** | [**https://github.com/gayathripusapati74-eng/-Career-Guidance-AI-hindsight**](https://github.com/gayathripusapati74-eng/-Career-Guidance-AI-hindsight) | Complete source code, test suites & documentation |
 
 ---
