@@ -83,6 +83,9 @@ function DashboardLayout() {
               <Route path="/faculty/dashboard" element={<FacultyDashboardPage />} />
               <Route path="/faculty" element={<Navigate to="/faculty/dashboard" replace />} />
               <Route path="/hod" element={<HODDashboardPage />} />
+              <Route path="/campus" element={<Navigate to="/campusiq/dashboard" replace />} />
+              <Route path="/campus-overview" element={<Navigate to="/campusiq/dashboard" replace />} />
+              <Route path="/campus/overview" element={<Navigate to="/campusiq/dashboard" replace />} />
               <Route path="/campusiq" element={<Navigate to="/campusiq/dashboard" replace />} />
               <Route path="/campusiq/dashboard" element={<CampusIQDashboardPage />} />
               <Route path="/campusiq/early-warning" element={<CampusIQEarlyWarningPage />} />

@@ -46,15 +46,7 @@ export default function Sidebar() {
       { path: '/campusiq/data-hub', label: 'Data Ingestion Hub', icon: Database },
       { path: '/campusiq/reports', label: 'Reports & Export', icon: FileSpreadsheet },
     ];
-    careerItems = [
-      { path: '/chat', label: 'AI Career Chat', icon: MessageSquare, badge: 'Hindsight' },
-      { path: '/skills', label: 'Skill Assessment', icon: Award },
-      { path: '/resume', label: 'Resume Evaluation', icon: FileText },
-      { path: '/roadmap', label: 'Career Roadmap', icon: Map },
-      { path: '/quiz', label: 'AI Quiz', icon: HelpCircle },
-      { path: '/interview', label: 'Mock Interview', icon: Video },
-      { path: '/status', label: 'API Diagnostics', icon: Activity },
-    ];
+    careerItems = []; // Career Guidance AI removed from Administrative interface
   } else if (isFaculty) {
     primaryDashboardItem = { path: '/faculty/dashboard', label: 'Faculty Dashboard', icon: UserCheck, badge: 'Advisor' };
     analyticsItems = [
@@ -64,12 +56,7 @@ export default function Sidebar() {
       { path: '/campusiq/segments', label: 'Quadrant Strategy', icon: Layers },
       { path: '/campusiq/simulator', label: 'What-If Simulator', icon: Sliders },
     ];
-    careerItems = [
-      { path: '/chat', label: 'AI Mentorship Chat', icon: MessageSquare, badge: 'Hindsight' },
-      { path: '/skills', label: 'Skill Assessment', icon: Award },
-      { path: '/roadmap', label: 'Learning Roadmap', icon: Map },
-      { path: '/interview', label: 'Mock Interview Prep', icon: Video },
-    ];
+    careerItems = []; // Career Guidance AI removed from Faculty interface
   } else {
     // Student Role: strictly personalized, non-stigmatizing view
     primaryDashboardItem = { path: '/student/dashboard', label: 'Student Dashboard', icon: GraduationCap, badge: 'My Portal' };
